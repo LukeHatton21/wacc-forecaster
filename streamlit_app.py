@@ -182,16 +182,14 @@ country_waccs = pd.read_csv("./DATA/Country_Waccs_2024.csv")
 
 
 
-st.title("	🏦 Weighted Average Cost of Capital Forecaster (WACFOR)")
-st.write(
-    "Tool to estimate the cost of capital for renewable technologies\nV1.0 - Alpha\n")
+st.title("Financing Costs for Renewables Estimator (FINCORE)")
 year = st.selectbox(
         "Year", ("2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023"), 
          index=8, key="Year", placeholder="Select Year...")
 technology = st.selectbox(
         "Displayed Technology", ("Solar PV", "Onshore Wind", "Offshore Wind"), 
          index=0, placeholder="Select Technology...", key="Technology")
-tab1, tab2, tab3, tab4 = st.tabs(["🌐 Map", "🥇Global Estimates", "📈 Country Projections", "ℹ️ About"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["🌐 Map", "🥇Global Estimates", "📈 Country Projections", "ℹ️ Methods", "📝 About"])
 
 
 # Calculate yearly results for solar, onshore and offshore
@@ -218,7 +216,6 @@ with tab2:
     selected_countries = st.multiselect("Countries to compare", options=yearly_waccs['Country code'].values, default=["USA", "IND", "GBR", "JPN", "CHN", "BRA"])
     sorted_waccs = sort_waccs(yearly_waccs)
     plot_ranking_table(sorted_waccs, selected_countries)
-
 with tab3:
     st.header("Country Projections")
     country_code = st.selectbox(
@@ -269,5 +266,16 @@ with tab3:
 with tab4:
     text = open('about.md').read()
     st.write(text)
+
+with tab5:
+    st.subheader("About")
+    st.write("FINCORE allows you to estimate the cost of capital for solar and wind located in the vast majority of the globe, both historical and future." 
+            + " It aims to address the limited accessibility of empirical data on renewable financing terms, and the geographic skew towards Western and industrialising countries of the little data that is available.")
+    st.subheader("Contact")
+    st.write("FINCORE tool is part of Climate Compatible Growth's suite of open-source Energy Modelling Tools, and has been developed by Luke Hatton at Imperial College London. Contact by email: l.hatton23@imperial.ac.uk")
+    st.subheader("License and Data Use Permissions")
+    st.write("The data available from this tool is licensed as Creative Commons Attribution-NonCommercial International (CC BY-NC 4.0), which means you are free to copy, redistribute"
+            + " and adapt it for non-commercial purposes, provided you give appropriate credit. If you wish to use the data for commercial purposes, please get in touch.")
+
     
 
