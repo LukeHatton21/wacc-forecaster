@@ -260,7 +260,6 @@ with tab3:
     # Create a bar chart with historical, cost of equity, cost of debt, and overall wacc
     evaluated_wacc_data = pd.concat([selected_wacc, projected_data])
     evaluated_wacc_data = evaluated_wacc_data.drop(columns = ["Debt_Share", "Equity_Cost", "Debt_Cost", "Tax_Rate", "Country code", "WACC"])
-    st.write(evaluated_wacc_data)
     plot_comparison_chart(evaluated_wacc_data)
 
 with tab4:
