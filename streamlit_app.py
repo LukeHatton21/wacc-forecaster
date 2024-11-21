@@ -189,7 +189,7 @@ year = st.selectbox(
 technology = st.selectbox(
         "Displayed Technology", ("Solar PV", "Onshore Wind", "Offshore Wind"), 
          index=0, placeholder="Select Technology...", key="Technology")
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["🌐 Map", "🥇Global Estimates", "📈 Country Projections", "ℹ️ Methods", "📝 About"])
+tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["🌐 Map", "🥇Global Estimates", "🔭Country Projections", "📈 Calculator", "ℹ️ Methods", "📝 About"])
 
 
 # Calculate yearly results for solar, onshore and offshore
@@ -218,6 +218,10 @@ with tab2:
     plot_ranking_table(sorted_waccs, selected_countries)
 with tab3:
     st.header("Country Projections")
+    projection_year = st.slider("Year of projection", min_value=2024, max_value=2050, value=2030, step=1)
+    st.line_chart(pd.DataFrame({"X": [20, 30, 40], "Y":[40, 50, 60]}))
+with tab4:
+    st.header("Country Calculator")
     country_code = st.selectbox(
         "Country", sorted_waccs['Country code'].sort_values(ascending=True).values, 
          index=0, placeholder="Select Country...", key="Country")
@@ -260,14 +264,13 @@ with tab3:
     # Create a bar chart with historical, cost of equity, cost of debt, and overall wacc
     evaluated_wacc_data = pd.concat([selected_wacc, projected_data])
     evaluated_wacc_data = evaluated_wacc_data.drop(columns = ["Debt_Share", "Equity_Cost", "Debt_Cost", "Tax_Rate", "Country code", "WACC"])
-    st.write(evaluated_wacc_data)
     plot_comparison_chart(evaluated_wacc_data)
 
-with tab4:
+with tab5:
     text = open('about.md').read()
     st.write(text)
 
-with tab5:
+with tab6:
     st.subheader("About")
     st.write("FINCORE allows you to estimate the cost of capital for solar and wind located in the vast majority of the globe, both historical and future." 
             + " It aims to address the limited accessibility of empirical data on renewable financing terms, and the geographic skew towards Western and industrialising countries of the little data that is available.")
