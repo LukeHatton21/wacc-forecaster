@@ -9,9 +9,12 @@ import altair as alt
 
 # Data Source for map: https://public.opendatasoft.com/explore/embed/dataset/world-administrative-boundaries-countries/table/
 
-# Call WaccPredictor Object
-wacc_predictor = WaccPredictor("./DATA/CRPs.csv", "./DATA/Ember Yearly Data 2023.csv", "./DATA/GDPPerCapita.csv","./DATA/TaxData.csv", "./DATA/OECD_IR.csv")
 
+# Call WaccPredictor Object
+wacc_predictor = WaccPredictor(crp_data = "./DATA/CRPs.csv", 
+generation_data="./DATA/Ember Yearly Data 2023.csv", GDP="./DATA/GDPPerCapita.csv",
+tax_data="./DATA/TaxData.csv", ember_targets="./DATA/Ember_2030_Targets.csv", 
+us_ir="./DATA/US_IR.csv")
 
 def display_map(df, technology):
     map = folium.Map(location=[10, 0], zoom_start=1, control_scale=True, scrollWheelZoom=True, tiles='CartoDB positron')
@@ -30,14 +33,6 @@ def display_map(df, technology):
     )
     choropleth.geojson.add_to(map)
 
-
-    
-
-    # Add the colorbar to the map
-    #colormap = cm.linear.YlGnBu_09.scale(0, 20)
-    #colormap.caption = 'Weighted Average Cost of Capital (%)' 
-    #colormap.add_to(map)
-    #choropleth.color_scale.width = 10
 
     df_indexed = df.set_index('iso3_code')
     df_indexed = df_indexed.dropna(subset="WACC")
@@ -189,7 +184,7 @@ year = st.selectbox(
 technology = st.selectbox(
         "Displayed Technology", ("Solar PV", "Onshore Wind", "Offshore Wind"), 
          index=0, placeholder="Select Technology...", key="Technology")
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["🌐 Map", "🥇Global Estimates", "📈 Country Projections", "ℹ️ Methods", "📝 About"])
+tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["🌐 Map", "🥇Global Estimates", "🔭Country Projections", "📈 Calculator", "ℹ️ Methods", "📝 About"])
 
 
 # Calculate yearly results for solar, onshore and offshore
@@ -218,6 +213,11 @@ with tab2:
     plot_ranking_table(sorted_waccs, selected_countries)
 with tab3:
     st.header("Country Projections")
+    st.write("WORK IN PROGRESS")
+    projection_year = st.slider("Year of projection", min_value=2024, max_value=2050, value=2030, step=1)
+    st.line_chart(pd.DataFrame({"X": [20, 30, 40], "Y":[40, 50, 60]}))
+with tab4:
+    st.header("Country Calculator")
     country_code = st.selectbox(
         "Country", sorted_waccs['Country code'].sort_values(ascending=True).values, 
          index=0, placeholder="Select Country...", key="Country")
@@ -262,11 +262,11 @@ with tab3:
     evaluated_wacc_data = evaluated_wacc_data.drop(columns = ["Debt_Share", "Equity_Cost", "Debt_Cost", "Tax_Rate", "Country code", "WACC"])
     plot_comparison_chart(evaluated_wacc_data)
 
-with tab4:
+with tab5:
     text = open('about.md').read()
     st.write(text)
 
-with tab5:
+with tab6:
     st.subheader("About")
     st.write("FINCORE allows you to estimate the cost of capital for solar and wind located in the vast majority of the globe, both historical and future." 
             + " It aims to address the limited accessibility of empirical data on renewable financing terms, and the geographic skew towards Western and industrialising countries of the little data that is available.")
