@@ -4,7 +4,7 @@ import numpy as np
 import streamlit as st
 
 class WaccPredictor:
-    def __init__(self, crp_data, generation_data, GDP, tax_data, ir_data):
+    def __init__(self, crp_data, generation_data, GDP, tax_data, ember_targets, us_ir):
         """ Initialises the WACC Predictor Class, which is used to generate an estimate of the cost of capital at
          a national level for countries with available data
         
@@ -14,9 +14,11 @@ class WaccPredictor:
         CRP_Data - Data on Country Risk Premiums, taken from Damodaran for multiple years.
         Country_codes - Country coding to ISO 3 codes
         GDP - GDP per capita data
-        Collated_IR - Collated interest rate data from the IMF and OECD
         Tax_Data - Corporate Tax Rates for individual countries
         RF_rate - Risk free rates on a yearly basis
+        Ember_targets - Targets for 2030 selected from Ember
+        US_IR - Projections of the U.S. long term interest rates conducted by the CBO alongside OECD IR data
+
         
         """
     
@@ -25,7 +27,10 @@ class WaccPredictor:
         self.generation_data = pd.read_csv(generation_data)
         self.gdp_data = pd.read_csv(GDP)
         self.tax_data = pd.read_csv(tax_data)
-        self.ir_data = pd.read_csv(ir_data)
+
+        # Read in projections of data
+        self.renewable_projections = pd.read_csv(ember_targets)
+        self.ir_data = pd.read_csv(us_ir)
        
         # Set up initial assumptions
         self.lenders_margin = 2
@@ -261,6 +266,14 @@ class WaccPredictor:
         results_df = results_df.tail(-1)
 
         return results_df
+
+    
+    def calculate_future_wacc(self, technology):
+
+        # Calculate 2023 WACC for the given technology
+        self.calculate_historical_waccs(2023, technology)
+
+        # Extract 
 
         
 
