@@ -1,0 +1,684 @@
+﻿country_code,country_name,ember_region,target_year,fuel_category,metric,value,source_id,target_type,number_of_updates,collection_year,confidence,g20,g20_exc_3,oecd,asean
+ARG,Argentina,Latin America and Caribbean,2030,Hydro,capacity_total_gw,13.21,37,Implicit,1,2023,Medium,1,1,0,0
+ARG,Argentina,Latin America and Caribbean,2030,Rest of renewables,capacity_total_gw,19.26,37,Implicit,1,2023,Medium,1,1,0,0
+ARG,Argentina,Latin America and Caribbean,2030,Hydro,share_of_generation_pct,21.7,37,Implicit,1,2023,Medium,1,1,0,0
+ARG,Argentina,Latin America and Caribbean,2030,Rest of renewables,share_of_generation_pct,25.69,37,Implicit,1,2023,Medium,1,1,0,0
+AUS,Australia,Oceania,2030,Hydro,capacity_total_gw,7.21,28,Implicit,1,2023,High,1,1,1,0
+AUS,Australia,Oceania,2030,Offshore Wind,capacity_total_gw,0,28,Implicit,1,2023,High,1,1,1,0
+AUS,Australia,Oceania,2030,Solar,capacity_total_gw,50.8,28,Implicit,1,2023,High,1,1,1,0
+AUS,Australia,Oceania,2030,Wind,capacity_total_gw,34.42,28,Implicit,1,2023,High,1,1,1,0
+AUS,Australia,Oceania,2030,Hydro,share_of_generation_pct,6.23,28,Explicit,1,2023,High,1,1,1,0
+AUS,Australia,Oceania,2030,Offshore Wind,share_of_generation_pct,0,28,Explicit,1,2023,High,1,1,1,0
+AUS,Australia,Oceania,2030,Solar,share_of_generation_pct,31.44,28,Explicit,1,2023,High,1,1,1,0
+AUS,Australia,Oceania,2030,Wind,share_of_generation_pct,43.48,28,Explicit,1,2023,High,1,1,1,0
+BRA,Brazil,Latin America and Caribbean,2030,Bioenergy,capacity_total_gw,17.17,26,Explicit,1,2023,High,1,1,0,0
+BRA,Brazil,Latin America and Caribbean,2030,Hydro,capacity_total_gw,116.81,26,Explicit,1,2023,High,1,1,0,0
+BRA,Brazil,Latin America and Caribbean,2030,Other Renewables,capacity_total_gw,5.03,26,Explicit,1,2023,High,1,1,0,0
+BRA,Brazil,Latin America and Caribbean,2030,Solar,capacity_total_gw,47.08,26,Explicit,1,2023,High,1,1,0,0
+BRA,Brazil,Latin America and Caribbean,2030,Wind,capacity_total_gw,31.16,26,Explicit,1,2023,High,1,1,0,0
+BRA,Brazil,Latin America and Caribbean,2030,Bioenergy,share_of_generation_pct,7.08,26,Explicit,1,2023,High,1,1,0,0
+BRA,Brazil,Latin America and Caribbean,2030,Hydro,share_of_generation_pct,55.28,26,Explicit,1,2023,High,1,1,0,0
+BRA,Brazil,Latin America and Caribbean,2030,Other Renewables,share_of_generation_pct,3.66,26,Explicit,1,2023,High,1,1,0,0
+BRA,Brazil,Latin America and Caribbean,2030,Solar,share_of_generation_pct,6.49,26,Explicit,1,2023,High,1,1,0,0
+BRA,Brazil,Latin America and Caribbean,2030,Wind,share_of_generation_pct,11.75,26,Explicit,1,2023,High,1,1,0,0
+CAN,Canada,North America,2030,"Hydro, bio and other renewables",capacity_total_gw,91.91,9,Implicit,1,2023,Medium,1,1,1,0
+CAN,Canada,North America,2030,Solar,capacity_total_gw,6.03,9,Implicit,1,2023,Medium,1,1,1,0
+CAN,Canada,North America,2030,Wind,capacity_total_gw,26.71,9,Implicit,1,2023,Medium,1,1,1,0
+CAN,Canada,North America,2030,"Hydro, bio and other renewables",share_of_generation_pct,58.29,9,Implicit,1,2023,Medium,1,1,1,0
+CAN,Canada,North America,2030,Solar,share_of_generation_pct,2.08,9,Implicit,1,2023,Medium,1,1,1,0
+CAN,Canada,North America,2030,Wind,share_of_generation_pct,12.03,9,Implicit,1,2023,Medium,1,1,1,0
+CHN,China,Asia,2030,Bioenergy,capacity_total_gw,82,14,Implicit,1,2023,Low,1,1,1,0
+CHN,China,Asia,2030,Hydro,capacity_total_gw,554,14,Implicit,1,2023,Low,1,1,1,0
+CHN,China,Asia,2030,Solar,capacity_total_gw,1025,14,Implicit,1,2023,Low,1,1,1,0
+CHN,China,Asia,2030,Wind,capacity_total_gw,800,14,Implicit,1,2023,Low,1,1,1,0
+DEU,Germany,Europe,2030,Bioenergy,capacity_total_gw,8.2,104,Explicit,1,2023,High,1,0,1,0
+DEU,Germany,Europe,2030,Bioenergy,capacity_total_gw,8.2,104,Explicit,2,2023,High,1,0,1,0
+DEU,Germany,Europe,2030,Hydro,capacity_total_gw,5.2,104,Explicit,1,2023,High,1,0,1,0
+DEU,Germany,Europe,2030,Hydro,capacity_total_gw,5.2,104,Explicit,2,2023,High,1,0,1,0
+DEU,Germany,Europe,2030,Offshore Wind,capacity_total_gw,30.5,18,Explicit,1,2023,High,1,0,1,0
+DEU,Germany,Europe,2030,Offshore Wind,capacity_total_gw,30,194,Explicit,2,2024,High,1,0,1,0
+DEU,Germany,Europe,2030,Onshore Wind,capacity_total_gw,115,18,Explicit,1,2023,High,1,0,1,0
+DEU,Germany,Europe,2030,Onshore Wind,capacity_total_gw,115,194,Explicit,2,2024,High,1,0,1,0
+DEU,Germany,Europe,2030,Solar,capacity_total_gw,215,18,Explicit,1,2023,High,1,0,1,0
+DEU,Germany,Europe,2030,Solar,capacity_total_gw,215,194,Explicit,2,2024,High,1,0,1,0
+DEU,Germany,Europe,2030,Renewables,share_of_generation_pct,75,92,Explicit,1,2023,High,1,0,1,0
+EU,EU,Europe,2030,"Hydro, bio and other renewables",capacity_total_gw,134,54,Explicit,1,2023,High,1,1,1,0
+EU,EU,Europe,2030,Solar,capacity_total_gw,592,55,Explicit,1,2023,High,1,1,1,0
+EU,EU,Europe,2030,Wind,capacity_total_gw,510,55,Explicit,1,2023,High,1,1,1,0
+EU,EU,Europe,2030,Renewables,share_of_generation_pct,72,56,Explicit,1,2023,High,1,1,1,0
+FRA,France,Europe,2030,Bioenergy,capacity_total_gw,2,103,Explicit,1,2023,Medium,1,0,1,0
+FRA,France,Europe,2030,Bioenergy,capacity_total_gw,0,2,Explicit,2,2024,High,1,0,1,0
+FRA,France,Europe,2030,Bioenergy,capacity_total_gw,0,2,Explicit,3,2024,High,1,0,1,0
+FRA,France,Europe,2030,Hydro,capacity_total_gw,27,103,Explicit,1,2023,Medium,1,0,1,0
+FRA,France,Europe,2030,Hydro,capacity_total_gw,26.3,2,Explicit,2,2024,High,1,0,1,0
+FRA,France,Europe,2030,Hydro,capacity_total_gw,26.3,2,Explicit,3,2024,High,1,0,1,0
+FRA,France,Europe,2030,Offshore Wind,capacity_total_gw,3.6,69,Explicit,1,2023,Medium,1,0,1,0
+FRA,France,Europe,2030,Offshore Wind,capacity_total_gw,3.6,2,Explicit,2,2024,High,1,0,1,0
+FRA,France,Europe,2030,Offshore Wind,capacity_total_gw,3.6,185,Explicit,3,2024,High,1,0,1,0
+FRA,France,Europe,2030,Onshore Wind,capacity_total_gw,30,69,Explicit,1,2023,Medium,1,0,1,0
+FRA,France,Europe,2030,Onshore Wind,capacity_total_gw,33,2,Explicit,2,2024,High,1,0,1,0
+FRA,France,Europe,2030,Onshore Wind,capacity_total_gw,33,185,Explicit,3,2024,High,1,0,1,0
+FRA,France,Europe,2030,Solar,capacity_total_gw,52,69,Explicit,1,2023,Medium,1,0,1,0
+FRA,France,Europe,2030,Solar,capacity_total_gw,54,2,Explicit,2,2024,High,1,0,1,0
+FRA,France,Europe,2030,Solar,capacity_total_gw,54,185,Explicit,3,2024,High,1,0,1,0
+FRA,France,Europe,2030,Hydro,share_of_generation_pct,9.8,38,Explicit,1,2023,Medium,1,0,1,0
+FRA,France,Europe,2030,Hydro,share_of_generation_pct,9.59,185,Explicit,3,2024,High,1,0,1,0
+FRA,France,Europe,2030,Offshore Wind,share_of_generation_pct,3.04,38,Explicit,1,2023,Medium,1,0,1,0
+FRA,France,Europe,2030,Offshore Wind,share_of_generation_pct,2.49,185,Explicit,3,2024,High,1,0,1,0
+FRA,France,Europe,2030,Onshore Wind,share_of_generation_pct,10.98,38,Explicit,1,2023,Medium,1,0,1,0
+FRA,France,Europe,2030,Onshore Wind,share_of_generation_pct,11.37,185,Explicit,3,2024,High,1,0,1,0
+FRA,France,Europe,2030,Other Renewables,share_of_generation_pct,1.69,38,Explicit,1,2023,Medium,1,0,1,0
+FRA,France,Europe,2030,Other Renewables,share_of_generation_pct,1.69,38,Explicit,3,2023,Medium,1,0,1,0
+FRA,France,Europe,2030,Solar,share_of_generation_pct,8.95,38,Explicit,1,2023,Medium,1,0,1,0
+FRA,France,Europe,2030,Solar,share_of_generation_pct,11.55,185,Explicit,3,2024,High,1,0,1,0
+GBR,United Kingdom,Europe,2030,Offshore Wind,capacity_total_gw,50,1,Explicit,1,2023,Low,1,1,1,0
+GBR,United Kingdom,Europe,2030,Rest of renewables,capacity_total_gw,68.78,3,Explicit,1,2023,Low,1,1,1,0
+GBR,United Kingdom,Europe,2030,Renewables,share_of_generation_pct,85.06,3,Explicit,1,2023,Low,1,1,1,0
+IDN,Indonesia,Asia,2030,Bioenergy,capacity_total_gw,3.5,126,Implicit,1,2023,Low,1,1,0,1
+IDN,Indonesia,Asia,2030,Hydro,capacity_total_gw,14.6,126,Implicit,1,2023,Low,1,1,0,1
+IDN,Indonesia,Asia,2030,Other Renewables,capacity_total_gw,6.4,126,Implicit,1,2023,Low,1,1,0,1
+IDN,Indonesia,Asia,2030,Solar,capacity_total_gw,29.3,126,Implicit,1,2023,Low,1,1,0,1
+IDN,Indonesia,Asia,2030,Wind,capacity_total_gw,8.6,126,Implicit,1,2023,Low,1,1,0,1
+IDN,Indonesia,Asia,2030,Bioenergy,share_of_generation_pct,7.8,126,Implicit,1,2023,Low,1,1,0,1
+IDN,Indonesia,Asia,2030,Hydro,share_of_generation_pct,12.29,126,Implicit,1,2023,Low,1,1,0,1
+IDN,Indonesia,Asia,2030,Other Renewables,share_of_generation_pct,9.39,126,Implicit,1,2023,Low,1,1,0,1
+IDN,Indonesia,Asia,2030,Solar,share_of_generation_pct,8.12,126,Implicit,1,2023,Low,1,1,0,1
+IDN,Indonesia,Asia,2030,Wind,share_of_generation_pct,6.05,126,Implicit,1,2023,Low,1,1,0,1
+IND,India,Asia,2030,Bioenergy,capacity_total_gw,14.96,10,Derived,1,2023,Low,1,1,0,0
+IND,India,Asia,2030,Hydro,capacity_total_gw,65.5,10,Derived,1,2023,Low,1,1,0,0
+IND,India,Asia,2030,Solar,capacity_total_gw,318.51,10,Derived,1,2023,Low,1,1,0,0
+IND,India,Asia,2030,Wind,capacity_total_gw,109.98,10,Derived,1,2023,Low,1,1,0,0
+IND,India,Asia,2030,Renewables,share_of_generation_pct,42.3,10,Derived,1,2023,Low,1,1,0,0
+ITA,Italy,Europe,2030,Bioenergy,capacity_total_gw,3.05,48,Explicit,1,2023,Medium,1,0,1,0
+ITA,Italy,Europe,2030,Bioenergy,capacity_total_gw,3.24,181,Explicit,2,2024,High,1,0,1,0
+ITA,Italy,Europe,2030,Hydro,capacity_total_gw,19.17,48,Explicit,1,2023,Medium,1,0,1,0
+ITA,Italy,Europe,2030,Hydro,capacity_total_gw,19.41,181,Explicit,2,2024,High,1,0,1,0
+ITA,Italy,Europe,2030,Offshore Wind,capacity_total_gw,2.1,48,Explicit,1,2023,Medium,1,0,1,0
+ITA,Italy,Europe,2030,Offshore Wind,capacity_total_gw,2.1,181,Explicit,2,2024,High,1,0,1,0
+ITA,Italy,Europe,2030,Onshore Wind,capacity_total_gw,26.04,48,Explicit,1,2023,Medium,1,0,1,0
+ITA,Italy,Europe,2030,Onshore Wind,capacity_total_gw,26.04,181,Explicit,2,2024,High,1,0,1,0
+ITA,Italy,Europe,2030,Other Renewables,capacity_total_gw,1,48,Explicit,1,2023,Medium,1,0,1,0
+ITA,Italy,Europe,2030,Other Renewables,capacity_total_gw,1,181,Explicit,2,2024,High,1,0,1,0
+ITA,Italy,Europe,2030,Solar,capacity_total_gw,79.92,48,Explicit,1,2023,Medium,1,0,1,0
+ITA,Italy,Europe,2030,Solar,capacity_total_gw,79.17,181,Explicit,2,2024,High,1,0,1,0
+ITA,Italy,Europe,2030,Bioenergy,share_of_generation_pct,3.29,181,Explicit,2,2024,High,1,0,1,0
+ITA,Italy,Europe,2030,Hydro,share_of_generation_pct,14.14,181,Explicit,2,2024,High,1,0,1,0
+ITA,Italy,Europe,2030,Other Renewables,share_of_generation_pct,2.26,181,Explicit,2,2024,High,1,0,1,0
+ITA,Italy,Europe,2030,Renewables,share_of_generation_pct,72.1,48,Explicit,1,2023,Medium,1,0,1,0
+ITA,Italy,Europe,2030,Renewables,share_of_generation_pct,72.1,48,Explicit,2,2023,Medium,1,0,1,0
+ITA,Italy,Europe,2030,Solar,share_of_generation_pct,29.42,181,Explicit,2,2024,High,1,0,1,0
+ITA,Italy,Europe,2030,Wind,share_of_generation_pct,19.54,181,Explicit,2,2024,High,1,0,1,0
+JPN,Japan,Asia,2030,Bioenergy,capacity_total_gw,8,16,Explicit,1,2023,High,1,1,1,0
+JPN,Japan,Asia,2030,Hydro,capacity_total_gw,50.7,16,Explicit,1,2023,High,1,1,1,0
+JPN,Japan,Asia,2030,Offshore Wind,capacity_total_gw,5.7,16,Explicit,1,2023,High,1,1,1,0
+JPN,Japan,Asia,2030,Onshore Wind,capacity_total_gw,17.9,16,Explicit,1,2023,High,1,1,1,0
+JPN,Japan,Asia,2030,Other Renewables,capacity_total_gw,1.5,16,Explicit,1,2023,High,1,1,1,0
+JPN,Japan,Asia,2030,Solar,capacity_total_gw,117.6,16,Explicit,1,2023,High,1,1,1,0
+JPN,Japan,Asia,2030,Bioenergy,share_of_generation_pct,5,17,Explicit,1,2023,High,1,1,1,0
+JPN,Japan,Asia,2030,Hydro,share_of_generation_pct,11,17,Explicit,1,2023,High,1,1,1,0
+JPN,Japan,Asia,2030,Other Renewables,share_of_generation_pct,1,17,Explicit,1,2023,High,1,1,1,0
+JPN,Japan,Asia,2030,Solar,share_of_generation_pct,16,17,Explicit,1,2023,High,1,1,1,0
+JPN,Japan,Asia,2030,Wind,share_of_generation_pct,5,17,Explicit,1,2023,High,1,1,1,0
+KOR,South Korea,Asia,2030,Bioenergy,capacity_total_gw,1.8,19,Explicit,1,2023,High,1,1,1,0
+KOR,South Korea,Asia,2030,Hydro,capacity_total_gw,1.98,19,Explicit,1,2023,High,1,1,1,0
+KOR,South Korea,Asia,2030,Other Renewables,capacity_total_gw,0.26,19,Explicit,1,2023,High,1,1,1,0
+KOR,South Korea,Asia,2030,Solar,capacity_total_gw,52.98,19,Explicit,1,2023,High,1,1,1,0
+KOR,South Korea,Asia,2030,Wind,capacity_total_gw,19.3,19,Explicit,1,2023,High,1,1,1,0
+KOR,South Korea,Asia,2030,Bioenergy,share_of_generation_pct,2.33,19,Explicit,1,2023,High,1,1,1,0
+KOR,South Korea,Asia,2030,Hydro,share_of_generation_pct,0.74,19,Explicit,1,2023,High,1,1,1,0
+KOR,South Korea,Asia,2030,Other Renewables,share_of_generation_pct,0.08,19,Explicit,1,2023,High,1,1,1,0
+KOR,South Korea,Asia,2030,Solar,share_of_generation_pct,10.29,19,Explicit,1,2023,High,1,1,1,0
+KOR,South Korea,Asia,2030,Wind,share_of_generation_pct,6.79,19,Explicit,1,2023,High,1,1,1,0
+MEX,Mexico,Latin America and Caribbean,2030,Hydro,capacity_total_gw,15.7,50,Explicit,1,2023,Low,1,1,1,0
+MEX,Mexico,Latin America and Caribbean,2030,Other Renewables,capacity_total_gw,1,50,Explicit,1,2023,Low,1,1,1,0
+MEX,Mexico,Latin America and Caribbean,2030,Solar,capacity_total_gw,22.8,50,Explicit,1,2023,Low,1,1,1,0
+MEX,Mexico,Latin America and Caribbean,2030,Wind,capacity_total_gw,12.7,50,Explicit,1,2023,Low,1,1,1,0
+MEX,Mexico,Latin America and Caribbean,2030,Hydro,share_of_generation_pct,8.64,86,Explicit,1,2023,Low,1,1,1,0
+MEX,Mexico,Latin America and Caribbean,2030,Other Renewables,share_of_generation_pct,1.08,86,Explicit,1,2023,Low,1,1,1,0
+MEX,Mexico,Latin America and Caribbean,2030,Solar,share_of_generation_pct,15.12,86,Explicit,1,2023,Low,1,1,1,0
+MEX,Mexico,Latin America and Caribbean,2030,Wind,share_of_generation_pct,8.42,86,Explicit,1,2023,Low,1,1,1,0
+RUS,Russia,Europe,2030,Hydro,capacity_total_gw,54,82,No target,1,2023,High,1,1,0,0
+RUS,Russia,Europe,2030,Other Renewables,capacity_total_gw,3,82,No target,1,2023,High,1,1,0,0
+RUS,Russia,Europe,2030,Solar,capacity_total_gw,2,82,No target,1,2023,High,1,1,0,0
+RUS,Russia,Europe,2030,Wind,capacity_total_gw,3,82,No target,1,2023,High,1,1,0,0
+SAU,Saudi Arabia,Middle East,2030,Solar,capacity_total_gw,42.7,51,Explicit,1,2023,Low,1,1,0,0
+SAU,Saudi Arabia,Middle East,2030,Wind,capacity_total_gw,16,51,Explicit,1,2023,Low,1,1,0,0
+SAU,Saudi Arabia,Middle East,2030,Renewables,share_of_generation_pct,50,25,Explicit,1,2023,Low,1,1,0,0
+TUR,Türkiye,Europe,2030,Hydro,capacity_total_gw,35.1,23,Explicit,1,2023,High,1,1,1,0
+TUR,Türkiye,Europe,2030,Other Renewables,capacity_total_gw,5.1,23,Explicit,1,2023,High,1,1,1,0
+TUR,Türkiye,Europe,2030,Solar,capacity_total_gw,32.9,23,Explicit,1,2023,High,1,1,1,0
+TUR,Türkiye,Europe,2030,Wind,capacity_total_gw,18.1,23,Explicit,1,2023,High,1,1,1,0
+TUR,Türkiye,Europe,2030,Hydro,share_of_generation_pct,19.4,23,Explicit,1,2023,High,1,1,1,0
+TUR,Türkiye,Europe,2030,Other Renewables,share_of_generation_pct,4.5,23,Explicit,1,2023,High,1,1,1,0
+TUR,Türkiye,Europe,2030,Solar,share_of_generation_pct,11.5,23,Explicit,1,2023,High,1,1,1,0
+TUR,Türkiye,Europe,2030,Wind,share_of_generation_pct,11.9,23,Explicit,1,2023,High,1,1,1,0
+USA,United States,North America,2030,Bioenergy,capacity_total_gw,13,49,Implicit,1,2023,Medium,1,1,1,0
+USA,United States,North America,2030,Hydro,capacity_total_gw,75,49,Implicit,1,2023,Medium,1,1,1,0
+USA,United States,North America,2030,Offshore Wind,capacity_total_gw,35,49,Implicit,1,2023,Medium,1,1,1,0
+USA,United States,North America,2030,Onshore Wind,capacity_total_gw,334,49,Implicit,1,2023,Medium,1,1,1,0
+USA,United States,North America,2030,Other Renewables,capacity_total_gw,13,49,Implicit,1,2023,Medium,1,1,1,0
+USA,United States,North America,2030,Solar,capacity_total_gw,468,49,Implicit,1,2023,Medium,1,1,1,0
+USA,United States,North America,2030,Bioenergy,share_of_generation_pct,0.41,49,Implicit,1,2023,Medium,1,1,1,0
+USA,United States,North America,2030,Hydro,share_of_generation_pct,6.64,49,Implicit,1,2023,Medium,1,1,1,0
+USA,United States,North America,2030,Other Renewables,share_of_generation_pct,0.39,49,Implicit,1,2023,Medium,1,1,1,0
+USA,United States,North America,2030,Solar,share_of_generation_pct,22.29,49,Implicit,1,2023,Medium,1,1,1,0
+USA,United States,North America,2030,Wind,share_of_generation_pct,29.32,49,Implicit,1,2023,Medium,1,1,1,0
+ZAF,South Africa,Africa,2030,Hydro,capacity_total_gw,4.6,22,Explicit,1,2023,Medium,1,1,0,0
+ZAF,South Africa,Africa,2030,Solar,capacity_total_gw,8.29,22,Explicit,1,2023,Medium,1,1,0,0
+ZAF,South Africa,Africa,2030,Wind,capacity_total_gw,17.74,22,Explicit,1,2023,Medium,1,1,0,0
+ZAF,South Africa,Africa,2030,Hydro,share_of_generation_pct,8.4,22,Explicit,1,2023,Medium,1,1,0,0
+ZAF,South Africa,Africa,2030,Solar,share_of_generation_pct,6.3,22,Explicit,1,2023,Medium,1,1,0,0
+ZAF,South Africa,Africa,2030,Wind,share_of_generation_pct,17.8,22,Explicit,1,2023,Medium,1,1,0,0
+ALB,Albania,Europe,2030,Hydro,capacity_total_gw,2.51,166,Explicit,1,2024,Medium,0,0,0,0
+ALB,Albania,Europe,2030,Solar,capacity_total_gw,0.49,162,Explicit,1,2024,Medium,0,0,0,0
+ALB,Albania,Europe,2030,Wind,capacity_total_gw,0.3,162,Explicit,1,2024,Medium,0,0,0,0
+ALB,Albania,Europe,2030,Renewables,share_of_generation_pct,100,162,Explicit,1,2024,Medium,0,0,0,0
+ARE,United Arab Emirates,Middle East,2030,Renewables,capacity_total_gw,9.2,59,Explicit,1,2023,High,0,0,0,0
+AUT,Austria,Europe,2030,Bioenergy,capacity_total_gw,0.93,125,No target,1,2023,Medium,0,0,1,0
+AUT,Austria,Europe,2030,Hydro,capacity_total_gw,14.97,125,No target,1,2023,Medium,0,0,1,0
+AUT,Austria,Europe,2030,Solar,capacity_total_gw,12.5,125,No target,1,2023,Medium,0,0,1,0
+AUT,Austria,Europe,2030,Wind,capacity_total_gw,7.3,125,No target,1,2023,Medium,0,0,1,0
+AUT,Austria,Europe,2030,Bioenergy,share_of_generation_pct,6.12,131,Explicit,1,2023,Medium,0,0,1,0
+AUT,Austria,Europe,2030,Bioenergy,share_of_generation_pct,6.19,193,Explicit,2,2024,High,0,0,1,0
+AUT,Austria,Europe,2030,Hydro,share_of_generation_pct,47.96,131,Explicit,1,2023,Medium,0,0,1,0
+AUT,Austria,Europe,2030,Hydro,share_of_generation_pct,48.45,193,Explicit,2,2024,High,0,0,1,0
+AUT,Austria,Europe,2030,Solar,share_of_generation_pct,19.39,131,Explicit,1,2023,Medium,0,0,1,0
+AUT,Austria,Europe,2030,Solar,share_of_generation_pct,19.59,193,Explicit,2,2024,High,0,0,1,0
+AUT,Austria,Europe,2030,Wind,share_of_generation_pct,19.39,131,Explicit,1,2023,Medium,0,0,1,0
+AUT,Austria,Europe,2030,Wind,share_of_generation_pct,19.59,193,Explicit,2,2024,High,0,0,1,0
+BEL,Belgium,Europe,2030,Bioenergy,capacity_total_gw,0.9,128,Explicit,1,2023,Low,0,0,1,0
+BEL,Belgium,Europe,2030,Hydro,capacity_total_gw,0.15,128,Explicit,1,2023,Low,0,0,1,0
+BEL,Belgium,Europe,2030,Offshore Wind,capacity_total_gw,5.8,128,Explicit,1,2023,Low,0,0,1,0
+BEL,Belgium,Europe,2030,Onshore Wind,capacity_total_gw,5.3,128,Explicit,1,2023,Low,0,0,1,0
+BEL,Belgium,Europe,2030,Solar,capacity_total_gw,11.6,128,Explicit,1,2023,Low,0,0,1,0
+BEL,Belgium,Europe,2030,"Hydro, bio and other renewables",share_of_generation_pct,3.97,128,Explicit,1,2023,Low,0,0,1,0
+BEL,Belgium,Europe,2030,Solar,share_of_generation_pct,15.9,128,Explicit,1,2023,Low,0,0,1,0
+BEL,Belgium,Europe,2030,Wind,share_of_generation_pct,45.02,128,Explicit,1,2023,Low,0,0,1,0
+BGD,Bangladesh,Asia,2030,Hydro,capacity_total_gw,0.38,145,Explicit,1,2024,Medium,0,0,0,0
+BGD,Bangladesh,Asia,2030,Solar,capacity_total_gw,3.03,145,Explicit,1,2024,Medium,0,0,0,0
+BGD,Bangladesh,Asia,2030,Wind,capacity_total_gw,1.14,145,Explicit,1,2024,Medium,0,0,0,0
+BGD,Bangladesh,Asia,2030,Onshore Wind,share_of_generation_pct,1,145,Explicit,1,2024,Medium,0,0,0,0
+BGD,Bangladesh,Asia,2030,Solar,share_of_generation_pct,5,145,Explicit,1,2024,Medium,0,0,0,0
+BGR,Bulgaria,Europe,2030,Bioenergy,capacity_total_gw,0.3,155,Explicit,2,2024,High,0,0,0,0
+BGR,Bulgaria,Europe,2030,Hydro,capacity_total_gw,4.1,106,Explicit,1,2023,High,0,0,0,0
+BGR,Bulgaria,Europe,2030,Hydro,capacity_total_gw,2.5,155,Explicit,2,2024,High,0,0,0,0
+BGR,Bulgaria,Europe,2030,Solar,capacity_total_gw,8.2,106,Explicit,1,2023,High,0,0,0,0
+BGR,Bulgaria,Europe,2030,Solar,capacity_total_gw,5.5,155,Explicit,2,2024,High,0,0,0,0
+BGR,Bulgaria,Europe,2030,Wind,capacity_total_gw,2.7,106,Explicit,1,2023,High,0,0,0,0
+BGR,Bulgaria,Europe,2030,Wind,capacity_total_gw,2.6,155,Explicit,2,2024,High,0,0,0,0
+BGR,Bulgaria,Europe,2030,Renewables,share_of_generation_pct,45.92,155,Explicit,2,2024,High,0,0,0,0
+BIH,Bosnia Herzegovina,Europe,2030,Bioenergy,capacity_total_gw,0.03,140,Explicit,1,2024,Medium,0,0,0,0
+BIH,Bosnia Herzegovina,Europe,2030,Hydro,capacity_total_gw,2.53,140,Explicit,1,2024,Medium,0,0,0,0
+BIH,Bosnia Herzegovina,Europe,2030,Solar,capacity_total_gw,1.49,140,Explicit,1,2024,Medium,0,0,0,0
+BIH,Bosnia Herzegovina,Europe,2030,Wind,capacity_total_gw,0.6,140,Explicit,1,2024,Medium,0,0,0,0
+BWA,Botswana,Africa,2030,Solar,capacity_total_gw,0.4,182,Explicit,1,2024,High,0,0,0,0
+BWA,Botswana,Africa,2030,Wind,capacity_total_gw,0.05,182,Explicit,1,2024,High,0,0,0,0
+CHE,Switzerland,Europe,2030,Hydro,capacity_total_gw,17.1,94,Implicit,1,2023,Medium,0,0,1,0
+CHE,Switzerland,Europe,2030,Other Renewables,capacity_total_gw,0.4,94,Implicit,1,2023,Medium,0,0,1,0
+CHE,Switzerland,Europe,2030,Solar,capacity_total_gw,9.8,94,Implicit,1,2023,Medium,0,0,1,0
+CHE,Switzerland,Europe,2030,Wind,capacity_total_gw,0.3,94,Implicit,1,2023,Medium,0,0,1,0
+CHE,Switzerland,Europe,2030,Bioenergy,share_of_generation_pct,0.95,94,Explicit,1,2023,Medium,0,0,1,0
+CHE,Switzerland,Europe,2030,Hydro,share_of_generation_pct,66.19,94,Explicit,1,2023,Medium,0,0,1,0
+CHE,Switzerland,Europe,2030,Other Renewables,share_of_generation_pct,1.59,94,Explicit,1,2023,Medium,0,0,1,0
+CHE,Switzerland,Europe,2030,Solar,share_of_generation_pct,13.81,94,Explicit,1,2023,Medium,0,0,1,0
+CHE,Switzerland,Europe,2030,Wind,share_of_generation_pct,0.95,94,Explicit,1,2023,Medium,0,0,1,0
+CHL,Chile,Latin America and Caribbean,2030,Bioenergy,capacity_total_gw,0.8,58,Explicit,1,2023,High,0,0,1,0
+CHL,Chile,Latin America and Caribbean,2030,Hydro,capacity_total_gw,7.94,58,Explicit,1,2023,High,0,0,1,0
+CHL,Chile,Latin America and Caribbean,2030,Other Renewables,capacity_total_gw,0.08,58,Explicit,1,2023,High,0,0,1,0
+CHL,Chile,Latin America and Caribbean,2030,Solar,capacity_total_gw,14.25,58,Explicit,1,2023,High,0,0,1,0
+CHL,Chile,Latin America and Caribbean,2030,Wind,capacity_total_gw,15.33,58,Explicit,1,2023,High,0,0,1,0
+CHL,Chile,Latin America and Caribbean,2030,Bioenergy,share_of_generation_pct,2.25,58,Explicit,1,2023,High,0,0,1,0
+CHL,Chile,Latin America and Caribbean,2030,Hydro,share_of_generation_pct,20.57,58,Explicit,1,2023,High,0,0,1,0
+CHL,Chile,Latin America and Caribbean,2030,Other Renewables,share_of_generation_pct,0.55,58,Explicit,1,2023,High,0,0,1,0
+CHL,Chile,Latin America and Caribbean,2030,Solar,share_of_generation_pct,41.5,58,Explicit,1,2023,High,0,0,1,0
+CHL,Chile,Latin America and Caribbean,2030,Wind,share_of_generation_pct,24.64,58,Explicit,1,2023,High,0,0,1,0
+COL,Colombia,Latin America and Caribbean,2030,Hydro,capacity_total_gw,15,98,Explicit,1,2023,High,0,0,1,0
+COL,Colombia,Latin America and Caribbean,2030,Onshore Wind,capacity_total_gw,3,98,Explicit,1,2023,High,0,0,1,0
+COL,Colombia,Latin America and Caribbean,2030,Solar,capacity_total_gw,1,98,Explicit,1,2023,High,0,0,1,0
+CRI,Costa Rica,Latin America and Caribbean,2030,Bioenergy,capacity_total_gw,0.08,96,Explicit,1,2023,Medium,0,0,1,0
+CRI,Costa Rica,Latin America and Caribbean,2030,Hydro,capacity_total_gw,2.33,96,Explicit,1,2023,Medium,0,0,1,0
+CRI,Costa Rica,Latin America and Caribbean,2030,Other Renewables,capacity_total_gw,0.32,96,Explicit,1,2023,Medium,0,0,1,0
+CRI,Costa Rica,Latin America and Caribbean,2030,Solar,capacity_total_gw,0.73,96,Explicit,1,2023,Medium,0,0,1,0
+CRI,Costa Rica,Latin America and Caribbean,2030,Wind,capacity_total_gw,0.57,96,Explicit,1,2023,Medium,0,0,1,0
+CYP,Cyprus,Europe,2030,Bioenergy,capacity_total_gw,0.03,33,Explicit,1,2023,Medium,0,0,0,0
+CYP,Cyprus,Europe,2030,Hydro,capacity_total_gw,0,33,Explicit,1,2023,Medium,0,0,0,0
+CYP,Cyprus,Europe,2030,Other Renewables,capacity_total_gw,0,33,Explicit,1,2023,Medium,0,0,0,0
+CYP,Cyprus,Europe,2030,Solar,capacity_total_gw,0.89,33,Explicit,1,2023,Medium,0,0,0,0
+CYP,Cyprus,Europe,2030,Wind,capacity_total_gw,0.17,33,Explicit,1,2023,Medium,0,0,0,0
+CYP,Cyprus,Europe,2030,Bioenergy,share_of_generation_pct,2.61,33,Explicit,1,2023,Medium,0,0,0,0
+CYP,Cyprus,Europe,2030,Hydro,share_of_generation_pct,0,33,Explicit,1,2023,Medium,0,0,0,0
+CYP,Cyprus,Europe,2030,Other Renewables,share_of_generation_pct,0,33,Explicit,1,2023,Medium,0,0,0,0
+CYP,Cyprus,Europe,2030,Solar,share_of_generation_pct,24.08,33,Explicit,1,2023,Medium,0,0,0,0
+CYP,Cyprus,Europe,2030,Wind,share_of_generation_pct,4.41,33,Explicit,1,2023,Medium,0,0,0,0
+CZE,Czechia,Europe,2030,Bioenergy,capacity_total_gw,1.6,127,Explicit,1,2023,Medium,0,0,1,0
+CZE,Czechia,Europe,2030,Hydro,capacity_total_gw,1.11,127,Explicit,1,2023,Medium,0,0,1,0
+CZE,Czechia,Europe,2030,Solar,capacity_total_gw,10.1,127,Explicit,1,2023,Medium,0,0,1,0
+CZE,Czechia,Europe,2030,Wind,capacity_total_gw,1.5,127,Explicit,1,2023,Medium,0,0,1,0
+DNK,Denmark,Europe,2030,Bioenergy,capacity_total_gw,1.77,187,Explicit,2,2024,High,0,0,1,0
+DNK,Denmark,Europe,2030,Hydro,capacity_total_gw,0.01,187,Explicit,2,2024,High,0,0,1,0
+DNK,Denmark,Europe,2030,Offshore Wind,capacity_total_gw,11.3,32,Explicit,1,2023,Medium,0,0,1,0
+DNK,Denmark,Europe,2030,Offshore Wind,capacity_total_gw,7.7,187,Explicit,2,2024,High,0,0,1,0
+DNK,Denmark,Europe,2030,Onshore Wind,capacity_total_gw,5.9,32,Explicit,1,2023,Medium,0,0,1,0
+DNK,Denmark,Europe,2030,Onshore Wind,capacity_total_gw,5.7,187,Explicit,2,2024,High,0,0,1,0
+DNK,Denmark,Europe,2030,Other Renewables,capacity_total_gw,0.1,187,Explicit,2,2024,High,0,0,1,0
+DNK,Denmark,Europe,2030,Solar,capacity_total_gw,11.7,32,Explicit,1,2023,Medium,0,0,1,0
+DNK,Denmark,Europe,2030,Solar,capacity_total_gw,17.79,187,Explicit,2,2024,High,0,0,1,0
+DNK,Denmark,Europe,2030,Bioenergy,share_of_generation_pct,5.96,32,Explicit,1,2023,Medium,0,0,1,0
+DNK,Denmark,Europe,2030,Bioenergy,share_of_generation_pct,5.96,32,Explicit,2,2023,Medium,0,0,1,0
+DNK,Denmark,Europe,2030,Hydro,share_of_generation_pct,0.02,32,Explicit,1,2023,Medium,0,0,1,0
+DNK,Denmark,Europe,2030,Hydro,share_of_generation_pct,0.02,187,Explicit,2,2024,High,0,0,1,0
+DNK,Denmark,Europe,2030,Other Renewables,share_of_generation_pct,0.79,32,Explicit,1,2023,Medium,0,0,1,0
+DNK,Denmark,Europe,2030,Other Renewables,share_of_generation_pct,9.45,187,Explicit,2,2024,High,0,0,1,0
+DNK,Denmark,Europe,2030,Solar,share_of_generation_pct,22.58,32,Explicit,1,2023,Medium,0,0,1,0
+DNK,Denmark,Europe,2030,Solar,share_of_generation_pct,34.76,187,Explicit,2,2024,High,0,0,1,0
+DNK,Denmark,Europe,2030,Wind,share_of_generation_pct,69.97,32,Explicit,1,2023,Medium,0,0,1,0
+DNK,Denmark,Europe,2030,Wind,share_of_generation_pct,54.97,187,Explicit,2,2024,High,0,0,1,0
+DZA,Algeria,Africa,2030,Bioenergy,capacity_total_gw,1.4,138,Explicit,1,2024,Medium,0,0,0,0
+DZA,Algeria,Africa,2030,Other Renewables,capacity_total_gw,0.01,138,Explicit,1,2024,Medium,0,0,0,0
+DZA,Algeria,Africa,2030,Solar,capacity_total_gw,15.57,138,Explicit,1,2024,Medium,0,0,0,0
+DZA,Algeria,Africa,2030,Wind,capacity_total_gw,5.01,138,Explicit,1,2024,Medium,0,0,0,0
+DZA,Algeria,Africa,2030,Renewables,share_of_generation_pct,27,138,Explicit,1,2024,Medium,0,0,0,0
+ECU,Ecuador,Latin America and Caribbean,2030,Hydro,capacity_total_gw,2.44,157,Explicit,1,2024,Medium,0,0,0,0
+ECU,Ecuador,Latin America and Caribbean,2030,Other Renewables,capacity_total_gw,1.49,157,Explicit,1,2024,Medium,0,0,0,0
+ECU,Ecuador,Latin America and Caribbean,2030,Solar,capacity_total_gw,0.2,157,Explicit,1,2024,Medium,0,0,0,0
+ECU,Ecuador,Latin America and Caribbean,2030,Wind,capacity_total_gw,0.16,157,Explicit,1,2024,Medium,0,0,0,0
+ECU,Ecuador,Latin America and Caribbean,2030,Hydro,share_of_generation_pct,60.17,157,No target,1,2024,Medium,0,0,0,0
+ECU,Ecuador,Latin America and Caribbean,2030,Other Renewables,share_of_generation_pct,21.95,157,No target,1,2024,Medium,0,0,0,0
+ECU,Ecuador,Latin America and Caribbean,2030,Solar,share_of_generation_pct,0.98,157,No target,1,2024,Medium,0,0,0,0
+ECU,Ecuador,Latin America and Caribbean,2030,Wind,share_of_generation_pct,1.85,157,No target,1,2024,Medium,0,0,0,0
+EGY,Egypt,Africa,2030,Solar,capacity_total_gw,7,65,Implicit,1,2023,Low,0,0,0,0
+EGY,Egypt,Africa,2030,Wind,capacity_total_gw,7,65,Implicit,1,2023,Low,0,0,0,0
+EGY,Egypt,Africa,2030,Solar,share_of_generation_pct,5,65,Explicit,1,2023,Low,0,0,0,0
+EGY,Egypt,Africa,2030,Wind,share_of_generation_pct,8,65,Explicit,1,2023,Low,0,0,0,0
+ESP,Spain,Europe,2030,Bioenergy,capacity_total_gw,1.85,31,Explicit,1,2023,Medium,0,0,1,0
+ESP,Spain,Europe,2030,Hydro,capacity_total_gw,14.51,31,Explicit,1,2023,Medium,0,0,1,0
+ESP,Spain,Europe,2030,Onshore Wind,capacity_total_gw,59.04,31,Explicit,1,2023,Medium,0,0,1,0
+ESP,Spain,Europe,2030,Other Renewables,capacity_total_gw,0.52,31,Explicit,1,2023,Medium,0,0,1,0
+ESP,Spain,Europe,2030,Solar,capacity_total_gw,81.19,31,Explicit,1,2023,Medium,0,0,1,0
+ESP,Spain,Europe,2030,Bioenergy,share_of_generation_pct,2.63,31,Explicit,1,2023,Medium,0,0,1,0
+ESP,Spain,Europe,2030,Hydro,share_of_generation_pct,9.04,31,Explicit,1,2023,Medium,0,0,1,0
+ESP,Spain,Europe,2030,Other Renewables,share_of_generation_pct,3.58,31,Explicit,1,2023,Medium,0,0,1,0
+ESP,Spain,Europe,2030,Solar,share_of_generation_pct,30.44,31,Explicit,1,2023,Medium,0,0,1,0
+ESP,Spain,Europe,2030,Wind,share_of_generation_pct,32.2,31,Explicit,1,2023,Medium,0,0,1,0
+ESP,Spain,Europe,2030,Bioenergy,capacity_total_gw,1.85,197,Explicit,2,2024,Medium,0,0,1,0
+ESP,Spain,Europe,2030,Hydro,capacity_total_gw,14.51,197,Explicit,2,2024,Medium,0,0,1,0
+ESP,Spain,Europe,2030,Offshore Wind,capacity_total_gw,3,31,Explicit,1,2023,Medium,0,0,1,0
+ESP,Spain,Europe,2030,Offshore Wind,capacity_total_gw,3,31,Explicit,2,2023,Medium,0,0,1,0
+ESP,Spain,Europe,2030,Other Renewables,capacity_total_gw,4.81,197,Explicit,2,2024,Medium,0,0,1,0
+ESP,Spain,Europe,2030,Solar,capacity_total_gw,95.35,197,Explicit,2,2024,Medium,0,0,1,0
+ESP,Spain,Europe,2030,Wind,capacity_total_gw,62.05,197,Explicit,2,2024,Medium,0,0,1,0
+ESP,Spain,Europe,2030,Bioenergy,share_of_generation_pct,2.69,197,Explicit,2,2024,Medium,0,0,1,0
+ESP,Spain,Europe,2030,Hydro,share_of_generation_pct,7.24,197,Explicit,2,2024,Medium,0,0,1,0
+ESP,Spain,Europe,2030,Other Renewables,share_of_generation_pct,3.56,197,Explicit,2,2024,Medium,0,0,1,0
+ESP,Spain,Europe,2030,Solar,share_of_generation_pct,34.81,197,Explicit,2,2024,Medium,0,0,1,0
+ESP,Spain,Europe,2030,Wind,share_of_generation_pct,32.75,197,Explicit,2,2024,Medium,0,0,1,0
+EST,Estonia,Europe,2030,Bioenergy,capacity_total_gw,0.37,80,Explicit,1,2023,Medium,0,0,1,0
+EST,Estonia,Europe,2030,Hydro,capacity_total_gw,0.01,80,Explicit,1,2023,Medium,0,0,1,0
+EST,Estonia,Europe,2030,Offshore Wind,capacity_total_gw,1,80,Explicit,1,2023,Medium,0,0,1,0
+EST,Estonia,Europe,2030,Onshore Wind,capacity_total_gw,1.31,80,Explicit,1,2023,Medium,0,0,1,0
+EST,Estonia,Europe,2030,Solar,capacity_total_gw,1.2,80,Explicit,1,2023,Medium,0,0,1,0
+EST,Estonia,Europe,2030,Bioenergy,share_of_generation_pct,16.38,80,Explicit,1,2023,Medium,0,0,1,0
+EST,Estonia,Europe,2030,Hydro,share_of_generation_pct,0.27,80,Explicit,1,2023,Medium,0,0,1,0
+EST,Estonia,Europe,2030,Offshore Wind,share_of_generation_pct,39.5,80,Explicit,1,2023,Medium,0,0,1,0
+EST,Estonia,Europe,2030,Onshore Wind,share_of_generation_pct,33.22,80,Explicit,1,2023,Medium,0,0,1,0
+EST,Estonia,Europe,2030,Solar,share_of_generation_pct,10.63,80,Explicit,1,2023,Medium,0,0,1,0
+ETH,Ethiopia,Africa,2030,Hydro,capacity_total_gw,16.86,177,Explicit,1,2024,High,0,0,0,0
+ETH,Ethiopia,Africa,2030,Other Renewables,capacity_total_gw,2.41,177,Explicit,1,2024,High,0,0,0,0
+ETH,Ethiopia,Africa,2030,Solar,capacity_total_gw,2.41,177,Explicit,1,2024,High,0,0,0,0
+ETH,Ethiopia,Africa,2030,Wind,capacity_total_gw,2.41,177,Explicit,1,2024,High,0,0,0,0
+FIN,Finland,Europe,2030,Bioenergy,capacity_total_gw,2.45,101,Explicit,1,2023,Medium,0,0,1,0
+FIN,Finland,Europe,2030,Bioenergy,capacity_total_gw,2.45,101,Explicit,2,2023,Medium,0,0,1,0
+FIN,Finland,Europe,2030,Hydro,capacity_total_gw,3.2,42,Explicit,1,2023,Medium,0,0,1,0
+FIN,Finland,Europe,2030,Hydro,capacity_total_gw,3.2,188,Explicit,2,2024,High,0,0,1,0
+FIN,Finland,Europe,2030,Offshore Wind,capacity_total_gw,1,188,Explicit,2,2024,High,0,0,1,0
+FIN,Finland,Europe,2030,Onshore Wind,capacity_total_gw,9,188,Explicit,2,2024,High,0,0,1,0
+FIN,Finland,Europe,2030,Solar,capacity_total_gw,2.8,42,Explicit,1,2023,Medium,0,0,1,0
+FIN,Finland,Europe,2030,Solar,capacity_total_gw,5.8,188,Explicit,2,2024,High,0,0,1,0
+FIN,Finland,Europe,2030,Wind,capacity_total_gw,7.2,42,Explicit,1,2023,Medium,0,0,1,0
+FIN,Finland,Europe,2030,Wind,capacity_total_gw,7.2,42,Explicit,2,2023,Medium,0,0,1,0
+FIN,Finland,Europe,2030,Hydro,share_of_generation_pct,13.65,188,Explicit,2,2024,High,0,0,1,0
+FIN,Finland,Europe,2030,Other Renewables,share_of_generation_pct,13.29,188,Explicit,2,2024,High,0,0,1,0
+FIN,Finland,Europe,2030,Solar,share_of_generation_pct,5.06,188,Explicit,2,2024,High,0,0,1,0
+FIN,Finland,Europe,2030,Wind,share_of_generation_pct,31.3,188,Explicit,2,2024,High,0,0,1,0
+GEO,Georgia,Asia,2030,Hydro,capacity_total_gw,3.99,159,Explicit,1,2024,High,0,0,0,0
+GEO,Georgia,Asia,2030,Solar,capacity_total_gw,0.55,159,Explicit,1,2024,High,0,0,0,0
+GEO,Georgia,Asia,2030,Wind,capacity_total_gw,0.75,159,Explicit,1,2024,High,0,0,0,0
+GEO,Georgia,Asia,2030,Hydro,share_of_generation_pct,62.91,159,Explicit,1,2024,High,0,0,0,0
+GEO,Georgia,Asia,2030,Solar,share_of_generation_pct,4.97,159,Explicit,1,2024,High,0,0,0,0
+GEO,Georgia,Asia,2030,Wind,share_of_generation_pct,15.69,159,Explicit,1,2024,High,0,0,0,0
+GHA,Ghana,Africa,2030,Bioenergy,capacity_total_gw,0.12,170,Explicit,1,2024,Medium,0,0,0,0
+GHA,Ghana,Africa,2030,Hydro,capacity_total_gw,0.15,170,Explicit,1,2024,Medium,0,0,0,0
+GHA,Ghana,Africa,2030,Other Renewables,capacity_total_gw,0.05,170,Explicit,1,2024,Medium,0,0,0,0
+GHA,Ghana,Africa,2030,Solar,capacity_total_gw,0.75,170,Explicit,1,2024,Medium,0,0,0,0
+GHA,Ghana,Africa,2030,Wind,capacity_total_gw,0.33,170,Explicit,1,2024,Medium,0,0,0,0
+GRC,Greece,Europe,2030,Hydro,capacity_total_gw,4,129,Explicit,1,2023,Low,0,0,1,0
+GRC,Greece,Europe,2030,Offshore Wind,capacity_total_gw,2,129,Explicit,1,2023,Low,0,0,1,0
+GRC,Greece,Europe,2030,Onshore Wind,capacity_total_gw,8,129,Explicit,1,2023,Low,0,0,1,0
+GRC,Greece,Europe,2030,Other Renewables,capacity_total_gw,1,129,Explicit,1,2023,Low,0,0,1,0
+GRC,Greece,Europe,2030,Solar,capacity_total_gw,13,129,Explicit,1,2023,Low,0,0,1,0
+GRC,Greece,Europe,2030,Hydro,share_of_generation_pct,10.77,129,Explicit,1,2023,Low,0,0,1,0
+GRC,Greece,Europe,2030,Offshore Wind,share_of_generation_pct,9.23,129,Explicit,1,2023,Low,0,0,1,0
+GRC,Greece,Europe,2030,Onshore Wind,share_of_generation_pct,29.23,129,Explicit,1,2023,Low,0,0,1,0
+GRC,Greece,Europe,2030,Other Renewables,share_of_generation_pct,3.08,129,Explicit,1,2023,Low,0,0,1,0
+GRC,Greece,Europe,2030,Solar,share_of_generation_pct,29.23,129,Explicit,1,2023,Low,0,0,1,0
+HRV,Croatia,Europe,2030,Bioenergy,capacity_total_gw,0.2,47,Explicit,1,2023,Medium,0,0,0,0
+HRV,Croatia,Europe,2030,Hydro,capacity_total_gw,2.39,47,Explicit,1,2023,Medium,0,0,0,0
+HRV,Croatia,Europe,2030,Other Renewables,capacity_total_gw,0.07,47,Explicit,1,2023,Medium,0,0,0,0
+HRV,Croatia,Europe,2030,Solar,capacity_total_gw,0.96,47,Explicit,1,2023,Medium,0,0,0,0
+HRV,Croatia,Europe,2030,Wind,capacity_total_gw,2.56,47,Explicit,1,2023,Medium,0,0,0,0
+HRV,Croatia,Europe,2030,Bioenergy,share_of_generation_pct,8.51,47,Explicit,1,2023,Medium,0,0,0,0
+HRV,Croatia,Europe,2030,Hydro,share_of_generation_pct,32.05,47,Explicit,1,2023,Medium,0,0,0,0
+HRV,Croatia,Europe,2030,Other Renewables,share_of_generation_pct,3.16,47,Explicit,1,2023,Medium,0,0,0,0
+HRV,Croatia,Europe,2030,Solar,share_of_generation_pct,4.84,47,Explicit,1,2023,Medium,0,0,0,0
+HRV,Croatia,Europe,2030,Wind,share_of_generation_pct,29.47,47,Explicit,1,2023,Medium,0,0,0,0
+HUN,Hungary,Europe,2030,Bioenergy,capacity_total_gw,0.09,79,Explicit,1,2023,Medium,0,0,1,0
+HUN,Hungary,Europe,2030,Hydro,capacity_total_gw,0.06,79,Explicit,1,2023,Medium,0,0,1,0
+HUN,Hungary,Europe,2030,Other Renewables,capacity_total_gw,0.05,79,Explicit,1,2023,Medium,0,0,1,0
+HUN,Hungary,Europe,2030,Solar,capacity_total_gw,12,79,Explicit,1,2023,Medium,0,0,1,0
+HUN,Hungary,Europe,2030,Wind,capacity_total_gw,1.08,79,Explicit,1,2023,Medium,0,0,1,0
+HUN,Hungary,Europe,2030,Bioenergy,share_of_generation_pct,0.17,79,Explicit,1,2023,Medium,0,0,1,0
+HUN,Hungary,Europe,2030,Hydro,share_of_generation_pct,0.45,79,Explicit,1,2023,Medium,0,0,1,0
+HUN,Hungary,Europe,2030,Other Renewables,share_of_generation_pct,0.72,79,Explicit,1,2023,Medium,0,0,1,0
+HUN,Hungary,Europe,2030,Solar,share_of_generation_pct,24.3,79,Explicit,1,2023,Medium,0,0,1,0
+HUN,Hungary,Europe,2030,Wind,share_of_generation_pct,4.47,79,Explicit,1,2023,Medium,0,0,1,0
+HUN,Hungary,Europe,2030,Bioenergy,capacity_total_gw,0.3,205,Explicit,2,2024,High,0,0,1,0
+HUN,Hungary,Europe,2030,Hydro,capacity_total_gw,0.1,205,Explicit,2,2024,High,0,0,1,0
+HUN,Hungary,Europe,2030,Other Renewables,capacity_total_gw,0.1,205,Explicit,2,2024,High,0,0,1,0
+HUN,Hungary,Europe,2030,Solar,capacity_total_gw,12,205,Explicit,2,2024,High,0,0,1,0
+HUN,Hungary,Europe,2030,Wind,capacity_total_gw,1.1,205,Explicit,2,2024,High,0,0,1,0
+HUN,Hungary,Europe,2030,Bioenergy,share_of_generation_pct,4.98,205,Explicit,2,2024,High,0,0,1,0
+HUN,Hungary,Europe,2030,Hydro,share_of_generation_pct,0.56,205,Explicit,2,2024,High,0,0,1,0
+HUN,Hungary,Europe,2030,Other Renewables,share_of_generation_pct,0,205,Explicit,2,2024,High,0,0,1,0
+HUN,Hungary,Europe,2030,Solar,share_of_generation_pct,30.7,205,Explicit,2,2024,High,0,0,1,0
+HUN,Hungary,Europe,2030,Wind,share_of_generation_pct,5.65,205,Explicit,2,2024,High,0,0,1,0
+IRL,Ireland,Europe,2030,Bioenergy,capacity_total_gw,0.93,117,Explicit,1,2023,Medium,0,0,1,0
+IRL,Ireland,Europe,2030,Bioenergy,capacity_total_gw,0.15,133,Explicit,2,2024,Medium,0,0,1,0
+IRL,Ireland,Europe,2030,Bioenergy,capacity_total_gw,0.19,190,Explicit,3,2024,High,0,0,1,0
+IRL,Ireland,Europe,2030,Hydro,capacity_total_gw,0.7,117,Explicit,1,2023,Medium,0,0,1,0
+IRL,Ireland,Europe,2030,Hydro,capacity_total_gw,0.24,133,Explicit,2,2024,Medium,0,0,1,0
+IRL,Ireland,Europe,2030,Hydro,capacity_total_gw,0.23,190,Explicit,3,2024,High,0,0,1,0
+IRL,Ireland,Europe,2030,Offshore Wind,capacity_total_gw,5,113,Explicit,1,2023,Medium,0,0,1,0
+IRL,Ireland,Europe,2030,Offshore Wind,capacity_total_gw,7,133,Explicit,2,2024,Medium,0,0,1,0
+IRL,Ireland,Europe,2030,Offshore Wind,capacity_total_gw,4,190,Explicit,3,2024,High,0,0,1,0
+IRL,Ireland,Europe,2030,Onshore Wind,capacity_total_gw,9,113,Explicit,1,2023,Medium,0,0,1,0
+IRL,Ireland,Europe,2030,Onshore Wind,capacity_total_gw,9,133,Explicit,2,2024,Medium,0,0,1,0
+IRL,Ireland,Europe,2030,Onshore Wind,capacity_total_gw,7.16,190,Explicit,3,2024,High,0,0,1,0
+IRL,Ireland,Europe,2030,Other Renewables,capacity_total_gw,0.08,133,Explicit,2,2024,Medium,0,0,1,0
+IRL,Ireland,Europe,2030,Other Renewables,capacity_total_gw,0.03,190,Explicit,3,2024,High,0,0,1,0
+IRL,Ireland,Europe,2030,Solar,capacity_total_gw,8,113,Explicit,1,2023,Medium,0,0,1,0
+IRL,Ireland,Europe,2030,Solar,capacity_total_gw,8,133,Explicit,2,2024,Medium,0,0,1,0
+IRL,Ireland,Europe,2030,Solar,capacity_total_gw,6.5,190,Explicit,3,2024,High,0,0,1,0
+IRL,Ireland,Europe,2030,Bioenergy,share_of_generation_pct,2.79,190,Explicit,3,2024,High,0,0,1,0
+IRL,Ireland,Europe,2030,Hydro,share_of_generation_pct,1.3,190,Explicit,3,2024,High,0,0,1,0
+IRL,Ireland,Europe,2030,Other Renewables,share_of_generation_pct,0.19,190,Explicit,3,2024,High,0,0,1,0
+IRL,Ireland,Europe,2030,Solar,share_of_generation_pct,15.29,190,Explicit,3,2024,High,0,0,1,0
+IRL,Ireland,Europe,2030,Wind,share_of_generation_pct,61.21,190,Explicit,3,2024,High,0,0,1,0
+ISL,Iceland,Europe,2030,"Hydro, bio and other renewables",capacity_total_gw,2.72,115,Implicit,1,2023,Medium,0,0,1,0
+ISR,Israel,Middle East,2030,Solar,capacity_total_gw,17,99,Explicit,1,2023,Medium,0,0,1,0
+ISR,Israel,Middle East,2030,Wind,capacity_total_gw,0.7,99,Explicit,1,2023,Medium,0,0,1,0
+ISR,Israel,Middle East,2030,Renewables,share_of_generation_pct,30,100,Explicit,1,2023,Medium,0,0,1,0
+JOR,Jordan,Middle East,2030,Renewables,capacity_total_gw,3.2,174,Explicit,1,2024,Low,0,0,0,0
+KAZ,Kazakhstan,Asia,2030,Bioenergy,share_of_generation_pct,1.21,164,Explicit,1,2024,Medium,0,0,0,0
+KAZ,Kazakhstan,Asia,2030,Hydro,share_of_generation_pct,17.58,164,Explicit,1,2024,Medium,0,0,0,0
+KAZ,Kazakhstan,Asia,2030,Solar,share_of_generation_pct,9.55,164,Explicit,1,2024,Medium,0,0,0,0
+KAZ,Kazakhstan,Asia,2030,Wind,share_of_generation_pct,15.91,164,Explicit,1,2024,Medium,0,0,0,0
+KEN,Kenya,Africa,2030,Bioenergy,capacity_total_gw,2,142,Explicit,1,2024,Medium,0,0,0,0
+KEN,Kenya,Africa,2030,Hydro,capacity_total_gw,0.67,142,Explicit,1,2024,Medium,0,0,0,0
+KEN,Kenya,Africa,2030,Onshore Wind,capacity_total_gw,2,142,Explicit,1,2024,Medium,0,0,0,0
+KEN,Kenya,Africa,2030,Other Renewables,capacity_total_gw,1.67,142,Explicit,1,2024,Medium,0,0,0,0
+KEN,Kenya,Africa,2030,Solar,capacity_total_gw,2.67,142,Explicit,1,2024,Medium,0,0,0,0
+KEN,Kenya,Africa,2030,Bioenergy,share_of_generation_pct,11.11,142,Explicit,1,2024,Medium,0,0,0,0
+KEN,Kenya,Africa,2030,Hydro,share_of_generation_pct,24.44,142,Explicit,1,2024,Medium,0,0,0,0
+KEN,Kenya,Africa,2030,Onshore Wind,share_of_generation_pct,20,142,Explicit,1,2024,Medium,0,0,0,0
+KEN,Kenya,Africa,2030,Other Renewables,share_of_generation_pct,33.33,142,Explicit,1,2024,Medium,0,0,0,0
+KEN,Kenya,Africa,2030,Solar,share_of_generation_pct,11.11,142,Explicit,1,2024,Medium,0,0,0,0
+KHM,Cambodia,Asia,2030,Bioenergy,capacity_total_gw,0.1,147,Explicit,1,2024,High,0,0,0,1
+KHM,Cambodia,Asia,2030,Hydro,capacity_total_gw,1.56,147,Explicit,1,2024,High,0,0,0,1
+KHM,Cambodia,Asia,2030,Solar,capacity_total_gw,1,147,Explicit,1,2024,High,0,0,0,1
+LAO,Lao,Asia,2030,Bioenergy,capacity_total_gw,0.11,199,Explicit,1,2024,Low,0,0,0,1
+LAO,Lao,Asia,2030,Hydro,capacity_total_gw,17.48,199,Explicit,1,2024,Low,0,0,0,1
+LAO,Lao,Asia,2030,Solar,capacity_total_gw,1.59,199,Explicit,1,2024,Low,0,0,0,1
+LAO,Lao,Asia,2030,Wind,capacity_total_gw,0.6,199,Explicit,1,2024,Low,0,0,0,1
+LKA,Sri Lanka,Asia,2030,Bioenergy,capacity_total_gw,0.22,175,Explicit,1,2024,High,0,0,0,0
+LKA,Sri Lanka,Asia,2030,Hydro,capacity_total_gw,2.18,175,Explicit,1,2024,High,0,0,0,0
+LKA,Sri Lanka,Asia,2030,Solar,capacity_total_gw,4.66,175,Explicit,1,2024,High,0,0,0,0
+LKA,Sri Lanka,Asia,2030,Wind,capacity_total_gw,1.72,175,Explicit,1,2024,High,0,0,0,0
+LKA,Sri Lanka,Asia,2030,Renewables,share_of_generation_pct,70,175,Explicit,1,2024,High,0,0,0,0
+LTU,Lithuania,Europe,2030,Hydro,capacity_total_gw,0.88,78,Implicit,1,2023,Low,0,0,1,0
+LTU,Lithuania,Europe,2030,Hydro,capacity_total_gw,0.88,200,Explicit,2,2024,High,0,0,1,0
+LTU,Lithuania,Europe,2030,Offshore Wind,capacity_total_gw,1.4,78,Implicit,1,2023,Low,0,0,1,0
+LTU,Lithuania,Europe,2030,Offshore Wind,capacity_total_gw,1.4,78,Implicit,2,2023,Low,0,0,1,0
+LTU,Lithuania,Europe,2030,Onshore Wind,capacity_total_gw,5.03,78,Implicit,1,2023,Low,0,0,1,0
+LTU,Lithuania,Europe,2030,Onshore Wind,capacity_total_gw,5.03,78,Implicit,2,2023,Low,0,0,1,0
+LTU,Lithuania,Europe,2030,Other Renewables,capacity_total_gw,0,200,Explicit,2,2024,High,0,0,1,0
+LTU,Lithuania,Europe,2030,Solar,capacity_total_gw,5.1,78,Implicit,1,2023,Low,0,0,1,0
+LTU,Lithuania,Europe,2030,Solar,capacity_total_gw,5.1,200,Explicit,2,2024,High,0,0,1,0
+LUX,Luxembourg,Europe,2030,Bioenergy,capacity_total_gw,0.12,123,Implicit,1,2023,Medium,0,0,1,0
+LUX,Luxembourg,Europe,2030,Bioenergy,capacity_total_gw,0.1,191,Explicit,2,2024,High,0,0,1,0
+LUX,Luxembourg,Europe,2030,Hydro,capacity_total_gw,0.04,123,Implicit,1,2023,Medium,0,0,1,0
+LUX,Luxembourg,Europe,2030,Hydro,capacity_total_gw,0.04,191,Explicit,2,2024,High,0,0,1,0
+LUX,Luxembourg,Europe,2030,Other Renewables,capacity_total_gw,0.02,191,Explicit,2,2024,High,0,0,1,0
+LUX,Luxembourg,Europe,2030,Solar,capacity_total_gw,0.98,123,Implicit,1,2023,Medium,0,0,1,0
+LUX,Luxembourg,Europe,2030,Solar,capacity_total_gw,1.24,191,Explicit,2,2024,High,0,0,1,0
+LUX,Luxembourg,Europe,2030,Wind,capacity_total_gw,0.4,123,Implicit,1,2023,Medium,0,0,1,0
+LUX,Luxembourg,Europe,2030,Wind,capacity_total_gw,0.45,191,Explicit,2,2024,High,0,0,1,0
+LVA,Latvia,Europe,2030,Bioenergy,capacity_total_gw,0.14,189,Explicit,2,2024,High,0,0,1,0
+LVA,Latvia,Europe,2030,Hydro,capacity_total_gw,2,91,Explicit,1,2023,Low,0,0,1,0
+LVA,Latvia,Europe,2030,Hydro,capacity_total_gw,1.66,189,Explicit,2,2024,High,0,0,1,0
+LVA,Latvia,Europe,2030,Solar,capacity_total_gw,1.6,189,Explicit,2,2024,High,0,0,1,0
+LVA,Latvia,Europe,2030,Wind,capacity_total_gw,1,91,Explicit,1,2023,Low,0,0,1,0
+LVA,Latvia,Europe,2030,Wind,capacity_total_gw,1.31,189,Explicit,2,2024,High,0,0,1,0
+LVA,Latvia,Europe,2030,Bioenergy,share_of_generation_pct,9.25,91,Explicit,1,2023,Low,0,0,1,0
+LVA,Latvia,Europe,2030,Bioenergy,share_of_generation_pct,6.31,189,Explicit,2,2024,High,0,0,1,0
+LVA,Latvia,Europe,2030,Hydro,share_of_generation_pct,38.66,91,Explicit,1,2023,Low,0,0,1,0
+LVA,Latvia,Europe,2030,Hydro,share_of_generation_pct,29.98,189,Explicit,2,2024,High,0,0,1,0
+LVA,Latvia,Europe,2030,Solar,share_of_generation_pct,0.26,91,Explicit,1,2023,Low,0,0,1,0
+LVA,Latvia,Europe,2030,Solar,share_of_generation_pct,18.72,189,Explicit,2,2024,High,0,0,1,0
+LVA,Latvia,Europe,2030,Wind,share_of_generation_pct,27.52,91,Explicit,1,2023,Low,0,0,1,0
+LVA,Latvia,Europe,2030,Wind,share_of_generation_pct,40.49,189,Explicit,2,2024,High,0,0,1,0
+MAR,Morocco,Africa,2030,Hydro,capacity_total_gw,1.58,62,Implicit,1,2023,Low,0,0,0,0
+MAR,Morocco,Africa,2030,Solar,capacity_total_gw,3.55,62,Implicit,1,2023,Low,0,0,0,0
+MAR,Morocco,Africa,2030,Wind,capacity_total_gw,3.74,62,Implicit,1,2023,Low,0,0,0,0
+MDA,Moldova,Europe,2030,Bioenergy,capacity_total_gw,0.08,166,Explicit,1,2024,High,0,0,0,0
+MDA,Moldova,Europe,2030,Hydro,capacity_total_gw,0.02,166,Explicit,1,2024,High,0,0,0,0
+MDA,Moldova,Europe,2030,Other Renewables,capacity_total_gw,0.02,166,Explicit,1,2024,High,0,0,0,0
+MDA,Moldova,Europe,2030,Solar,capacity_total_gw,0.22,166,Explicit,1,2024,High,0,0,0,0
+MDA,Moldova,Europe,2030,Wind,capacity_total_gw,0.6,166,Explicit,1,2024,High,0,0,0,0
+MDA,Moldova,Europe,2030,Renewables,share_of_generation_pct,34.1,166,No target,1,2024,High,0,0,0,0
+MKD,North Macedonia,Europe,2030,Bioenergy,capacity_total_gw,0.03,161,Explicit,1,2024,Medium,0,0,0,0
+MKD,North Macedonia,Europe,2030,Hydro,capacity_total_gw,1.36,161,Explicit,1,2024,Medium,0,0,0,0
+MKD,North Macedonia,Europe,2030,Solar,capacity_total_gw,0.83,161,Explicit,1,2024,Medium,0,0,0,0
+MKD,North Macedonia,Europe,2030,Wind,capacity_total_gw,0.3,161,Explicit,1,2024,Medium,0,0,0,0
+MKD,North Macedonia,Europe,2030,Renewables,share_of_generation_pct,66,161,Explicit,1,2024,Medium,0,0,0,0
+MLT,Malta,Europe,2030,Solar,capacity_total_gw,0.27,108,Explicit,1,2023,Low,0,0,0,0
+MMR,Myanmar,Asia,2030,Hydro,capacity_total_gw,7.45,169,Explicit,1,2024,Low,0,0,0,1
+MMR,Myanmar,Asia,2030,Solar,capacity_total_gw,0.3,169,Explicit,1,2024,Low,0,0,0,1
+MNE,Montenegro,Europe,2030,Bioenergy,capacity_total_gw,0.04,165,Explicit,1,2024,Medium,0,0,0,0
+MNE,Montenegro,Europe,2030,Hydro,capacity_total_gw,1.23,165,Explicit,1,2024,Medium,0,0,0,0
+MNE,Montenegro,Europe,2030,Solar,capacity_total_gw,0.32,165,Explicit,1,2024,Medium,0,0,0,0
+MNE,Montenegro,Europe,2030,Wind,capacity_total_gw,0.19,165,Explicit,1,2024,Medium,0,0,0,0
+MNE,Montenegro,Europe,2030,Bioenergy,share_of_generation_pct,3.7,165,Explicit,1,2024,Medium,0,0,0,0
+MNE,Montenegro,Europe,2030,Hydro,share_of_generation_pct,59.94,165,Explicit,1,2024,Medium,0,0,0,0
+MNE,Montenegro,Europe,2030,Solar,share_of_generation_pct,1.02,165,Explicit,1,2024,Medium,0,0,0,0
+MNE,Montenegro,Europe,2030,Wind,share_of_generation_pct,8.58,165,Explicit,1,2024,Medium,0,0,0,0
+MYS,Malaysia,Asia,2030,Bioenergy,capacity_total_gw,0.49,81,Implicit,1,2023,Medium,0,0,0,1
+MYS,Malaysia,Asia,2030,Bioenergy,capacity_total_gw,0.49,81,Implicit,3,2023,Medium,0,0,0,1
+MYS,Malaysia,Asia,2030,Hydro,capacity_total_gw,7.84,81,Implicit,1,2023,Medium,0,0,0,1
+MYS,Malaysia,Asia,2030,Hydro,capacity_total_gw,7.84,81,Implicit,3,2023,Medium,0,0,0,1
+MYS,Malaysia,Asia,2030,Solar,capacity_total_gw,6.86,81,Implicit,1,2023,Medium,0,0,0,1
+MYS,Malaysia,Asia,2030,Solar,capacity_total_gw,6.86,81,Implicit,3,2023,Medium,0,0,0,1
+MYS,Malaysia,Asia,2030,Bioenergy,share_of_generation_pct,1.1,192,Implicit,2,2024,Medium,0,0,0,1
+MYS,Malaysia,Asia,2030,Hydro,share_of_generation_pct,19.84,46,Implicit,1,2023,Medium,0,0,0,1
+MYS,Malaysia,Asia,2030,Hydro,share_of_generation_pct,17.6,192,Implicit,2,2024,Medium,0,0,0,1
+MYS,Malaysia,Asia,2030,Non-hydro renewables,share_of_generation_pct,9.13,46,Implicit,1,2023,Medium,0,0,0,1
+MYS,Malaysia,Asia,2030,Non-hydro renewables,share_of_generation_pct,9.13,46,Implicit,2,2023,Medium,0,0,0,1
+MYS,Malaysia,Asia,2030,Solar,share_of_generation_pct,5.1,192,Implicit,2,2024,Medium,0,0,0,1
+NGA,Nigeria,Africa,2030,Bioenergy,capacity_total_gw,1.1,153,Explicit,1,2024,Low,0,0,0,0
+NGA,Nigeria,Africa,2030,Hydro,capacity_total_gw,5.9,153,Explicit,1,2024,Low,0,0,0,0
+NGA,Nigeria,Africa,2030,Other Renewables,capacity_total_gw,5.37,153,Explicit,1,2024,Low,0,0,0,0
+NGA,Nigeria,Africa,2030,Solar,capacity_total_gw,6,153,Explicit,1,2024,Low,0,0,0,0
+NGA,Nigeria,Africa,2030,Wind,capacity_total_gw,0.8,153,Explicit,1,2024,Low,0,0,0,0
+NGA,Nigeria,Africa,2030,Renewables,share_of_generation_pct,31,153,Explicit,1,2024,Low,0,0,0,0
+NLD,Netherlands,Europe,2030,Hydro,capacity_total_gw,0.04,76,Explicit,1,2023,Medium,0,0,1,0
+NLD,Netherlands,Europe,2030,Hydro,capacity_total_gw,0.04,76,Explicit,1,2023,Medium,0,0,1,0
+NLD,Netherlands,Europe,2030,Hydro,capacity_total_gw,0.04,180,Explicit,2,2024,High,0,0,1,0
+NLD,Netherlands,Europe,2030,Other Renewables,capacity_total_gw,0.59,76,Explicit,1,2023,Medium,0,0,1,0
+NLD,Netherlands,Europe,2030,Other Renewables,capacity_total_gw,0.59,76,Explicit,1,2023,Medium,0,0,1,0
+NLD,Netherlands,Europe,2030,Other Renewables,capacity_total_gw,0.59,180,Explicit,2,2024,High,0,0,1,0
+NLD,Netherlands,Europe,2030,Solar,capacity_total_gw,25.75,76,Explicit,1,2023,Medium,0,0,1,0
+NLD,Netherlands,Europe,2030,Solar,capacity_total_gw,25.75,180,Explicit,2,2024,High,0,0,1,0
+NLD,Netherlands,Europe,2030,Wind,capacity_total_gw,23.2,76,Explicit,1,2023,Medium,0,0,1,0
+NLD,Netherlands,Europe,2030,Wind,capacity_total_gw,23.2,180,Explicit,2,2024,High,0,0,1,0
+NLD,Netherlands,Europe,2030,Hydro,share_of_generation_pct,0.07,76,Explicit,1,2023,Medium,0,0,1,0
+NLD,Netherlands,Europe,2030,Hydro,share_of_generation_pct,0.07,180,Explicit,2,2024,High,0,0,1,0
+NLD,Netherlands,Europe,2030,Other Renewables,share_of_generation_pct,2.22,76,Explicit,1,2023,Medium,0,0,1,0
+NLD,Netherlands,Europe,2030,Other Renewables,share_of_generation_pct,2.22,180,Explicit,2,2024,High,0,0,1,0
+NLD,Netherlands,Europe,2030,Solar,share_of_generation_pct,15.1,76,Explicit,1,2023,Medium,0,0,1,0
+NLD,Netherlands,Europe,2030,Solar,share_of_generation_pct,15.1,180,Explicit,2,2024,High,0,0,1,0
+NLD,Netherlands,Europe,2030,Wind,share_of_generation_pct,59.07,76,Explicit,1,2023,Medium,0,0,1,0
+NLD,Netherlands,Europe,2030,Wind,share_of_generation_pct,59.07,180,Explicit,2,2024,High,0,0,1,0
+NOR,Norway,Europe,2030,Bioenergy,capacity_total_gw,0.19,116,Implicit,1,2023,Low,0,0,1,0
+NOR,Norway,Europe,2030,Hydro,capacity_total_gw,34.69,116,Implicit,1,2023,Low,0,0,1,0
+NOR,Norway,Europe,2030,Offshore Wind,capacity_total_gw,3.19,116,Implicit,1,2023,Low,0,0,1,0
+NOR,Norway,Europe,2030,Onshore Wind,capacity_total_gw,5.98,116,Implicit,1,2023,Low,0,0,1,0
+NOR,Norway,Europe,2030,Solar,capacity_total_gw,5.39,116,Implicit,1,2023,Low,0,0,1,0
+NOR,Norway,Europe,2030,Bioenergy,share_of_generation_pct,0.56,116,Implicit,1,2023,Low,0,0,1,0
+NOR,Norway,Europe,2030,Hydro,share_of_generation_pct,82.98,116,Implicit,1,2023,Low,0,0,1,0
+NOR,Norway,Europe,2030,Solar,share_of_generation_pct,3.34,116,Implicit,1,2023,Low,0,0,1,0
+NOR,Norway,Europe,2030,Wind,share_of_generation_pct,11.81,116,Implicit,1,2023,Low,0,0,1,0
+NZL,New Zealand,Oceania,2030,Hydro,capacity_total_gw,5.3,154,Explicit,1,2024,High,0,0,0,0
+NZL,New Zealand,Oceania,2030,Other Renewables,capacity_total_gw,1.7,154,Explicit,1,2024,High,0,0,0,0
+NZL,New Zealand,Oceania,2030,Solar,capacity_total_gw,1.1,154,Explicit,1,2024,High,0,0,0,0
+NZL,New Zealand,Oceania,2030,Wind,capacity_total_gw,2.1,154,Explicit,1,2024,High,0,0,0,0
+NZL,New Zealand,Oceania,2030,Renewables,share_of_generation_pct,93,154,Explicit,1,2024,High,0,0,0,0
+PAK,Pakistan,Asia,2030,Bioenergy,capacity_total_gw,0.39,168,Derived,1,2024,Medium,0,0,0,0
+PAK,Pakistan,Asia,2030,Hydro,capacity_total_gw,20.91,168,Derived,1,2024,Medium,0,0,0,0
+PAK,Pakistan,Asia,2030,Solar,capacity_total_gw,12.99,168,Derived,1,2024,Medium,0,0,0,0
+PAK,Pakistan,Asia,2030,Wind,capacity_total_gw,5.62,168,Derived,1,2024,Medium,0,0,0,0
+PAK,Pakistan,Asia,2030,Bioenergy,share_of_generation_pct,0.55,168,Derived,1,2024,Medium,0,0,0,0
+PAK,Pakistan,Asia,2030,Hydro,share_of_generation_pct,37.81,168,Derived,1,2024,Medium,0,0,0,0
+PAK,Pakistan,Asia,2030,Solar,share_of_generation_pct,10.84,168,Derived,1,2024,Medium,0,0,0,0
+PAK,Pakistan,Asia,2030,Wind,share_of_generation_pct,9.01,168,Derived,1,2024,Medium,0,0,0,0
+PHL,The Philippines,Asia,2030,Bioenergy,capacity_total_gw,0.63,44,Explicit,1,2023,Medium,0,0,0,1
+PHL,The Philippines,Asia,2030,Hydro,capacity_total_gw,4.94,44,Explicit,1,2023,Medium,0,0,0,1
+PHL,The Philippines,Asia,2030,Other Renewables,capacity_total_gw,2.33,44,Explicit,1,2023,Medium,0,0,0,1
+PHL,The Philippines,Asia,2030,Solar,capacity_total_gw,20,44,Explicit,1,2023,Medium,0,0,0,1
+PHL,The Philippines,Asia,2030,Wind,capacity_total_gw,1.08,44,Explicit,1,2023,Medium,0,0,0,1
+PHL,The Philippines,Asia,2030,Bioenergy,share_of_generation_pct,0.59,44,Explicit,1,2023,Medium,0,0,0,1
+PHL,The Philippines,Asia,2030,Hydro,share_of_generation_pct,8.17,44,Explicit,1,2023,Medium,0,0,0,1
+PHL,The Philippines,Asia,2030,Other Renewables,share_of_generation_pct,8.04,44,Explicit,1,2023,Medium,0,0,0,1
+PHL,The Philippines,Asia,2030,Solar,share_of_generation_pct,16.5,44,Explicit,1,2023,Medium,0,0,0,1
+PHL,The Philippines,Asia,2030,Wind,share_of_generation_pct,1.7,44,Explicit,1,2023,Medium,0,0,0,1
+POL,Poland,Europe,2030,Bioenergy,capacity_total_gw,2.47,118,Implicit,1,2023,Low,0,0,1,0
+POL,Poland,Europe,2030,Bioenergy,capacity_total_gw,1.74,156,Explicit,2,2024,Medium,0,0,1,0
+POL,Poland,Europe,2030,Hydro,capacity_total_gw,1.13,118,Implicit,1,2023,Low,0,0,1,0
+POL,Poland,Europe,2030,Hydro,capacity_total_gw,1.12,156,Explicit,2,2024,Medium,0,0,1,0
+POL,Poland,Europe,2030,Offshore Wind,capacity_total_gw,5.9,118,Implicit,1,2023,Low,0,0,1,0
+POL,Poland,Europe,2030,Offshore Wind,capacity_total_gw,5.93,156,Explicit,2,2024,Medium,0,0,1,0
+POL,Poland,Europe,2030,Onshore Wind,capacity_total_gw,13.94,118,Implicit,1,2023,Low,0,0,1,0
+POL,Poland,Europe,2030,Onshore Wind,capacity_total_gw,15.84,156,Explicit,2,2024,Medium,0,0,1,0
+POL,Poland,Europe,2030,Solar,capacity_total_gw,27,118,Implicit,1,2023,Low,0,0,1,0
+POL,Poland,Europe,2030,Solar,capacity_total_gw,36.59,156,Explicit,2,2024,Medium,0,0,1,0
+POL,Poland,Europe,2030,Bioenergy,share_of_generation_pct,5.12,118,Implicit,1,2023,Low,0,0,1,0
+POL,Poland,Europe,2030,Bioenergy,share_of_generation_pct,5.97,156,Explicit,2,2024,Medium,0,0,1,0
+POL,Poland,Europe,2030,Hydro,share_of_generation_pct,1.01,118,Implicit,1,2023,Low,0,0,1,0
+POL,Poland,Europe,2030,Hydro,share_of_generation_pct,1.51,156,Explicit,2,2024,Medium,0,0,1,0
+POL,Poland,Europe,2030,Offshore Wind,share_of_generation_pct,10.92,118,Implicit,1,2023,Low,0,0,1,0
+POL,Poland,Europe,2030,Offshore Wind,share_of_generation_pct,11.27,156,Explicit,2,2024,Medium,0,0,1,0
+POL,Poland,Europe,2030,Onshore Wind,share_of_generation_pct,17.4,118,Implicit,1,2023,Low,0,0,1,0
+POL,Poland,Europe,2030,Onshore Wind,share_of_generation_pct,19.78,156,Explicit,2,2024,Medium,0,0,1,0
+POL,Poland,Europe,2030,Solar,share_of_generation_pct,12.72,118,Implicit,1,2023,Low,0,0,1,0
+POL,Poland,Europe,2030,Solar,share_of_generation_pct,12.88,156,Explicit,2,2024,Medium,0,0,1,0
+PRT,Portugal,Europe,2030,Bioenergy,capacity_total_gw,1.4,43,Explicit,1,2023,Medium,0,0,1,0
+PRT,Portugal,Europe,2030,Hydro,capacity_total_gw,4.2,43,Explicit,1,2023,Medium,0,0,1,0
+PRT,Portugal,Europe,2030,Offshore Wind,capacity_total_gw,2,43,Explicit,1,2023,Medium,0,0,1,0
+PRT,Portugal,Europe,2030,Onshore Wind,capacity_total_gw,10.4,43,Explicit,1,2023,Medium,0,0,1,0
+PRT,Portugal,Europe,2030,Other Renewables,capacity_total_gw,0.9,43,Explicit,1,2023,Medium,0,0,1,0
+PRT,Portugal,Europe,2030,Solar,capacity_total_gw,20.4,43,Explicit,1,2023,Medium,0,0,1,0
+PRT,Portugal,Europe,2030,Bioenergy,share_of_generation_pct,6.58,43,Explicit,1,2023,Medium,0,0,1,0
+PRT,Portugal,Europe,2030,Hydro,share_of_generation_pct,10.28,43,Explicit,1,2023,Medium,0,0,1,0
+PRT,Portugal,Europe,2030,Solar,share_of_generation_pct,38.68,43,Explicit,1,2023,Medium,0,0,1,0
+PRT,Portugal,Europe,2030,Wind,share_of_generation_pct,36.14,43,Explicit,1,2023,Medium,0,0,1,0
+ROU,Romania,Europe,2030,Bioenergy,capacity_total_gw,0.4,132,Explicit,1,2023,Low,0,0,0,0
+ROU,Romania,Europe,2030,Bioenergy,capacity_total_gw,0.3,204,Explicit,2,2024,High,0,0,0,0
+ROU,Romania,Europe,2030,Hydro,capacity_total_gw,6.9,132,Explicit,1,2023,Low,0,0,0,0
+ROU,Romania,Europe,2030,Hydro,capacity_total_gw,6.9,204,Explicit,2,2024,High,0,0,0,0
+ROU,Romania,Europe,2030,Solar,capacity_total_gw,8.3,132,Explicit,1,2023,Low,0,0,0,0
+ROU,Romania,Europe,2030,Solar,capacity_total_gw,8.2,204,Explicit,2,2024,High,0,0,0,0
+ROU,Romania,Europe,2030,Wind,capacity_total_gw,7.6,132,Explicit,1,2023,Low,0,0,0,0
+ROU,Romania,Europe,2030,Wind,capacity_total_gw,7.3,204,Explicit,2,2024,High,0,0,0,0
+ROU,Romania,Europe,2030,Bioenergy,share_of_generation_pct,2.33,132,Explicit,1,2023,Low,0,0,0,0
+ROU,Romania,Europe,2030,Bioenergy,share_of_generation_pct,2.12,204,Explicit,2,2024,High,0,0,0,0
+ROU,Romania,Europe,2030,Hydro,share_of_generation_pct,20.02,132,Explicit,1,2023,Low,0,0,0,0
+ROU,Romania,Europe,2030,Hydro,share_of_generation_pct,20.32,204,Explicit,2,2024,High,0,0,0,0
+ROU,Romania,Europe,2030,Solar,share_of_generation_pct,13.39,132,Explicit,1,2023,Low,0,0,0,0
+ROU,Romania,Europe,2030,Solar,share_of_generation_pct,13.47,204,Explicit,2,2024,High,0,0,0,0
+ROU,Romania,Europe,2030,Wind,share_of_generation_pct,21.38,132,Explicit,1,2023,Low,0,0,0,0
+ROU,Romania,Europe,2030,Wind,share_of_generation_pct,20.7,204,Explicit,2,2024,High,0,0,0,0
+RWA,Rwanda,Africa,2030,Bioenergy,capacity_total_gw,0.1,184,Explicit,1,2024,High,0,0,0,0
+RWA,Rwanda,Africa,2030,Hydro,capacity_total_gw,0.27,184,Explicit,1,2024,High,0,0,0,0
+RWA,Rwanda,Africa,2030,Solar,capacity_total_gw,0.01,184,Explicit,1,2024,High,0,0,0,0
+RWA,Rwanda,Africa,2030,Renewables,share_of_generation_pct,60,184,Explicit,1,2024,High,0,0,0,0
+SGP,Singapore,Asia,2030,Solar,capacity_total_gw,2,160,Explicit,1,2024,Medium,0,0,0,1
+SRB,Serbia,Europe,2030,Bioenergy,capacity_total_gw,0.19,139,Explicit,1,2024,Medium,0,0,0,0
+SRB,Serbia,Europe,2030,Hydro,capacity_total_gw,3.16,139,Explicit,1,2024,Medium,0,0,0,0
+SRB,Serbia,Europe,2030,Solar,capacity_total_gw,0.37,139,Explicit,1,2024,Medium,0,0,0,0
+SRB,Serbia,Europe,2030,Wind,capacity_total_gw,0.74,139,Explicit,1,2024,Medium,0,0,0,0
+SRB,Serbia,Europe,2030,Renewables,share_of_generation_pct,29,139,Explicit,1,2024,Medium,0,0,0,0
+SVK,Slovakia,Europe,2030,Bioenergy,capacity_total_gw,0.4,73,Explicit,1,2023,Medium,0,0,1,0
+SVK,Slovakia,Europe,2030,Hydro,capacity_total_gw,1.75,73,Explicit,1,2023,Medium,0,0,1,0
+SVK,Slovakia,Europe,2030,Other Renewables,capacity_total_gw,0,73,Explicit,1,2023,Medium,0,0,1,0
+SVK,Slovakia,Europe,2030,Solar,capacity_total_gw,1.4,73,Explicit,1,2023,Medium,0,0,1,0
+SVK,Slovakia,Europe,2030,Wind,capacity_total_gw,0.75,73,Explicit,1,2023,Medium,0,0,1,0
+SVN,Slovenia,Europe,2030,Bioenergy,capacity_total_gw,0.03,74,Explicit,1,2023,Medium,0,0,1,0
+SVN,Slovenia,Europe,2030,Hydro,capacity_total_gw,1.77,74,Explicit,1,2023,Medium,0,0,1,0
+SVN,Slovenia,Europe,2030,Solar,capacity_total_gw,3.45,74,Explicit,1,2023,Medium,0,0,1,0
+SVN,Slovenia,Europe,2030,Wind,capacity_total_gw,0.15,74,Explicit,1,2023,Medium,0,0,1,0
+SVN,Slovenia,Europe,2030,Bioenergy,share_of_generation_pct,0.87,74,Explicit,1,2023,Medium,0,0,1,0
+SVN,Slovenia,Europe,2030,Hydro,share_of_generation_pct,24.28,74,Explicit,1,2023,Medium,0,0,1,0
+SVN,Slovenia,Europe,2030,Solar,share_of_generation_pct,19.38,74,Explicit,1,2023,Medium,0,0,1,0
+SVN,Slovenia,Europe,2030,Wind,share_of_generation_pct,1.84,74,Explicit,1,2023,Medium,0,0,1,0
+SWE,Sweden,Europe,2030,Hydro,capacity_total_gw,17,75,Explicit,1,2023,Medium,0,0,1,0
+SWE,Sweden,Europe,2030,Hydro,capacity_total_gw,17.13,186,Explicit,2,2024,High,0,0,1,0
+SWE,Sweden,Europe,2030,Solar,capacity_total_gw,6.45,75,Explicit,1,2023,Medium,0,0,1,0
+SWE,Sweden,Europe,2030,Solar,capacity_total_gw,9.2,186,Explicit,2,2024,High,0,0,1,0
+SWE,Sweden,Europe,2030,Wind,capacity_total_gw,24.91,75,Explicit,1,2023,Medium,0,0,1,0
+SWE,Sweden,Europe,2030,Wind,capacity_total_gw,23.44,186,Explicit,2,2024,High,0,0,1,0
+THA,Thailand,Asia,2030,Bioenergy,capacity_total_gw,4.67,35,Implicit,1,2023,Low,0,0,0,1
+THA,Thailand,Asia,2030,Hydro,capacity_total_gw,3.16,35,Implicit,1,2023,Low,0,0,0,1
+THA,Thailand,Asia,2030,Solar,capacity_total_gw,10.08,35,Implicit,1,2023,Low,0,0,0,1
+THA,Thailand,Asia,2030,Wind,capacity_total_gw,4.01,35,Implicit,1,2023,Low,0,0,0,1
+TZA,"Tanzania, the United Republic of",Africa,2030,Hydro,capacity_total_gw,3.62,179,Explicit,1,2024,Medium,0,0,0,0
+TZA,"Tanzania, the United Republic of",Africa,2030,Other Renewables,capacity_total_gw,0.4,179,Explicit,1,2024,Medium,0,0,0,0
+TZA,"Tanzania, the United Republic of",Africa,2030,Solar,capacity_total_gw,0.36,179,Explicit,1,2024,Medium,0,0,0,0
+TZA,"Tanzania, the United Republic of",Africa,2030,Wind,capacity_total_gw,0.1,179,Explicit,1,2024,Medium,0,0,0,0
+TZA,"Tanzania, the United Republic of",Africa,2030,Hydro,share_of_generation_pct,48.78,179,Explicit,1,2024,Medium,0,0,0,0
+TZA,"Tanzania, the United Republic of",Africa,2030,Other Renewables,share_of_generation_pct,9.07,179,Explicit,1,2024,Medium,0,0,0,0
+TZA,"Tanzania, the United Republic of",Africa,2030,Solar,share_of_generation_pct,2.05,179,Explicit,1,2024,Medium,0,0,0,0
+TZA,"Tanzania, the United Republic of",Africa,2030,Wind,share_of_generation_pct,1.88,179,Explicit,1,2024,Medium,0,0,0,0
+UKR,Ukraine,Europe,2030,Bioenergy,capacity_total_gw,1.45,178,Explicit,1,2024,High,0,0,0,0
+UKR,Ukraine,Europe,2030,Hydro,capacity_total_gw,4.93,178,Explicit,1,2024,High,0,0,0,0
+UKR,Ukraine,Europe,2030,Offshore Wind,capacity_total_gw,0.3,178,Explicit,1,2024,High,0,0,0,0
+UKR,Ukraine,Europe,2030,Onshore Wind,capacity_total_gw,5.12,178,Explicit,1,2024,High,0,0,0,0
+UKR,Ukraine,Europe,2030,Other Renewables,capacity_total_gw,0.02,178,Explicit,1,2024,High,0,0,0,0
+UKR,Ukraine,Europe,2030,Solar,capacity_total_gw,11.79,178,Explicit,1,2024,High,0,0,0,0
+UKR,Ukraine,Europe,2030,Renewables,share_of_generation_pct,25,178,Explicit,1,2024,High,0,0,0,0
+UZB,Uzbekistan,Asia,2030,Hydro,capacity_total_gw,3.8,167,Explicit,1,2024,Medium,0,0,0,0
+UZB,Uzbekistan,Asia,2030,Solar,capacity_total_gw,5,167,Explicit,1,2024,Medium,0,0,0,0
+UZB,Uzbekistan,Asia,2030,Wind,capacity_total_gw,3,167,Explicit,1,2024,Medium,0,0,0,0
+UZB,Uzbekistan,Asia,2030,Hydro,share_of_generation_pct,10.84,167,Explicit,1,2024,Medium,0,0,0,0
+UZB,Uzbekistan,Asia,2030,Solar,share_of_generation_pct,8.68,167,Explicit,1,2024,Medium,0,0,0,0
+UZB,Uzbekistan,Asia,2030,Wind,share_of_generation_pct,7.11,167,Explicit,1,2024,Medium,0,0,0,0
+VNM,Viet Nam,Asia,2030,Bioenergy,capacity_total_gw,2.27,24,Explicit,1,2023,High,0,0,0,1
+VNM,Viet Nam,Asia,2030,Hydro,capacity_total_gw,29.35,24,Explicit,1,2023,High,0,0,0,1
+VNM,Viet Nam,Asia,2030,Offshore Wind,capacity_total_gw,6,24,Explicit,1,2023,High,0,0,0,1
+VNM,Viet Nam,Asia,2030,Onshore Wind,capacity_total_gw,21.88,24,Explicit,1,2023,High,0,0,0,1
+VNM,Viet Nam,Asia,2030,Solar,capacity_total_gw,22.58,24,Explicit,1,2023,High,0,0,0,1
+VNM,Viet Nam,Asia,2030,Renewables,share_of_generation_pct,47,24,Explicit,1,2023,High,0,0,0,1
+XKX,Kosovo,Europe,2030,Bioenergy,capacity_total_gw,0.03,163,Explicit,1,2024,High,0,0,0,0
+XKX,Kosovo,Europe,2030,Hydro,capacity_total_gw,0.1,163,Explicit,1,2024,High,0,0,0,0
+XKX,Kosovo,Europe,2030,Solar,capacity_total_gw,0.64,163,Explicit,1,2024,High,0,0,0,0
+XKX,Kosovo,Europe,2030,Wind,capacity_total_gw,0.69,163,Explicit,1,2024,High,0,0,0,0
+XKX,Kosovo,Europe,2030,Hydro,share_of_generation_pct,5,163,Explicit,1,2024,High,0,0,0,0
+XKX,Kosovo,Europe,2030,Solar,share_of_generation_pct,13,163,Explicit,1,2024,High,0,0,0,0
+XKX,Kosovo,Europe,2030,Wind,share_of_generation_pct,25,163,Explicit,1,2024,High,0,0,0,0
