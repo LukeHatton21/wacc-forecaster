@@ -75,7 +75,7 @@ class WaccPredictor:
         generation_data = self.pull_generation_data_v2(year_str, ember_name)
         previous_year = self.pull_generation_data_v2(str(year_int-1), ember_name)
         generation_data = fill_missing_RE_values(generation_data, previous_year, year_int)
-
+        generation_data = pd.merge(self.crp_data['Country code'],generation_data[['Country code', 'Penetration_'+year_str]], on="Country code", how="left")
 
         # Extract Tax Rates
         tax_rate = pd.merge(self.crp_data['Country code'], self.tax_data[['Country code', 'Tax_Rate']], on="Country code", how="left")
