@@ -212,18 +212,21 @@ with tab2:
     sorted_waccs = sort_waccs(yearly_waccs)
     plot_ranking_table(sorted_waccs, selected_countries)
 with tab3:
-    st.header("Country Projections")
-    st.write("WORK IN PROGRESS")
-    projection_year = st.slider("Year of projection", min_value=2024, max_value=2050, value=2030, step=1)
-    st.line_chart(pd.DataFrame({"X": [20, 30, 40], "Y":[40, 50, 60]}))
+    st.header("Historical and Projected Estimates")
+    country_selection = st.selectbox(
+        "Country", options=yearly_waccs['Country code'].values, 
+         index=None, placeholder="Select Country of Interest...", key="CountryProjections")
+    options = ["Interest Rate Change", "Renewable Growth", "GDP Growth"]
+    projection_assumptions = st.pills("Projection Assumptions", options, selection_mode="multi")
+    historical_country_data = wacc_predictor.year_range_wacc(start_year=2015, end_year=2023, 
+                                                             technology="Solar PV", country=country_selection)
+    historical_country_data = historical_country_data.drop(columns = ["Debt_Share", "Equity_Cost", "Debt_Cost", "Tax_Rate", "Country code", "WACC"])
+    plot_comparison_chart(historical_country_data)
 with tab4:
     st.header("Country Calculator")
     country_code = st.selectbox(
         "Country", sorted_waccs['Country code'].sort_values(ascending=True).values, 
          index=0, placeholder="Select Country...", key="Country")
-    projection_year = st.selectbox(
-        "Year", np.arange(2024, 2050, 1), 
-         index=6, placeholder="Select Year...", key="Projection Year")
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         st.subheader("Macro Environment")
@@ -247,9 +250,10 @@ with tab4:
         st.write("")
         debt_share = st.number_input("Debt Share (%)", value=60, min_value=0, max_value=100, step=10)
         tax_rate = st.number_input("Tax Rate (%)", value=25, min_value=0, max_value=50, step=1)
-    st.subheader("Comparison of Projected WACC with Historical Estimates")
+    st.subheader("Comparison of Calculated WACC with Historical Estimates")
 
     # Evaluate projected data
+    projection_year = 2030
     projected_data = wacc_predictor.calculate_country_wacc(rf_rate, crp, tax_rate, technology, market_maturity, country_code, debt_share, erp, lm, tech_penetration, projection_year)
     projected_data["Year"] = projection_year
 

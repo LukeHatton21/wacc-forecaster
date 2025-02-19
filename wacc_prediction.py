@@ -263,7 +263,7 @@ class WaccPredictor:
         # Build Dataframe for results
         results_df = pd.DataFrame(data={"Country code": country_codes, "Risk_Free":risk_free_contributions.round(decimals=2), "Country_Risk": crp_contributions.round(decimals=2), "Equity Risk": erp_contributions.round(decimals=2), "Lenders Margin": lm_contributions, 
                                         "Technology_Risk": tech_premium_contributions.round(decimals=2), "Equity_Cost": equity_cost.round(decimals=2), "Debt_Cost": debt_cost.round(decimals=2), "WACC": estimated_wacc.round(decimals=2), "Debt_Share": debt_share, "Tax_Rate": tax_rate})
-        results_df = results_df.tail(-1)
+        results_df = results_df.loc[results_df["Country code"] != "ERP"]
 
         return results_df
 
@@ -273,7 +273,94 @@ class WaccPredictor:
         # Calculate 2023 WACC for the given technology
         self.calculate_historical_waccs(2023, technology)
 
-        # Extract 
+        # Extract
+        # 
+        # 
+        # 
+
+    def year_range_wacc(self, start_year, end_year, technology, country):
+
+        # Specify range
+        year_range = np.arange(start_year, end_year+1, 1)
+
+        # Loop across year_range
+        for year in year_range:
+
+            # Calculate yearly WACC
+            yearly_wacc = self.calculate_yearly_wacc(year, technology, country)
+            yearly_wacc["Year"] = int(year)
+
+            # Concat
+            if year == start_year:
+                storage_df = yearly_wacc
+            else:
+                storage_df = pd.concat([storage_df, yearly_wacc])
+
+
+        return storage_df
+
+
+    def calculate_yearly_wacc(self, year, technology, country_code):
+
+        def fill_missing_RE_values(data, previous_year, year):
+
+            # Set Country Code as index
+            data.set_index('Country code', inplace=True)
+            previous_year.set_index('Country code', inplace=True)
+
+            # Fill missing values for 2023 with 2022 data
+            data = pd.merge(data, previous_year, on="Country code", how="outer")
+            data['Penetration_' + str(year)] = data['Penetration_' + str(year)].fillna(data['Penetration_'+str(year-1)])
+
+            # Reset index if needed
+            data.reset_index(inplace=True)
+
+            return data
+        
+        # Convert year into a string
+        year_str = str(year)
+        year_int = int(year)
+
+        # Extract long term U.S. interest rates (proxy for risk free rate)
+        rf_rate = self.ir_data[self.ir_data['Country code'] == "USA"][year_str].values[0].astype(float)
+
+        # Extract CRPs
+        crps = self.pull_CRP_data(year_str)
+        erps = crps.copy()
+        erp = erps.loc[erps['Country code']=="ERP"]["CRP_"+year_str][0].astype(float)
+        crp_data = crps.loc[crps['Country code']==country_code]["CRP_"+year_str].astype(float)
+
+
+        # Extract Generation Data
+        if technology == "Solar PV":
+            ember_name = "Solar"
+        elif technology == "Onshore Wind":
+            ember_name = "Wind"
+        elif technology == "Offshore Wind":
+            ember_name = "Wind"
+        generation_data = self.pull_generation_data_v2(year_str, ember_name)
+        previous_year = self.pull_generation_data_v2(str(year_int-1), ember_name)
+        generation_data = fill_missing_RE_values(generation_data, previous_year, year_int)
+        generation_data = pd.merge(self.crp_data['Country code'],generation_data[['Country code', 'Penetration_'+year_str]], on="Country code", how="left")
+
+        # Select generation data for a given country
+        generation_data = generation_data.loc[generation_data["Country code"] == country_code]
+
+
+        # Extract Tax Rates
+        tax_rate = pd.merge(self.crp_data['Country code'], self.tax_data[['Country code', 'Tax_Rate']], on="Country code", how="left")
+        tax_rate['Tax_Rate'] = tax_rate['Tax_Rate'].fillna(value=0)
+        tax_rate = tax_rate.loc[tax_rate["Country code"] == country_code]
+        tax_data = tax_rate['Tax_Rate'].values.astype(float)
+                           
+                           
+
+        # Calculate WACC and contributions
+        results = self.calculate_irena_wacc(rf_rate=rf_rate, crp=crp_data, tax_rate=tax_data, technology=technology, erp=erp, lm=self.lenders_margin,
+                                            tech_penetration=generation_data['Penetration_'+year_str], country_codes=country_code)
+        
+
+        return results
 
         
 
