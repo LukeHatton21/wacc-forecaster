@@ -2,6 +2,8 @@ import xarray as xr
 import pandas as pd
 import numpy as np
 import streamlit as st
+from wacc_calculator_v1 import WaccCalculator
+
 
 class WaccPredictor:
     def __init__(self, crp_data, generation_data, GDP, tax_data, ember_targets, us_ir):
@@ -31,9 +33,12 @@ class WaccPredictor:
         # Read in projections of data
         self.renewable_projections = pd.read_csv(ember_targets)
         self.ir_data = pd.read_csv(us_ir)
-       
-        # Set up initial assumptions
-        self.lenders_margin = 2
+
+        # Call WaccCalculator Object
+        self.calculator = WaccCalculator(tech_premiums="./DATA/TechPremiums.csv", penetration_boundaries="./DATA/TechBoundaries.csv", maturity_premiums="./DATA/MaturityPremiums.csv")
+
+        # Get technologies
+        self.technologies = self.calculator.tech_premiums["TECH"].values
         
 
     def calculate_historical_waccs(self, year, technology):
@@ -63,7 +68,7 @@ class WaccPredictor:
         # Extract CRPs
         crps = self.pull_CRP_data(year_str)
         erp = crps[crps['Country code']=="ERP"]["CRP_"+year_str][0]
-        crp_data = crps["CRP_"+year_str]
+        crp_data = crps
 
         # Extract Generation Data
         if technology == "Solar PV":
@@ -76,16 +81,19 @@ class WaccPredictor:
         previous_year = self.pull_generation_data_v2(str(year_int-1), ember_name)
         generation_data = fill_missing_RE_values(generation_data, previous_year, year_int)
         generation_data = pd.merge(self.crp_data['Country code'],generation_data[['Country code', 'Penetration_'+year_str]], on="Country code", how="left")
+        generation_data.fillna(0, inplace=True)
+        generation_data.rename(columns={"Penetration_"+year_str:"Penetration"}, inplace=True)
 
         # Extract Tax Rates
         tax_rate = pd.merge(self.crp_data['Country code'], self.tax_data[['Country code', 'Tax_Rate']], on="Country code", how="left")
         tax_rate['Tax_Rate'] = tax_rate['Tax_Rate'].fillna(value=0)
-        tax_data = tax_rate['Tax_Rate'].values.astype(float)
+        tax_data = tax_rate
                            
 
         # Calculate WACC and contributions
-        results = self.calculate_irena_wacc(rf_rate=rf_rate, crp=crp_data, tax_rate=tax_data, technology=technology, erp=erp, lm=self.lenders_margin,
-                                            tech_penetration=generation_data['Penetration_'+year_str], country_codes=self.crp_data['Country code'])
+        results = self.calculator.calculate_country_wacc(rf_rate=rf_rate, crp=crp_data, tax_rate=tax_data, technology=technology, year=year_str, erp=erp,
+                                            tech_penetration=generation_data)
+        
 
         return results
 
@@ -132,150 +140,15 @@ class WaccPredictor:
         
         return data_for_output
 
-
-    def calculate_country_wacc(self, rf_rate, crp, tax_rate, technology, market_maturity, country_code, debt_share=None, erp=None, lm=None, tech_penetration=None, year=None):
-        
-
-        # Calculate maturity of market
-        if tech_penetration is not None:
-            if technology == "Onshore Wind" or "Solar PV":
-                if tech_penetration > 10:
-                    maturity = "Mature"
-                elif tech_penetration > 5:
-                    maturity = "Intermediate"
-                else: 
-                    maturity = "Immature"
-            else:
-                if tech_penetration > 6:
-                    maturity = "Mature"
-                elif tech_penetration > 3:
-                    maturity = "Intermediate"
-                else: 
-                    maturity = "Immature"
-        else:
-            maturity = market_maturity
-            
-
-
-        # Calculate technology premium
-        if maturity == "Mature":
-            technology_premium = 1.5
-        elif maturity == "Intermediate":
-            technology_premium = 2.375
-        else:
-            technology_premium = 3.25
-        
-        # Calculate debt share, if applicable
-        if debt_share is None:
-            if maturity == "Mature":
-                debt_share = 80
-            elif maturity == "Intermediate":
-                debt_share = 70
-            elif maturity == "Immature":
-                debt_share = 60
-
-        # Calculate the cost of equity
-        debt_cost = rf_rate + crp + lm + technology_premium
-
-        # Calculate the cost of debt
-        equity_cost = rf_rate + crp + erp + technology_premium
-
-        # Calculate the weighted average cost of capital
-        estimated_wacc = debt_cost * (debt_share/100) * (1 - (tax_rate/100)) + equity_cost * (1 - (debt_share/100))
-
-        # Extract contributions to the overall WACC
-        risk_free_contributions = rf_rate*((debt_share / 100 * (1 - tax_rate/100)) + (1 - debt_share / 100))
-        crp_contributions = crp*((debt_share / 100 * (1 - tax_rate/100)) + (1 - debt_share / 100))
-        erp_contributions = erp * ( 1 - (debt_share / 100))
-        lm_contributions = lm * (debt_share / 100) * (1-tax_rate/100)
-        tech_premium_contributions = technology_premium*((debt_share / 100 * (1 - tax_rate/100)) + (1 - debt_share / 100))
-        
-
-        # Include in a pandas dataframe
-        results_df = pd.DataFrame(data={"Country code": country_code, "Risk_Free":risk_free_contributions, "Country_Risk": crp_contributions, "Equity Risk": erp_contributions, "Lenders Margin": lm_contributions, 
-                                        "Technology_Risk": tech_premium_contributions, "Equity_Cost": equity_cost, "Debt_Cost": debt_cost, "WACC": estimated_wacc, "Debt_Share": debt_share, "Tax_Rate": tax_rate}, index=[str(year)])
-        
-        return results_df
     
-
-    def calculate_irena_wacc(self, rf_rate, crp, tax_rate, technology, erp, lm, tech_penetration, country_codes):
-
-
-        # Calculate technology premium
-        def calculate_technology_premium(maturity):
-            premium = np.empty_like(maturity, dtype=float)
-            premium[maturity == "Mature"] = 1.5
-            premium[maturity == "Intermediate"] = 2.375
-            premium[maturity == "Immature"] = 3.25
-            return premium
-
-        # Calculate debt share
-        def calculate_debt_share(maturity):
-            debt_share = np.empty_like(maturity, dtype=float)
-            debt_share[maturity == "Mature"] = 80
-            debt_share[maturity == "Intermediate"] = 70
-            debt_share[maturity == "Immature"] = 60
-            return debt_share
-     
-        # Fill locations where tech penetration is empty with 
-        tech_penetration = np.where(np.isnan(tech_penetration), 0, tech_penetration)
-        tech_penetration = np.where(tech_penetration == None, 0, tech_penetration)
-
-
-        # Calculate maturity of market
-        maturity = np.empty_like(tech_penetration, dtype=object)
-        if technology in ["Onshore Wind", "Solar PV"]:
-            maturity[tech_penetration > 10] = "Mature"
-            maturity[(tech_penetration > 5) & (tech_penetration <= 10)] = "Intermediate"
-            maturity[tech_penetration <= 5] = "Immature"
-        else:
-            maturity[tech_penetration > 6] = "Mature"
-            maturity[(tech_penetration > 3) & (tech_penetration <= 6)] = "Intermediate"
-            maturity[tech_penetration <= 3] = "Immature"
-
-        # Calculate technology premium
-        technology_premium = calculate_technology_premium(maturity)
-
-        # Calculate debt share
-        debt_share = calculate_debt_share(maturity)
-
-        # Calculate the cost of equity
-        debt_cost = rf_rate + crp + lm + technology_premium
-
-        # Calculate the cost of debt
-        equity_cost = rf_rate + crp + erp + technology_premium
-
-        # Calculate the weighted average cost of capital
-        estimated_wacc = debt_cost * (debt_share/100) * (1 - (tax_rate/100)) + equity_cost * (1 - (debt_share/100))
-        
-        # For offshore wind, add a 1% premium
-        if technology == "Offshore Wind":
-            estimated_wacc = estimated_wacc + 1
-
-        # Extract contributions to the overall WACC
-        risk_free_contributions = rf_rate*((debt_share / 100 * (1 - tax_rate/100)) + (1 - debt_share / 100))
-        crp_contributions = crp*((debt_share / 100 * (1 - tax_rate/100)) + (1 - debt_share / 100))
-        erp_contributions = erp * ( 1 - (debt_share / 100))
-        lm_contributions = lm * (debt_share / 100) * (1-tax_rate/100)
-        tech_premium_contributions = technology_premium*((debt_share / 100 * (1 - tax_rate/100)) + (1 - debt_share / 100))
-
-        # Build Dataframe for results
-        results_df = pd.DataFrame(data={"Country code": country_codes, "Risk_Free":risk_free_contributions.round(decimals=2), "Country_Risk": crp_contributions.round(decimals=2), "Equity Risk": erp_contributions.round(decimals=2), "Lenders Margin": lm_contributions, 
-                                        "Technology_Risk": tech_premium_contributions.round(decimals=2), "Equity_Cost": equity_cost.round(decimals=2), "Debt_Cost": debt_cost.round(decimals=2), "WACC": estimated_wacc.round(decimals=2), "Debt_Share": debt_share, "Tax_Rate": tax_rate})
-        results_df = results_df.loc[results_df["Country code"] != "ERP"]
-
-        return results_df
-
-    
-    def calculate_future_wacc(self, technology):
+    def calculate_future_wacc(self, technology, interest_rates=None, GDP_change=None, renewable_targets=None):
 
         # Calculate 2023 WACC for the given technology
         self.calculate_historical_waccs(2023, technology)
 
-        # Extract
-        # 
-        # 
-        # 
+        # CALCULATE GDP CHANGE ETC
+
+        # CALL CALCULATOR
 
     def year_range_wacc(self, start_year, end_year, technology, country):
 
@@ -373,6 +246,8 @@ class WaccPredictor:
         previous_year = self.pull_generation_data_v2(str(year_int-1), ember_name)
         generation_data = fill_missing_RE_values(generation_data, previous_year, year_int)
         generation_data = pd.merge(self.crp_data['Country code'],generation_data[['Country code', 'Penetration_'+year_str]], on="Country code", how="left")
+        generation_data.fillna(0, inplace=True)
+        generation_data.rename(columns={"Penetration_"+year_str:"Penetration"}, inplace=True)
 
         # Select generation data for a given country
         generation_data = generation_data.loc[generation_data["Country code"] == country_code]
@@ -387,8 +262,8 @@ class WaccPredictor:
                            
 
         # Calculate WACC and contributions
-        results = self.calculate_irena_wacc(rf_rate=rf_rate, crp=crp_data, tax_rate=tax_data, technology=technology, erp=erp, lm=self.lenders_margin,
-                                            tech_penetration=generation_data['Penetration_'+year_str], country_codes=country_code)
+        results = self.calculator.calculate_country_wacc(rf_rate=rf_rate, crp=crp_data, tax_rate=tax_data, technology=technology, year=year_str,erp=erp,
+                                            tech_penetration=generation_data, country_code=country_code)
         
 
         return results
@@ -415,6 +290,7 @@ class WaccPredictor:
         year_str = str(year)
         year_int = int(year)
 
+
         # Extract long term U.S. interest rates (proxy for risk free rate)
         rf_rate = self.ir_data[self.ir_data['Country code'] == "USA"][year_str].values[0].astype(float)
 
@@ -422,8 +298,7 @@ class WaccPredictor:
         crps = self.pull_CRP_data(year_str)
         erps = crps.copy()
         erp = erps.loc[erps['Country code']=="ERP"]["CRP_"+year_str][0].astype(float)
-        crp_data = crps.loc[crps['Country code']==country_code]["CRP_"+year_str].astype(float)
-
+        crp_data = crps.loc[crps["Country code"] == country_code, "CRP_"+str(year)]
 
         # Extract Generation Data
         if technology == "Solar PV":
@@ -436,6 +311,9 @@ class WaccPredictor:
         previous_year = self.pull_generation_data_v2(str(year_int-1), ember_name)
         generation_data = fill_missing_RE_values(generation_data, previous_year, year_int)
         generation_data = pd.merge(self.crp_data['Country code'],generation_data[['Country code', 'Penetration_'+year_str]], on="Country code", how="left")
+        generation_data.fillna(0, inplace=True)
+        generation_data.rename(columns={"Penetration_"+year_str:"Penetration"}, inplace=True)
+        
 
         # Select generation data for a given country
         generation_data = generation_data.loc[generation_data["Country code"] == country_code]
@@ -444,15 +322,13 @@ class WaccPredictor:
         # Extract Tax Rates
         tax_rate = pd.merge(self.crp_data['Country code'], self.tax_data[['Country code', 'Tax_Rate']], on="Country code", how="left")
         tax_rate['Tax_Rate'] = tax_rate['Tax_Rate'].fillna(value=0)
-        tax_rate = tax_rate.loc[tax_rate["Country code"] == country_code]
-        tax_data = tax_rate['Tax_Rate'].values.astype(float)
+        tax_data = tax_rate.loc[tax_rate["Country code"] == country_code, "Tax_Rate"]
                            
                            
 
         # Calculate WACC and contributions
-        results = self.calculate_irena_wacc(rf_rate=rf_rate, crp=crp_data, tax_rate=tax_data, technology=technology, erp=erp, lm=self.lenders_margin,
-                                            tech_penetration=generation_data['Penetration_'+year_str], country_codes=country_code)
-        
+        results = self.calculator.calculate_wacc_individual(rf_rate=rf_rate, crp=crp_data, tax_rate=tax_data, technology=technology, year=year_str, erp=erp,
+                                            tech_penetration=generation_data, country_code=country_code)
 
         return results
 

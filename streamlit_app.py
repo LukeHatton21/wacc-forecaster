@@ -4,17 +4,14 @@ import pandas as pd
 import numpy as np
 from streamlit_folium import st_folium
 import branca.colormap as cm
-from wacc_prediction import WaccPredictor
+from wacc_prediction_v2 import WaccPredictor
+from visualiser import VisualiserClass
 import altair as alt
 
 # Data Source for map: https://public.opendatasoft.com/explore/embed/dataset/world-administrative-boundaries-countries/table/
 
 
-# Call WaccPredictor Object
-wacc_predictor = WaccPredictor(crp_data = "./DATA/CRPs.csv", 
-generation_data="./DATA/Ember Yearly Data 2023.csv", GDP="./DATA/GDPPerCapita.csv",
-tax_data="./DATA/TaxData.csv", ember_targets="./DATA/Ember_2030_Targets.csv", 
-us_ir="./DATA/US_IR.csv")
+
 
 def display_map(df, technology):
     map = folium.Map(location=[10, 0], zoom_start=1, control_scale=True, scrollWheelZoom=True, tiles='CartoDB positron')
@@ -125,7 +122,9 @@ def plot_ranking_table(raw_df, country_codes):
     # Select countries
     df = raw_df[raw_df["Country code"].isin(country_codes)]
 
-    
+    # Drop year
+    df = df.drop(labels="Year", axis="columns")
+
     # Melt dataframe
     df = df.rename(columns={"Risk_Free":" Risk Free", "Country_Risk":"Country Risk", "Technology_Risk":"Technology Risk"})
     data_melted = df.melt(id_vars="Country code", var_name="Factor", value_name="Value")
@@ -171,6 +170,15 @@ def plot_comparison_chart(df):
 ).properties(width=700)
     st.write(chart)
     
+# Call WaccPredictor Object
+wacc_predictor = WaccPredictor(crp_data = "./DATA/CRPs.csv", 
+generation_data="./DATA/Ember Yearly Data 2023.csv", GDP="./DATA/GDPPerCapita.csv",
+tax_data="./DATA/TaxData.csv", ember_targets="./DATA/Ember_2030_Targets.csv", 
+us_ir="./DATA/US_IR.csv")
+
+# Call visualiser
+visualiser = VisualiserClass(wacc_predictor.crp_data)
+country_names = visualiser.crp_dictionary.keys()
 
 
 country_waccs = pd.read_csv("./DATA/Country_Waccs_2024.csv")
@@ -192,7 +200,6 @@ yearly_waccs_solar = wacc_predictor.calculate_historical_waccs(year, "Solar PV")
 yearly_waccs_onshore = wacc_predictor.calculate_historical_waccs(year, "Onshore Wind")
 yearly_waccs_offshore = wacc_predictor.calculate_historical_waccs(year, "Offshore Wind")
 
-
 # Select specified technology for plotting
 if technology == "Solar PV":
     yearly_waccs = yearly_waccs_solar
@@ -200,7 +207,6 @@ elif technology == "Onshore Wind":
     yearly_waccs = yearly_waccs_onshore
 elif technology == "Offshore Wind":
     yearly_waccs = yearly_waccs_offshore
-
 
 
 with tab1:
@@ -214,20 +220,24 @@ with tab2:
 with tab3:
     st.header("Historical and Projected Estimates")
     country_selection = st.selectbox(
-        "Country", options=yearly_waccs['Country code'].values, 
+        "Country", options=country_names, 
          index=None, placeholder="Select Country of Interest...", key="CountryProjections")
-    options = ["Interest Rate Change", "Renewable Growth", "GDP Growth"]
-    projection_assumptions = st.pills("Projection Assumptions", options, selection_mode="multi")
-    historical_country_data = wacc_predictor.year_range_wacc(start_year=2015, end_year=2023, 
+    country_selection = visualiser.crp_dictionary.get(country_selection)
+    options = ["Interest Rate Change", "Renewable Growth", "GDP Change"]
+    if country_selection is not None:
+        projection_assumptions = st.pills("Projection Assumptions", options, selection_mode="multi")
+        historical_country_data = wacc_predictor.year_range_wacc(start_year=2015, end_year=2023, 
                                                              technology="Solar PV", country=country_selection)
-    historical_country_data = historical_country_data.drop(columns = ["Debt_Share", "Equity_Cost", "Debt_Cost", "Tax_Rate", "Country code", "WACC"])
-    plot_comparison_chart(historical_country_data)
+        historical_country_data = historical_country_data.drop(columns = ["Debt_Share", "Equity_Cost", "Debt_Cost", "Tax_Rate", "Country code", "WACC"])
+        plot_comparison_chart(historical_country_data)
 with tab4:
     st.header("Country Calculator")
     country_code = st.selectbox(
-        "Country", sorted_waccs['Country code'].sort_values(ascending=True).values, 
+        "Country", country_names, 
          index=0, placeholder="Select Country...", key="Country")
+    country_code = visualiser.crp_dictionary.get(country_code)
     col1, col2, col3, col4 = st.columns(4)
+    yearly_data = wacc_predictor.calculate_yearly_wacc(year, technology, country_code)
     with col1:
         st.subheader("Macro Environment")
         rf_rate = st.number_input("Risk-free Rate (%)", value=2.5, min_value=1.0, max_value=10.0, step=0.1)
@@ -237,7 +247,7 @@ with tab4:
         market_maturity = st.selectbox(
         "Market Maturity",["Mature", "Intermediate", "Immature"], 
          index=2, placeholder="Select Maturity...", key="Maturity")
-        tech_penetration = st.number_input("Renewable Penetration (%)", value=None, min_value=0.0, max_value=30.0, step=1.0)
+        tech_penetration = st.number_input("Renewable Penetration (%)", value=0.0, min_value=0.0, max_value=30.0, step=1.0)
     with col3:
         st.subheader("Debt-Equity Premiums")
         st.write("")
@@ -254,7 +264,8 @@ with tab4:
 
     # Evaluate projected data
     projection_year = 2030
-    projected_data = wacc_predictor.calculate_country_wacc(rf_rate, crp, tax_rate, technology, market_maturity, country_code, debt_share, erp, lm, tech_penetration, projection_year)
+    projected_data = wacc_predictor.calculator.calculate_wacc_individual(rf_rate=rf_rate, crp=crp, tax_rate=tax_rate, technology=technology, country_code=country_code, 
+                                                                         year=projection_year,erp=erp,tech_penetration=tech_penetration, market_maturity=market_maturity, penetration_value=tech_penetration)
     projected_data["Year"] = projection_year
 
     # Extract historical data for the given country
