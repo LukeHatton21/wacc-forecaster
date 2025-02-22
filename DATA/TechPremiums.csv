@@ -1,13 +1,13 @@
-﻿TECH,PREMIUM
-SOLAR,0
-WINDONSHORE,0.34
-WINDOFFSHORE,1.34
-CCGT,-0.26
-HYDRO,0
-WAVE,0.34
-TIDAL,0.34
-GEOTHERMAL,1.7
-BIOMASS,0.49
-GASCCUS,0.49
-OCGT,0.34
-OTHER, 0
+﻿NAME,TECH,PREMIUM
+Solar PV,Solar,0
+Onshore Wind,Wind,0.34
+Offshore Wind,Wind Offshore,1.34
+Gas Power (CCGT),Gas,-0.26
+Hydroelectric,Hydro,0
+Wave,Wave,0.34
+Tidal,Tidal,0.34
+Geothermal,Geothermal,1.7
+Biomass,Bioenergy,0.49
+Gas Power (CCUS),Gas CCUS,0.49
+Gas Power (OCGT),Gas,0.34
+Other,Other Renewables, 0

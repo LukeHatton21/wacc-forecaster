@@ -8,14 +8,23 @@ import altair as alt
 
 
 class VisualiserClass:
-    def __init__(self, crp_data):
+    def __init__(self, crp_data, tech_premium):
         """ Initialises the VisualiserClass, which is used to generate plots for the webtool """
-        self.size = 0
+
+        # Read in Data
         self.crp_data = crp_data
+        self.tech_premium = tech_premium
+
+
+        # Get country name and country code dictionary
         self.crp_country = self.crp_data[["Country", "Country code"]]
         self.crp_country = self.crp_country.loc[self.crp_country["Country code"] != "ERP"]
         self.crp_dictionary = pd.Series(self.crp_country["Country code"].values,index=self.crp_country["Country"]).to_dict()
 
+        # Get tech name and coding dictionary
+        self.techs = self.tech_premium[["NAME", "TECH"]]
+        self.techs = self.techs.loc[self.techs["TECH"] != "OTHER"]
+        self.tech_dictionary = pd.Series(self.techs["TECH"].values,index=self.techs["NAME"]).to_dict()
 
     def display_map(self, df, technology):
         map = folium.Map(location=[10, 0], zoom_start=1, control_scale=True, scrollWheelZoom=True, tiles='CartoDB positron')

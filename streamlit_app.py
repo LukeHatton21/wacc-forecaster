@@ -126,16 +126,52 @@ def plot_ranking_table(raw_df, country_codes):
     df = df.drop(labels="Year", axis="columns")
 
     # Melt dataframe
-    df = df.rename(columns={"Risk_Free":" Risk Free", "Country_Risk":"Country Risk", "Technology_Risk":"Technology Risk"})
+    df = df.rename(columns={"Risk_Free":"Risk Free", "Country_Risk":"Country Risk", "Technology_Risk":"Technology Risk"})
     data_melted = df.melt(id_vars="Country code", var_name="Factor", value_name="Value")
 
     # Set order
-    category_order = [' Risk Free', 'Country Risk', 'Equity Risk', 'Lenders Margin', 'Technology Risk']
+    category_order = ['Risk Free', 'Country Risk', 'Equity Risk', 'Lenders Margin', 'Technology Risk']
 
     # Create chart
     chart = alt.Chart(data_melted).mark_bar().encode(
         x=alt.X('sum(Value):Q', stack='zero', title='Weighted Average Cost of Capital (%)'),
         y=alt.Y('Country code:O', sort="x", title='Country'),  # Sort countries by total value descending
+        color=alt.Color('Factor:N', title='Factor'),
+        order=alt.Order('Factor:O', sort="ascending"),  # Color bars by category
+).properties(width=700)
+
+    # Add x-axis to the top
+    x_axis_top = chart.encode(
+        x=alt.X('sum(Value):Q', stack='zero', title='Weighted Average Cost of Capital (%)', axis=alt.Axis(orient='top'))
+    )
+
+    # Combine the original chart and the one with the top axis
+    chart_with_double_x_axis = alt.layer(
+        chart,
+        x_axis_top
+    )
+
+    st.write(chart_with_double_x_axis)
+
+def plot_ranking_table_tech(raw_df, tech_codes):
+
+    # Select techs
+    df = raw_df[raw_df["Technology"].isin(tech_codes)]
+
+    # Drop year
+    new_df = df.drop(columns=["Year", "Country code"])
+
+    # Melt dataframe
+    new_df = new_df.rename(columns={"Risk_Free":"Risk Free", "Country_Risk":"Country Risk", "Technology_Risk":"Technology Risk"})
+    data_melted = new_df.melt(id_vars="Technology", var_name="Factor", value_name="Value")
+
+    # Set order
+    category_order = ['Risk Free', 'Country Risk', 'Equity Risk', 'Lenders Margin', 'Technology Risk']
+
+    # Create chart
+    chart = alt.Chart(data_melted).mark_bar().encode(
+        x=alt.X('sum(Value):Q', stack='zero', title='Weighted Average Cost of Capital (%)'),
+        y=alt.Y('Technology:O', sort="x", title='Technology'),  # Sort technologies by total value descending
         color=alt.Color('Factor:N', title='Factor'),
         order=alt.Order('Factor:O', sort="ascending"),  # Color bars by category
 ).properties(width=700)
@@ -177,8 +213,9 @@ tax_data="./DATA/TaxData.csv", ember_targets="./DATA/Ember_2030_Targets.csv",
 us_ir="./DATA/US_IR.csv")
 
 # Call visualiser
-visualiser = VisualiserClass(wacc_predictor.crp_data)
+visualiser = VisualiserClass(wacc_predictor.crp_data, wacc_predictor.calculator.tech_premiums)
 country_names = visualiser.crp_dictionary.keys()
+tech_names = visualiser.tech_dictionary.keys()
 
 
 country_waccs = pd.read_csv("./DATA/Country_Waccs_2024.csv")
@@ -190,23 +227,13 @@ year = st.selectbox(
         "Year", ("2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023"), 
          index=8, key="Year", placeholder="Select Year...")
 technology = st.selectbox(
-        "Displayed Technology", ("Solar PV", "Onshore Wind", "Offshore Wind"), 
+        "Displayed Technology", tech_names, 
          index=0, placeholder="Select Technology...", key="Technology")
-tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["🌐 Map", "🥇Global Estimates", "🔭Country Projections", "📈 Calculator", "ℹ️ Methods", "📝 About"])
+technology = visualiser.tech_dictionary.get(technology )
+tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["🌐 Map", "🥇Global Estimates", "🔭Country Projections", "🛠️Technologies", "📈 Calculator", "ℹ️ Methods", "📝 About"])
 
 
-# Calculate yearly results for solar, onshore and offshore
-yearly_waccs_solar = wacc_predictor.calculate_historical_waccs(year, "Solar PV")
-yearly_waccs_onshore = wacc_predictor.calculate_historical_waccs(year, "Onshore Wind")
-yearly_waccs_offshore = wacc_predictor.calculate_historical_waccs(year, "Offshore Wind")
-
-# Select specified technology for plotting
-if technology == "Solar PV":
-    yearly_waccs = yearly_waccs_solar
-elif technology == "Onshore Wind":
-    yearly_waccs = yearly_waccs_onshore
-elif technology == "Offshore Wind":
-    yearly_waccs = yearly_waccs_offshore
+yearly_waccs = wacc_predictor.calculate_historical_waccs(year, technology)
 
 
 with tab1:
@@ -230,7 +257,23 @@ with tab3:
                                                              technology="Solar PV", country=country_selection)
         historical_country_data = historical_country_data.drop(columns = ["Debt_Share", "Equity_Cost", "Debt_Cost", "Tax_Rate", "Country code", "WACC"])
         plot_comparison_chart(historical_country_data)
+
 with tab4:
+    st.header("Technology Comparison")
+    country_tech_selection = st.selectbox(
+        "Country", options=country_names, 
+         index=None, placeholder="Select Country of Interest...", key="CountryTechs")
+    selected_techs = st.multiselect("Technologies to compare", options=tech_names, default=["Solar PV", "Hydroelectric", "Gas Power (CCGT)"])
+    print(tech_names)
+    selected_techs = [visualiser.tech_dictionary.get(x) for x in selected_techs]
+    country_tech_selection = visualiser.crp_dictionary.get(country_tech_selection)
+    
+    if country_tech_selection is not None:
+        country_technology_comparison = wacc_predictor.calculate_technology_wacc(year=year, country=country_tech_selection, technologies=selected_techs)
+        sorted_tech_comparison = sort_waccs(country_technology_comparison)
+        plot_ranking_table_tech(sorted_tech_comparison, selected_techs)
+
+with tab5:
     st.header("Country Calculator")
     country_code = st.selectbox(
         "Country", country_names, 
@@ -277,11 +320,12 @@ with tab4:
     evaluated_wacc_data = evaluated_wacc_data.drop(columns = ["Debt_Share", "Equity_Cost", "Debt_Cost", "Tax_Rate", "Country code", "WACC"])
     plot_comparison_chart(evaluated_wacc_data)
 
-with tab5:
+
+with tab6:
     text = open('about.md').read()
     st.write(text)
 
-with tab6:
+with tab7:
     st.subheader("About")
     st.write("FINCORE allows you to estimate the cost of capital for solar and wind located in the vast majority of the globe, both historical and future." 
             + " It aims to address the limited accessibility of empirical data on renewable financing terms, and the geographic skew towards Western and industrialising countries of the little data that is available.")

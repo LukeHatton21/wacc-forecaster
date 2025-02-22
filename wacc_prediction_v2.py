@@ -71,18 +71,20 @@ class WaccPredictor:
         crp_data = crps
 
         # Extract Generation Data
-        if technology == "Solar PV":
-            ember_name = "Solar"
-        elif technology == "Onshore Wind":
-            ember_name = "Wind"
-        elif technology == "Offshore Wind":
-            ember_name = "Wind"
+        if any(technology in s for s in ["Wave", "Tidal", "Geothermal", "Gas CCUS"]):
+            ember_name = "Other Renewables"
+        elif technology == "Wind Offshore":
+            ember_name = "Wind" 
+            ## PLACEHOLDER TO ADD IN DATA ON OFFSHORE WIND IN EUROPE FROM EMBERS DATA
+        else:
+            ember_name = technology
         generation_data = self.pull_generation_data_v2(year_str, ember_name)
         previous_year = self.pull_generation_data_v2(str(year_int-1), ember_name)
         generation_data = fill_missing_RE_values(generation_data, previous_year, year_int)
         generation_data = pd.merge(self.crp_data['Country code'],generation_data[['Country code', 'Penetration_'+year_str]], on="Country code", how="left")
         generation_data.fillna(0, inplace=True)
         generation_data.rename(columns={"Penetration_"+year_str:"Penetration"}, inplace=True)
+
 
         # Extract Tax Rates
         tax_rate = pd.merge(self.crp_data['Country code'], self.tax_data[['Country code', 'Tax_Rate']], on="Country code", how="left")
@@ -234,14 +236,13 @@ class WaccPredictor:
         
 
         # Extract Generation Data 
-        #### NEED TO EDIT TO INCLUDE WIDER TECH MIX and ADD IN CALCULATION PRIOR
-
-        if technology == "Solar PV":
-            ember_name = "Solar"
-        elif technology == "Onshore Wind":
-            ember_name = "Wind"
-        elif technology == "Offshore Wind":
-            ember_name = "Wind"
+        if any(technology in s for s in ["Wave", "Tidal", "Geothermal", "Gas CCUS"]):
+            ember_name = "Other Renewables"
+        elif technology == "Wind Offshore":
+            ember_name = "Wind" 
+            ## PLACEHOLDER TO ADD IN DATA ON OFFSHORE WIND IN EUROPE FROM EMBERS DATA
+        else:
+            ember_name = technology
         generation_data = self.pull_generation_data_v2(year_str, ember_name)
         previous_year = self.pull_generation_data_v2(str(year_int-1), ember_name)
         generation_data = fill_missing_RE_values(generation_data, previous_year, year_int)
@@ -301,12 +302,13 @@ class WaccPredictor:
         crp_data = crps.loc[crps["Country code"] == country_code, "CRP_"+str(year)]
 
         # Extract Generation Data
-        if technology == "Solar PV":
-            ember_name = "Solar"
-        elif technology == "Onshore Wind":
-            ember_name = "Wind"
-        elif technology == "Offshore Wind":
-            ember_name = "Wind"
+        if any(technology in s for s in ["Wave", "Tidal", "Geothermal", "Gas CCUS"]):
+            ember_name = "Other Renewables"
+        elif technology == "Wind Offshore":
+            ember_name = "Wind" 
+            ## PLACEHOLDER TO ADD IN DATA ON OFFSHORE WIND IN EUROPE FROM EMBERS DATA
+        else:
+            ember_name = technology
         generation_data = self.pull_generation_data_v2(year_str, ember_name)
         previous_year = self.pull_generation_data_v2(str(year_int-1), ember_name)
         generation_data = fill_missing_RE_values(generation_data, previous_year, year_int)
@@ -331,6 +333,26 @@ class WaccPredictor:
                                             tech_penetration=generation_data, country_code=country_code)
 
         return results
+    
+
+    def calculate_technology_wacc(self, year, country, technologies):
+
+
+        # Loop across year_range
+        for tech in technologies:
+
+            # Calculate yearly WACC
+            tech_wacc = self.calculate_yearly_wacc(year, tech, country)
+            tech_wacc["Year"] = int(year)
+            tech_wacc["Technology"] = tech
+
+            # Concat
+            if tech == "Solar":
+                storage_df = tech_wacc
+            else:
+                storage_df = pd.concat([storage_df, tech_wacc])
+
+        return storage_df
 
         
 
