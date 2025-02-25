@@ -126,11 +126,11 @@ def plot_ranking_table(raw_df, country_codes):
     df = df.drop(labels="Year", axis="columns")
 
     # Melt dataframe
-    df = df.rename(columns={"Risk_Free":"Risk Free", "Country_Risk":"Country Risk", "Technology_Risk":"Technology Risk"})
+    df = df.rename(columns={"Risk_Free":" Risk Free", "Country_Risk":"Country Risk", "Technology_Risk":"Technology Risk"})
     data_melted = df.melt(id_vars="Country code", var_name="Factor", value_name="Value")
 
     # Set order
-    category_order = ['Risk Free', 'Country Risk', 'Equity Risk', 'Lenders Margin', 'Technology Risk']
+    category_order = [' Risk Free', 'Country Risk', 'Equity Risk', 'Lenders Margin', 'Technology Risk']
 
     # Create chart
     chart = alt.Chart(data_melted).mark_bar().encode(
@@ -157,22 +157,23 @@ def plot_ranking_table_tech(raw_df, tech_codes):
 
     # Select techs
     df = raw_df[raw_df["Technology"].isin(tech_codes)]
+    df["Technology"].replace(visualiser.tech_dict_reverse, inplace=True)
 
     # Drop year
     new_df = df.drop(columns=["Year", "Country code"])
 
     # Melt dataframe
-    new_df = new_df.rename(columns={"Risk_Free":"Risk Free", "Country_Risk":"Country Risk", "Technology_Risk":"Technology Risk"})
+    new_df = new_df.rename(columns={"Risk_Free":" Risk Free", "Country_Risk":"Country Risk", "Technology_Risk":"Technology Risk"})
     data_melted = new_df.melt(id_vars="Technology", var_name="Factor", value_name="Value")
 
     # Set order
-    category_order = ['Risk Free', 'Country Risk', 'Equity Risk', 'Lenders Margin', 'Technology Risk']
+    category_order = [' Risk Free', 'Country Risk', 'Equity Risk', 'Lenders Margin', 'Technology Risk']
 
     # Create chart
     chart = alt.Chart(data_melted).mark_bar().encode(
         x=alt.X('sum(Value):Q', stack='zero', title='Weighted Average Cost of Capital (%)'),
         y=alt.Y('Technology:O', sort="x", title='Technology'),  # Sort technologies by total value descending
-        color=alt.Color('Factor:N', title='Factor'),
+        color=alt.Color('Factor:N', title='Factor').legend(orient="right", columns=3),
         order=alt.Order('Factor:O', sort="ascending"),  # Color bars by category
 ).properties(width=700)
 
@@ -186,6 +187,8 @@ def plot_ranking_table_tech(raw_df, tech_codes):
         chart,
         x_axis_top
     )
+
+
 
     st.write(chart_with_double_x_axis)
 
@@ -210,26 +213,26 @@ def plot_comparison_chart(df):
 wacc_predictor = WaccPredictor(crp_data = "./DATA/CRPs.csv", 
 generation_data="./DATA/Ember Yearly Data 2023.csv", GDP="./DATA/GDPPerCapita.csv",
 tax_data="./DATA/TaxData.csv", ember_targets="./DATA/Ember_2030_Targets.csv", 
-us_ir="./DATA/US_IR.csv")
+us_ir="./DATA/US_IR.csv", imf_data="./DATA/IMF_Projections.csv")
 
 # Call visualiser
 visualiser = VisualiserClass(wacc_predictor.crp_data, wacc_predictor.calculator.tech_premiums)
-country_names = visualiser.crp_dictionary.keys()
-tech_names = visualiser.tech_dictionary.keys()
-
+country_names = sorted(visualiser.crp_dictionary.keys())
+tech_names = sorted(visualiser.tech_dictionary.keys())
+tech_names = [x for x in tech_names if x !="Other"]
 
 country_waccs = pd.read_csv("./DATA/Country_Waccs_2024.csv")
 
 
 
-st.title("Financing Costs for Renewables Estimator (FINCORE)")
+st.title("Financing Costs for Renewables Estimator (FinCoRE)")
 year = st.selectbox(
         "Year", ("2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023"), 
          index=8, key="Year", placeholder="Select Year...")
 technology = st.selectbox(
         "Displayed Technology", tech_names, 
-         index=0, placeholder="Select Technology...", key="Technology")
-technology = visualiser.tech_dictionary.get(technology )
+         index=7, placeholder="Select Technology...", key="Technology")
+technology = visualiser.tech_dictionary.get(technology)
 tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["🌐 Map", "🥇Global Estimates", "🔭Country Projections", "🛠️Technologies", "📈 Calculator", "ℹ️ Methods", "📝 About"])
 
 
@@ -251,10 +254,24 @@ with tab3:
          index=None, placeholder="Select Country of Interest...", key="CountryProjections")
     country_selection = visualiser.crp_dictionary.get(country_selection)
     options = ["Interest Rate Change", "Renewable Growth", "GDP Change"]
+    options_mapping = {"Interest Rate Change": "interest_rate", "Renewable Growth": "renewable_targets", "GDP Change": "gdp_change"}
     if country_selection is not None:
         projection_assumptions = st.pills("Projection Assumptions", options, selection_mode="multi")
+        for i in projection_assumptions:
+            name = options_mapping.get(i)
+            globals()[f"{name}"] = f"{name}"
+        if "Interest Rate Change" not in projection_assumptions:
+            interest_rate = None
+        if "Renewable Growth" not in projection_assumptions:
+            renewable_targets = None
+        if "GDP Change" not in projection_assumptions:
+            gdp_change = None
         historical_country_data = wacc_predictor.year_range_wacc(start_year=2015, end_year=2023, 
-                                                             technology="Solar PV", country=country_selection)
+                                                             technology=technology, country=country_selection)
+        if len(projection_assumptions) > 0:
+            future_waccs = wacc_predictor.projections_wacc(end_year=2029, technology=technology, country=country_selection, 
+                                                    interest_rates=interest_rate, GDP_change=gdp_change, renewable_targets=renewable_targets)
+            historical_country_data = pd.concat([future_waccs, historical_country_data])
         historical_country_data = historical_country_data.drop(columns = ["Debt_Share", "Equity_Cost", "Debt_Cost", "Tax_Rate", "Country code", "WACC"])
         plot_comparison_chart(historical_country_data)
 

@@ -38,8 +38,9 @@ class WaccCalculator:
             country_code = crp.loc[crp["Country code"] != "ERP", "Country code"]
         
         # Extract values
-        crp = crp.loc[crp["Country code"] != "ERP", "CRP_"+str(year)]
-        tax_rate = tax_rate.loc[tax_rate["Country code"] != "ERP", "Tax_Rate"]
+        if 'Country code' in crp.columns:
+            crp = crp.loc[crp["Country code"] != "ERP", "CRP_"+str(year)]
+            tax_rate = tax_rate.loc[tax_rate["Country code"] != "ERP", "Tax_Rate"]
         
 
         
@@ -84,8 +85,8 @@ class WaccCalculator:
             tech_boundaries_selected = tech_boundaries.loc[tech_boundaries["TECH"]==technology]
             maturity_premium_selected = maturity_premiums.loc[maturity_premiums["TECH"]==technology]
         else:
-            tech_boundaries_selected = tech_boundaries.loc[tech_boundaries["TECH"]=="OTHER"]
-            maturity_premium_selected = maturity_premiums.loc[maturity_premiums["TECH"]=="OTHER"]
+            tech_boundaries_selected = tech_boundaries.loc[tech_boundaries["TECH"]=="Other"]
+            maturity_premium_selected = maturity_premiums.loc[maturity_premiums["TECH"]=="Other"]
 
         # Establish the boundaries
         intermediate = tech_boundaries_selected["INTERMEDIATE"].values[0]
@@ -115,13 +116,20 @@ class WaccCalculator:
 
         return tech_penetration
     
-    def calculate_debt_share(self, crp):
+    def calculate_debt_share(self, crp, max_crp=None):
 
         # Calculate debt share based on CRP, assuming it ranges in line with CRP data
         debt_share = 80 - 40 * (crp / np.nanmax(crp))
 
         return debt_share
     
+
+    def calculate_debt_share_individual(self, crp):
+
+        # Calculate debt share based on CRP, assuming it ranges in line with CRP data
+        debt_share = 80 - 40 * (crp / 25)
+
+        return debt_share
 
     def lookup_tech_premium(self, technology):
 
@@ -132,7 +140,7 @@ class WaccCalculator:
         if tech_premiums["TECH"].isin([technology]).any():
             relative_premium = tech_premiums.loc[tech_premiums["TECH"]==technology]["PREMIUM"].values[0]
         else:
-            relative_premium = tech_premiums.loc[tech_premiums["TECH"]=="OTHER"]["PREMIUM"].values[0]
+            relative_premium = tech_premiums.loc[tech_premiums["TECH"]=="Other"]["PREMIUM"].values[0]
         
         return relative_premium
 
@@ -153,7 +161,7 @@ class WaccCalculator:
         
         # Calculate debt share, if applicable
         if debt_share is None:
-            debt_share = self.calculate_debt_share(crp)
+            debt_share = self.calculate_debt_share_individual(crp)
 
         # Calculate the cost of equity
         debt_cost = rf_rate + crp + self.lenders_margin + technology_premium
@@ -197,8 +205,8 @@ class WaccCalculator:
             tech_boundaries_selected = tech_boundaries.loc[tech_boundaries["TECH"]==technology]
             maturity_premium_selected = maturity_premiums.loc[maturity_premiums["TECH"]==technology]
         else:
-            tech_boundaries_selected = tech_boundaries.loc[tech_boundaries["TECH"]=="OTHER"]
-            maturity_premium_selected = maturity_premiums.loc[maturity_premiums["TECH"]=="OTHER"]
+            tech_boundaries_selected = tech_boundaries.loc[tech_boundaries["TECH"]=="Other"]
+            maturity_premium_selected = maturity_premiums.loc[maturity_premiums["TECH"]=="Other"]
 
         # Establish the boundaries
         intermediate = tech_boundaries_selected["INTERMEDIATE"].values[0]

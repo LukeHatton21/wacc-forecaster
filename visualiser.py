@@ -20,12 +20,18 @@ class VisualiserClass:
         self.crp_country = self.crp_data[["Country", "Country code"]]
         self.crp_country = self.crp_country.loc[self.crp_country["Country code"] != "ERP"]
         self.crp_dictionary = pd.Series(self.crp_country["Country code"].values,index=self.crp_country["Country"]).to_dict()
+        self.crp_dict_reverse = self.inverse_dict(self.crp_dictionary)
 
         # Get tech name and coding dictionary
         self.techs = self.tech_premium[["NAME", "TECH"]]
         self.techs = self.techs.loc[self.techs["TECH"] != "OTHER"]
         self.tech_dictionary = pd.Series(self.techs["TECH"].values,index=self.techs["NAME"]).to_dict()
+        self.tech_dict_reverse = self.inverse_dict(self.tech_dictionary)
 
+    def inverse_dict(self, dictionary):
+        inv_dict = {v: k for k, v in dictionary.items()}
+        return inv_dict
+    
     def display_map(self, df, technology):
         map = folium.Map(location=[10, 0], zoom_start=1, control_scale=True, scrollWheelZoom=True, tiles='CartoDB positron')
         df = df.rename(columns={"Country code":"iso3_code"})

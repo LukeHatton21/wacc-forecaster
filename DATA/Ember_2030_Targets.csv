@@ -1,4 +1,4 @@
-﻿country_code,country_name,ember_region,target_year,fuel_category,metric,value,source_id,target_type,number_of_updates,collection_year,confidence,g20,g20_exc_3,oecd,asean
+﻿Country code,country_name,ember_region,target_year,fuel_category,metric,value,source_id,target_type,number_of_updates,collection_year,confidence,g20,g20_exc_3,oecd,asean
 ARG,Argentina,Latin America and Caribbean,2030,Hydro,capacity_total_gw,13.21,37,Implicit,1,2023,Medium,1,1,0,0
 ARG,Argentina,Latin America and Caribbean,2030,Rest of renewables,capacity_total_gw,19.26,37,Implicit,1,2023,Medium,1,1,0,0
 ARG,Argentina,Latin America and Caribbean,2030,Hydro,share_of_generation_pct,21.7,37,Implicit,1,2023,Medium,1,1,0,0
