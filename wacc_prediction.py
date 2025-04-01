@@ -374,6 +374,9 @@ class WaccPredictor:
         generation_data = fill_missing_RE_values(generation_data, previous_year, year_int)
         generation_data = pd.merge(self.crp_data['Country code'],generation_data[['Country code', 'Penetration_'+year_str]], on="Country code", how="left")
 
+        if technology == "Gas CCUS":
+            generation_data["Penetration_"+year_str] = generation_data["Penetration_"+year_str] * 0
+
         # Select generation data for a given country
         generation_data = generation_data.loc[generation_data["Country code"] == country_code]
 
