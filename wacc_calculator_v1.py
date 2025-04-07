@@ -22,7 +22,7 @@ class WaccCalculator:
         self.lenders_margin = 2
         
 
-    def calculate_country_wacc(self, rf_rate, crp, tax_rate, technology, year, debt_share=None, erp=None, tech_penetration=None, market_maturity=None, country_code=None):
+    def calculate_country_wacc(self, rf_rate, crp, cds, tax_rate, technology, year, debt_share=None, erp=None, tech_penetration=None, market_maturity=None, country_code=None):
         
 
         # Calculate maturity of market and tech premium
@@ -40,6 +40,7 @@ class WaccCalculator:
         # Extract values
         if 'Country code' in crp.columns:
             crp = crp.loc[crp["Country code"] != "ERP", "CRP_"+str(year)]
+            cds = cds.loc[cds["Country code"] != "ERP", "CDS_"+str(year)]
             tax_rate = tax_rate.loc[tax_rate["Country code"] != "ERP", "Tax_Rate"]
         
 
@@ -50,7 +51,7 @@ class WaccCalculator:
 
 
         # Calculate the cost of equity
-        debt_cost = rf_rate + crp + self.lenders_margin + technology_premium
+        debt_cost = rf_rate + cds + self.lenders_margin + technology_premium
 
         # Calculate the cost of debt
         equity_cost = rf_rate + crp + erp + technology_premium
@@ -60,7 +61,7 @@ class WaccCalculator:
 
         # Extract contributions to the overall WACC
         risk_free_contributions = rf_rate*((debt_share / 100 * (1 - tax_rate/100)) + (1 - debt_share / 100))
-        crp_contributions = crp*((debt_share / 100 * (1 - tax_rate/100)) + (1 - debt_share / 100))
+        crp_contributions = cds*(debt_share / 100 * (1 - tax_rate/100)) + crp*(1 - debt_share / 100)
         erp_contributions = erp * ( 1 - (debt_share / 100))
         lm_contributions = self.lenders_margin * (debt_share / 100) * (1-tax_rate/100)
         tech_premium_contributions = technology_premium*((debt_share / 100 * (1 - tax_rate/100)) + (1 - debt_share / 100))
@@ -146,7 +147,7 @@ class WaccCalculator:
 
 
 
-    def calculate_wacc_individual(self, rf_rate, crp, tax_rate, technology, year, country_code, tech_penetration, debt_share=None, erp=None, market_maturity=None, penetration_value=None):
+    def calculate_wacc_individual(self, rf_rate, crp, cds, tax_rate, technology, year, country_code, tech_penetration, debt_share=None, erp=None, market_maturity=None, penetration_value=None):
         
 
         # Calculate maturity of market and tech premium
@@ -164,7 +165,7 @@ class WaccCalculator:
             debt_share = self.calculate_debt_share_individual(crp)
 
         # Calculate the cost of equity
-        debt_cost = rf_rate + crp + self.lenders_margin + technology_premium
+        debt_cost = rf_rate + cds + self.lenders_margin + technology_premium
 
         # Calculate the cost of debt
         equity_cost = rf_rate + crp + erp + technology_premium
@@ -174,7 +175,7 @@ class WaccCalculator:
 
         # Extract contributions to the overall WACC
         risk_free_contributions = rf_rate*((debt_share / 100 * (1 - tax_rate/100)) + (1 - debt_share / 100))
-        crp_contributions = crp*((debt_share / 100 * (1 - tax_rate/100)) + (1 - debt_share / 100))
+        crp_contributions = cds*(debt_share / 100 * (1 - tax_rate/100)) + crp*(1 - debt_share / 100)
         erp_contributions = erp * ( 1 - (debt_share / 100))
         lm_contributions = self.lenders_margin * (debt_share / 100) * (1-tax_rate/100)
         tech_premium_contributions = technology_premium*((debt_share / 100 * (1 - tax_rate/100)) + (1 - debt_share / 100))

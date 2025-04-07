@@ -1,0 +1,9 @@
+Country,Country code,WACC_Solar_Min_2022,WACC_Solar_Max_2022,IEA
+Brazil,BRA,0.105,0.12, 1
+India,IND,0.09,0.01, 1
+Indonesia,IDN,0.08,0.085, 1
+Mexico,MEX,0.11,0.11, 1
+South Africa,ZAF,0.11,0.11, 1
+Kenya,KEN,0.085,0.09, 1
+Viet Nam,VNM,0.09,0.105, 1
+Senegal,SEN,0.09,0.09, 1

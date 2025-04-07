@@ -1,0 +1,252 @@
+country,Country code,name,index,onshore wacc,offshore wacc,solar pv wacc,IRENA
+AD,AND,Andorra,1,,,,
+AE,ARE,United Arab Emirates,2,0.056,,0.056,1
+AF,AFG,Afghanistan,3,,,,
+AG,ATG,Antigua and Barbuda,4,,,,
+AI,AIA,Anguilla,5,,,,
+AL,ALB,Albania,6,,,,
+AM,ARM,Armenia,7,,,,
+AO,AGO,Angola,8,,,,
+AR,ARG,Argentina,9,0.138,,0.138,1
+AS,ASM,American Samoa,10,,,,
+AT,AUT,Austria,11,0.025,,0.034,1
+AU,AUS,Australia,12,0.029,,0.029,1
+AW,ABW,Aruba,13,,,,
+AX,ALA,Aland Islands,14,,,,
+AZ,AZE,Azerbaijan,15,0.07,,0.07,1
+BA,BIH,Bosnia and Herzegovina,16,0.105,,0.104,1
+BB,BRB,Barbados,17,,,,
+BD,BGD,Bangladesh,18,0.068,,0.068,1
+BE,BEL,Belgium,19,0.035,0.035,0.019,1
+BF,BFA,Burkina Faso,20,0.085,,0.058,1
+BG,BGR,Bulgaria,21,0.04,,0.048,1
+BH,BHR,Bahrain,22,,,,
+BI,BDI,Burundi,23,,,,
+BJ,BEN,Benin,24,,,,
+BL,BLM,Saint Barthélemy,25,,,,
+BM,BMU,Bermuda,26,,,,
+BN,BRN,Brunei Darussalam,27,,,,
+BO,BOL,Bolivia,28,0.087,,0.087,1
+BQ,BES,"Bonaire, Sint Eustatius and Saba",29,,,,
+BR,BRA,Brazil,30,0.049,,0.063,1
+BS,BHS,Bahamas,31,,,,
+BT,BTN,Bhutan,32,,,,
+BV,BVT,Bouvet Island,33,,,,
+BW,BWA,Botswana,34,,,,
+BY,BLR,Belarus,35,0.099,,0.099,1
+BZ,BLZ,Belize,36,,,,
+CA,CAN,Canada,37,0.03,,0.043,1
+CC,CCK,Cocos (Keeling) Islands,38,,,,
+CD,COD,"Congo, The Democratic Republic of ",39,,,,
+CF,CAF,Central African Republic,40,,,,
+CG,COG,Congo,41,,,,
+CH,CHE,Switzerland,42,0.047,,0.017,1
+CI,CIV,Cote d'Ivoire,43,,,,
+CK,COK,Cook Islands,44,,,,
+CL,CHL,Chile,45,0.045,,0.035,1
+CM,CMR,Cameroon,46,,,,
+CN,CHN,China,47,0.025,0.049,0.025,1
+CO,COL,Colombia,48,0.056,,0.056,1
+CR,CRI,Costa Rica,49,0.056,,0.064,1
+CU,CUB,Cuba,50,0.116,,0.116,1
+CV,CPV,Cape Verde,51,,,,
+CW,CUW,Curaçao,52,,,,
+CX,CXR,Christmas Island,53,,,,
+CY,CYP,Cyprus,54,0.044,,0.049,1
+CZ,CZE,Czechia,55,0.051,,0.037,1
+DE,DEU,Germany,56,0.013,0.029,0.013,1
+DJ,DJI,Djibouti,57,,,,
+DK,DNK,Denmark,58,0.015,0.015,0.021,1
+DM,DMA,Dominica,59,,,,
+DO,DOM,Dominican Republic,60,0.071,,0.056,1
+DZ,DZA,Algeria,61,0.114,,0.11,1
+EC,ECU,Ecuador,62,0.122,,0.122,1
+EE,EST,Estonia,63,0.051,,0.051,1
+EG,EGY,Egypt,64,0.088,,0.088,1
+EH,ESH,Western Sahara,65,,,,
+ER,ERI,Eritrea,66,,,,
+ES,ESP,Spain,67,0.031,,0.036,1
+ET,ETH,Ethiopia,68,0.056,,0.084,1
+FI,FIN,Finland,69,0.019,,0.048,1
+FJ,FJI,Fiji,70,,,,
+FK,FLK,Falkland Islands (Malvinas),71,,,,
+FM,FSM,"Micronesia, Federated States of",72,,,,
+FO,FRO,Faroe Islands,73,,,,
+FR,FRA,France,74,0.018,0.047,0.018,1
+GA,GAB,Gabon,75,,,,
+GB,GBR,United Kingdom,76,0.026,0.02,0.02,1
+GD,GRD,Grenada,77,,,,
+GE,GEO,Georgia,78,,,,
+GF,GUF,French Guiana,79,,,,
+GG,GGY,Guernsey,80,,,,
+GH,GHA,Ghana,81,0.095,,0.095,1
+GI,GIB,Gibraltar,82,,,,
+GL,GRL,Greenland,83,,,,
+GM,GMB,Gambia,84,,,,
+GN,GIN,Guinea,85,,,,
+GP,GLP,Guadeloupe,86,,,,
+GQ,GNQ,Equatorial Guinea,87,,,,
+GR,GRC,Greece,88,0.041,,0.041,1
+GS,SGS,South Georgia & The South Sandwich Islands,89,,,,
+GT,GTM,Guatemala,90,0.063,,0.063,1
+GU,GUM,Guam,91,,,,
+GW,GNB,Guinea-Bissau,92,,,,
+GY,GUY,Guyana,93,,,,
+HK,HKG,Hong Kong,94,,,,
+HM,HMD,Heard and Mc Donald Islands,95,,,,
+HN,HND,Honduras,96,0.06,,0.046,1
+HR,HRV,Croatia,97,0.051,,0.053,1
+HT,HTI,Haiti,98,,,,
+HU,HUN,Hungary,99,0.037,,0.037,1
+ID,IDN,Indonesia,100,0.06,,0.06,1
+IE,IRL,Ireland,101,0.028,,0.055,1
+IL,ISR,Israel,102,0.05,,0.037,1
+IM,IMN,Isle of Man,103,,,,
+IN,IND,India,104,0.059,,0.059,1
+IO,IOT,British Indian Ocean Territory,105,,,,
+IQ,IRQ,Iraq,106,0.096,,0.096,1
+IR,IRN,"Iran, Islamic Republic of",107,,,,
+IS,ISL,Iceland,108,,,,
+IT,ITA,Italy,109,0.033,0.061,0.031,1
+JE,JEY,Jersey,110,,,,
+JM,JAM,Jamaica,111,0.072,,0.072,1
+JO,JOR,Jordan,112,0.082,,0.082,1
+JP,JPN,Japan,113,0.047,0.047,0.023,1
+KE,KEN,Kenya,114,0.056,,0.084,1
+KG,KGZ,Kyrgyzstan,115,,,,
+KH,KHM,Cambodia,116,,,,
+KI,KIR,Kiribati,117,,,,
+KM,COM,Comoros,118,,,,
+KN,KNA,Saint Kitts & Nevis,119,,,,
+KP,PRK,"Korea, Democratic People's Republic of",120,,,,
+KR,KOR,"Korea, Republic of",121,,,,
+KW,KWT,Kuwait,122,0.053,,0.053,1
+KY,CYM,Cayman Islands,123,,,,
+KZ,KAZ,Kazakstan,124,,,,
+LA,LAO,"Lao, People's Democratic Republic",125,,,,
+LB,LBN,Lebanon,126,0.21,,0.21,1
+LC,LCA,Saint Lucia,127,,,,
+LI,LIE,Liechtenstein,128,,,,
+LK,LKA,Sri Lanka,129,0.103,,0.103,1
+LR,LBR,Liberia,130,,,,
+LS,LSO,Lesotho,131,,,,
+LT,LTU,Lithuania,132,0.026,,0.057,1
+LU,LUX,Luxembourg,133,0.031,,0.031,1
+LV,LVA,Latvia,134,0.055,,0.055,1
+LY,LBY,Libyan Arab Jamahiriya,135,,,,
+MA,MAR,Morocco,136,0.061,,0.067,1
+MC,MCO,Monaco,137,,,,
+MD,MDA,"Moldova, Republic of",138,,,,
+ME,MNE,Montenegro,139,0.056,,0.088,1
+MF,MAF,Saint Martin,140,,,,
+MG,MDG,Madagascar,141,,,,
+MH,MHL,Marshall Islands,142,,,,
+MK,MKD,"Macedonia, The Former Yugoslav Republic Of",143,,,,
+ML,MLI,Mali,144,,,,
+MM,MMR,Myanmar,145,0.095,,0.095,1
+MN,MNG,Mongolia,146,0.067,,0.08,1
+MO,MAC,Macao,147,,,,
+MP,MNP,Northern Mariana Islands,148,,,,
+MQ,MTQ,Martinique,149,,,,
+MR,MRT,Mauritania,150,,,,
+MS,MSR,Montserrat,151,,,,
+MT,MLT,Malta,152,0.047,,0.018,1
+MU,MUS,Mauritius,153,0.06,,0.046,1
+MV,MDV,Maldives,154,,,,
+MW,MWI,Malawi,155,,,,
+MX,MEX,Mexico,156,0.036,,0.072,1
+MY,MYS,Malaysia,157,0.054,,0.054,1
+MZ,MOZ,Mozambique,158,,,,
+NA,NAM,Namibia,159,0.069,,0.042,1
+NC,NCL,New Caledonia,160,,,,
+NE,NER,Niger,161,,,,
+NF,NFK,Norfolk Island,162,,,,
+NG,NGA,Nigeria,163,,,,
+NI,NIC,Nicaragua,164,0.063,,0.092,1
+NL,NLD,Netherlands,165,0.025,,0.014,1
+NO,NOR,Norway,166,0.045,0.045,0.045,1
+NP,NPL,Nepal,167,,,,
+NR,NRU,Nauru,168,,,,
+NU,NIU,Niue,169,,,,
+NZ,NZL,New Zealand,170,0.03,,0.043,1
+OM,OMN,Oman,171,,,,
+PA,PAN,Panama,172,0.043,,0.043,1
+PE,PER,Peru,173,0.052,,0.052,1
+PF,PYF,French Polynesia,174,,,,
+PG,PNG,Papua New Guinea,175,,,,
+PH,PHL,Philippines,176,0.057,,0.057,1
+PK,PAK,Pakistan,177,0.092,,0.092,1
+PL,POL,Poland,178,0.033,0.052,0.039,1
+PM,SPM,Saint Pierre and Miquelon,179,,,,
+PN,PCN,Pitcairn,180,,,,
+PR,PRI,Puerto Rico,181,,,,
+PS,PSE,"Palestinian Territory, Occupied",182,,,,
+PT,PRT,Portugal,183,0.032,,0.042,1
+PW,PLW,Palau,184,,,,
+PY,PRY,Paraguay,185,,,,
+QA,QAT,Qatar,186,,,,
+RE,REU,Reunion,187,,,,
+RO,ROU,Romania,188,0.057,,0.051,1
+RS,SRB,Republic of Serbia,189,,,,
+RU,RUS,Russia Federation,190,,,,
+RW,RWA,Rwanda,191,0.084,,0.056,1
+SA,SAU,Saudi Arabia,192,0.062,,0.062,1
+SB,SLB,Solomon Islands,193,,,,
+SC,SYC,Seychelles,194,,,,
+SD,SDN,Sudan,195,,,,
+SE,SWE,Sweden,196,0.035,0.045,0.032,1
+SG,SGP,Singapore,197,0.046,,0.046,1
+SH,SHN,Saint Helena,198,,,,
+SI,SVN,Slovenia,199,0.055,,0.042,1
+SJ,SJM,Svalbard and Jan Mayen,200,,,,
+SK,SVK,Slovakia,201,0.052,,0.038,1
+SL,SLE,Sierra Leone,202,,,,
+SM,SMR,San Marino,203,,,,
+SN,SEN,Senegal,204,0.07,,0.043,1
+SO,SOM,Somalia,205,,,,
+SR,SUR,Suriname,206,,,,
+SS,SSD,South Sudan,207,,,,
+ST,STP,Sao Tome and Principe,208,,,,
+SV,SLV,El Salvador,209,0.092,,0.063,1
+SX,SXM,Sint Maarten,210,,,,
+SY,SYR,Syrian Arab Republic,211,,,,
+SZ,SWZ,Swaziland,212,,,,
+TC,TCA,Turks and Caicos Islands,213,,,,
+TD,TCD,Chad,214,,,,
+TF,ATF,French Southern Territories,215,,,,
+TG,TGO,Togo,216,,,,
+TH,THA,Thailand,217,0.058,,0.045,1
+TJ,TJK,Tajikistan,218,,,,
+TK,TKL,Tokelau,219,,,,
+TL,TLS,Timor-Leste,220,,,,
+TM,TKM,Turkmenistan,221,,,,
+TN,TUN,Tunisia,222,0.093,,0.093,1
+TO,TON,Tonga,223,,,,
+TR,TUR,Turkey,224,0.075,,0.075,1
+TT,TTO,Trinidad and Tobago,225,,,,
+TV,TUV,Tuvalu,226,,,,
+TW,TWN,"Taiwan, Province of China",227,,,,
+TZ,TZA,"Tanzania, United Republic of",228,,,,
+UA,UKR,Ukraine,229,0.099,,0.099,1
+UG,UGA,Uganda,230,0.084,,0.069,1
+UM,UMI,United States Minor Outlying Islands,231,,,,
+US,USA,United States,232,0.03,0.043,0.043,1
+UY,URY,Uruguay,233,0.03,,0.042,1
+UZ,UZB,Uzbekistan,234,,,,
+VA,VAT,Holy See (Vatican City State),235,,,,
+VC,VCT,Saint Vincent and the Grenadines,236,,,,
+VE,VEN,Venezuela,237,0.187,,,1
+VG,VGB,"Virgin Islands, British",238,,,,
+VI,VIR,"Virgin Islands, U.S.",239,,,,
+VN,VNM,Vietnam,240,0.051,0.074,,1
+VU,VUT,Vanuatu,241,,,,
+WF,WLF,Wallis and Futuna,242,,,,
+WS,WSM,Samoa,243,,,,
+XK,#N/A,Kosovo (temporary code),244,,,,
+XX,#N/A,#N/A,245,,,,
+YE,YEM,Yemen,246,0.206,,0.172,1
+YT,MYT,Mayotte,247,,,,
+ZA,ZAF,South Africa,248,0.066,,0.052,1
+ZM,ZMB,Zambia,249,,,,
+ZW,ZWE,Zimbabwe,250,,,,
+,,,,0.061521277,,0.060338308,1

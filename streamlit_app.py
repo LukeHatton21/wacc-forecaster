@@ -213,7 +213,7 @@ def plot_comparison_chart(df):
 wacc_predictor = WaccPredictor(crp_data = "./DATA/CRPs.csv", 
 generation_data="./DATA/Ember Yearly Data 2023.csv", GDP="./DATA/GDPPerCapita.csv",
 tax_data="./DATA/TaxData.csv", ember_targets="./DATA/Ember_2030_Targets.csv", 
-us_ir="./DATA/US_IR.csv", imf_data="./DATA/IMF_Projections.csv")
+us_ir="./DATA/US_IR.csv", imf_data="./DATA/IMF_Projections.csv", collated_crp_cds="./DATA/Collated_CRP_CDS.xlsx")
 
 # Call visualiser
 visualiser = VisualiserClass(wacc_predictor.crp_data, wacc_predictor.calculator.tech_premiums)
@@ -352,5 +352,39 @@ with tab7:
     st.write("The data available from this tool is licensed as Creative Commons Attribution-NonCommercial International (CC BY-NC 4.0), which means you are free to copy, redistribute"
             + " and adapt it for non-commercial purposes, provided you give appropriate credit. If you wish to use the data for commercial purposes, please get in touch.")
 
-    
+#counter = 0   
+#counter_year = 0 
+#for year in np.arange(2015, 2024):
+    #for technology in tech_names:
+        #technology = visualiser.tech_dictionary.get(technology)
+        #yearly_waccs = wacc_predictor.calculate_historical_waccs(year, technology)
+        #wacc_data = yearly_waccs
+       # wacc_data["Technology"] = technology
+        #print(wacc_data)
+        #if counter == 0:
+            #merged_df = wacc_data[["Country code", "WACC", "Year", "Technology"]]
+       # else:
+            #merged_df = pd.concat([merged_df, wacc_data[["Country code", "WACC", "Year", "Technology"]]])
+        #counter = counter + 1
+    #if counter_year == 0:
+        #results_df = merged_df
+    #else:
+        #results_df = pd.concat([results_df, merged_df])
+    #counter_year = counter_year + 1
+#print(np.unique(results_df["Year"]))
+#results_df["WACC"] = results_df["WACC"].round(2)
+#results_df.to_csv("./DATA/RESULTS_FULL.csv")
+
+
+# Produce data for output
+irena = pd.read_csv("./DATA/IRENA_DATA.csv", encoding='latin1')
+iea = pd.read_csv("./DATA/IEA_CoC.csv")
+fincore = pd.read_csv("./DATA/WACC_FINAL.csv")
+steffen = pd.read_csv("./DATA/Steffen_CoC_2020.csv")
+fincore = fincore.assign(FINCORE=1)
+fincore = fincore.loc[fincore["Year"]==2023]
+fincore["FINCORE"] = 1
+wacc_coverage = fincore[["Country code", "FINCORE"]].merge(irena[["Country code", "IRENA"]], how="left").merge(iea[["Country code", "IEA"]], how="left", on="Country code").merge(steffen[["Country code", "STEFFEN"]], how="left", on="Country code")
+visualiser.create_chloropleth_map(wacc_coverage)
+
 

@@ -6,7 +6,7 @@ from wacc_calculator_v1 import WaccCalculator
 
 
 class WaccPredictor:
-    def __init__(self, crp_data, generation_data, GDP, tax_data, ember_targets, us_ir, imf_data):
+    def __init__(self, crp_data, generation_data, GDP, tax_data, ember_targets, us_ir, imf_data, collated_crp_cds):
         """ Initialises the WACC Predictor Class, which is used to generate an estimate of the cost of capital at
          a national level for countries with available data
         
@@ -21,6 +21,7 @@ class WaccPredictor:
         Ember_targets - Targets for 2030 selected from Ember
         US_IR - Projections of the U.S. long term interest rates conducted by the CBO alongside OECD IR data
         IMF_data - Projections for GDP per capita from the IMF's WEO
+        Collated_crp_cds - Data from Damodaran containing Country Risk Premiums and Ratings-based default spreads
 
         
         """
@@ -32,6 +33,12 @@ class WaccPredictor:
         self.tax_data = pd.read_csv(tax_data)
         self.imf_data = pd.read_csv(imf_data)
         self.ember_targets = pd.read_csv(ember_targets)
+
+        # Read in crp data
+        self.crp_data = pd.read_excel(collated_crp_cds, sheet_name="CRP", header=0)
+        self.cds_data = pd.read_excel(collated_crp_cds, sheet_name="CDS", header=0)
+        self.crp_data.columns = self.crp_data.columns.astype("str")
+        self.cds_data.columns = self.cds_data.columns.astype("str")
 
         # Read in projections of data
         self.renewable_projections = pd.read_csv(ember_targets)
@@ -70,8 +77,10 @@ class WaccPredictor:
 
         # Extract CRPs
         crps = self.pull_CRP_data(year_str)
+        cds = self.pull_CDS_data(year_str)
         erp = crps[crps['Country code']=="ERP"]["CRP_"+year_str][0]
         crp_data = crps
+        cds_data = cds
 
         # Extract Generation Data
         if any(technology in s for s in ["Wave", "Tidal", "Geothermal", "Gas CCUS"]):
@@ -96,7 +105,7 @@ class WaccPredictor:
                            
 
         # Calculate WACC and contributions
-        results = self.calculator.calculate_country_wacc(rf_rate=rf_rate, crp=crp_data, tax_rate=tax_data, technology=technology, year=year_str, erp=erp,
+        results = self.calculator.calculate_country_wacc(rf_rate=rf_rate, crp=crp_data, cds=cds_data, tax_rate=tax_data, technology=technology, year=year_str, erp=erp,
                                             tech_penetration=generation_data)
         
 
@@ -114,6 +123,19 @@ class WaccPredictor:
         
         
         return data_subset
+
+    def pull_CDS_data(self, year):
+
+        
+        # Extract generation data
+        data = self.cds_data
+        
+        # Extract specific year
+        data_subset = data[["Country", "Country code", year]]
+        data_subset = data_subset.rename(columns={year: "CDS_"+year})
+        
+        
+        return data_subset
     
 
     def pull_generation_data_v2(self, year_str, technology):
@@ -121,6 +143,8 @@ class WaccPredictor:
         
         # Extract generation data
         generation_data = self.generation_data
+        if year_str == "2024":
+            year = "2023"
         year = int(year_str)
         
         # Extract Capacity
@@ -171,7 +195,7 @@ class WaccPredictor:
     def projections_wacc(self, end_year, technology, country, interest_rates=None, GDP_change=None, renewable_targets=None):
 
         # Specify range
-        year_range = np.arange(2024, end_year+1, 1)
+        year_range = np.arange(2025, end_year+1, 1)
 
         # Loop across year_range
         for year in year_range:
@@ -181,7 +205,7 @@ class WaccPredictor:
             yearly_wacc["Year"] = int(year)
 
             # Concat
-            if year == 2024:
+            if year == 2025:
                 storage_df = yearly_wacc
             else:
                 storage_df = pd.concat([storage_df, yearly_wacc])
@@ -221,11 +245,16 @@ class WaccPredictor:
         # Extract CRPs
         if GDP_change is not None:
             old_crp = self.pull_CRP_data(year_old)
+            old_cds = self.pull_CDS_data(year_old)
             crps = self.calculate_future_crp(year_str=year_str, year_old=year_old, crp=old_crp, country_code=country_code)
+            cds = self.calculate_future_crp(year_str=year_str, year_old=year_old, crp=old_cds, country_code=country_code)
         else:
             crps = self.pull_CRP_data(year_old)
+            cds = self.pull_CDS_data(year_old)
             crps = crps.rename(columns={"CRP_" + year_old: "CRP_"+year_str})
+            cds = crps.rename(columns={"CDS_" + year_old: "CDS_"+year_str})
         crp_data = crps.loc[crps["Country code"] == country_code, "CRP_"+year_str]
+        cds_data = cds.loc[crps["Country code"] == country_code, "CDS_"+year_str]
         
         
 
@@ -266,7 +295,7 @@ class WaccPredictor:
                            
 
         # Calculate WACC and contributions
-        results = self.calculator.calculate_wacc_individual(rf_rate=rf_rate, crp=crp_data, tax_rate=tax_data, technology=technology, year=year_str,erp=erp,
+        results = self.calculator.calculate_wacc_individual(rf_rate=rf_rate, crp=crp_data, cds=cds_data, tax_rate=tax_data, technology=technology, year=year_str,erp=erp,
                                             tech_penetration=generation_data, country_code=country_code)
         
 
@@ -296,6 +325,18 @@ class WaccPredictor:
         crp.drop(columns=["CRP_"+year_old], inplace=True)
 
         return crp
+
+    def calculate_future_cds(self, year_str, year_old, cds, country_code):
+
+        # Pull the GDP per capita data for the new and old year
+        new_GDP = self.imf_data.loc[self.imf_data["Country code"] == country_code, year_str].values[0]
+        old_GDP = self.imf_data.loc[self.imf_data["Country code"] == country_code, year_old].values[0]
+
+        # Calculate the new CDS
+        cds["CDS_"+year_str] = cds["CDS_"+year_old] * (float(new_GDP) / float(old_GDP)) ** (-0.15)
+        cds.drop(columns=["CDS_"+year_old], inplace=True)
+
+        return cds
 
 
     def calculate_yearly_wacc(self, year, technology, country_code):

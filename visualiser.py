@@ -5,7 +5,8 @@ import numpy as np
 from streamlit_folium import st_folium
 import branca.colormap as cm
 import altair as alt
-
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
 class VisualiserClass:
     def __init__(self, crp_data, tech_premium):
@@ -187,3 +188,54 @@ class VisualiserClass:
             order=alt.Order('Factor:O', sort="ascending"),  # Color bars by category
     ).properties(width=700)
         st.write(chart)
+
+
+    def create_chloropleth_map(self, wacc_coverage):
+
+        fig = make_subplots(
+        rows=2, cols=2,
+        subplot_titles=['IEA Cost of Capital Observatory', 'Calcaterra et al. 2025',"Steffen 2020", 'This Work'],
+        specs=[[{'type': 'choropleth'}, {'type': 'choropleth'}],
+               [{'type': 'choropleth'}, {'type': 'choropleth'}]],
+        vertical_spacing=0.01,
+        horizontal_spacing=0.03
+    )
+
+        color_scales = {
+            'FINCORE': 'Blues',
+            'IEA': 'Reds',
+            'STEFFEN': 'greys',
+            'IRENA':'Greens',
+        }
+
+        for i, col in enumerate(['IEA', 'IRENA','STEFFEN','FINCORE']):
+            fig.add_trace(
+                go.Choropleth(
+                    locations=wacc_coverage['Country code'],
+                    z=wacc_coverage[col],
+                    colorscale=color_scales[col],
+                    zmin=wacc_coverage[col].min(),
+                    zmax=wacc_coverage[col].max(),
+                    colorbar_title=col,
+                    locationmode='ISO-3',
+                    showscale=False,
+                ),
+                row=(i//2) + 1, col=(i%2) + 1
+            )
+            fig.update_geos(
+            row=(i//2) + 1, col=(i%2) + 1,
+            projection_type='robinson',
+            lataxis=dict(range=[-60, 85]),  # Set latitude bounds
+            lonaxis=dict(range=[-180, 180])
+            )
+            fig.write_image(f"GlobalCoverage" + str(col) + ".png") # Set longitude bounds (full range))
+        fig.update_layout(
+        height=600,
+        width=600
+        )  # Adjusted for vertical stacking)
+
+        
+
+        fig.show()
+
+        fig.write_image("GlobalCoverage.png")
