@@ -108,6 +108,8 @@ class WaccPredictor:
         results = self.calculator.calculate_country_wacc(rf_rate=rf_rate, crp=crp_data, cds=cds_data, tax_rate=tax_data, technology=technology, year=year_str, erp=erp,
                                             tech_penetration=generation_data)
         
+        # Clean results
+        results = results.dropna(thresh=11)
 
         return results
 
@@ -370,6 +372,11 @@ class WaccPredictor:
         erp = erps.loc[erps['Country code']=="ERP"]["CRP_"+year_str][0].astype(float)
         crp_data = crps.loc[crps["Country code"] == country_code, "CRP_"+str(year)]
 
+        # Extract Cds
+        cds = self.pull_CDS_data(year_str)
+        cds_data = cds.loc[cds["Country code"] == country_code, "CDS_"+str(year)]
+
+
         # Extract Generation Data
         if any(technology in s for s in ["Wave", "Tidal", "Geothermal", "Gas CCUS"]):
             ember_name = "Other Renewables"
@@ -400,7 +407,7 @@ class WaccPredictor:
                            
 
         # Calculate WACC and contributions
-        results = self.calculator.calculate_wacc_individual(rf_rate=rf_rate, crp=crp_data, tax_rate=tax_data, technology=technology, year=year_str, erp=erp,
+        results = self.calculator.calculate_wacc_individual(rf_rate=rf_rate, crp=crp_data, cds=cds_data, tax_rate=tax_data, technology=technology, year=year_str, erp=erp,
                                             tech_penetration=generation_data, country_code=country_code)
 
         return results

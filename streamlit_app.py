@@ -227,8 +227,8 @@ country_waccs = pd.read_csv("./DATA/Country_Waccs_2024.csv")
 
 st.title("Financing Costs for Renewables Estimator (FinCoRE)")
 year = st.selectbox(
-        "Year", ("2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023"), 
-         index=8, key="Year", placeholder="Select Year...")
+        "Year", ("2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"), 
+         index=9, key="Year", placeholder="Select Year...")
 technology = st.selectbox(
         "Displayed Technology", tech_names, 
          index=7, placeholder="Select Technology...", key="Technology")
@@ -324,7 +324,7 @@ with tab5:
 
     # Evaluate projected data
     projection_year = 2030
-    projected_data = wacc_predictor.calculator.calculate_wacc_individual(rf_rate=rf_rate, crp=crp, tax_rate=tax_rate, technology=technology, country_code=country_code, 
+    projected_data = wacc_predictor.calculator.calculate_wacc_individual(rf_rate=rf_rate, crp=crp, cds=crp, tax_rate=tax_rate, technology=technology, country_code=country_code, 
                                                                          year=projection_year,erp=erp,tech_penetration=tech_penetration, market_maturity=market_maturity, penetration_value=tech_penetration)
     projected_data["Year"] = projection_year
 
