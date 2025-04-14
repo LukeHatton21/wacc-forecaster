@@ -197,7 +197,7 @@ class VisualiserClass:
         subplot_titles=['IEA Cost of Capital Observatory', 'Calcaterra et al. 2025',"Steffen 2020", 'This Work'],
         specs=[[{'type': 'choropleth'}, {'type': 'choropleth'}],
                [{'type': 'choropleth'}, {'type': 'choropleth'}]],
-        vertical_spacing=0.01,
+        vertical_spacing=0.03,
         horizontal_spacing=0.03
     )
 
@@ -230,9 +230,12 @@ class VisualiserClass:
             )
             fig.write_image(f"GlobalCoverage" + str(col) + ".png") # Set longitude bounds (full range))
         fig.update_layout(
+        margin=dict(t=30, b=10, l=10, r=10),
         height=600,
         width=600
-        )  # Adjusted for vertical stacking)
+        )
+        for annotation in fig['layout']['annotations']:
+            annotation['y'] -= 0.01  # Adjusted for vertical stacking)
 
         
 

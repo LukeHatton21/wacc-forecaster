@@ -7,6 +7,7 @@ import branca.colormap as cm
 from wacc_prediction_v2 import WaccPredictor
 from visualiser import VisualiserClass
 import altair as alt
+import matplotlib.pyplot as plt
 
 # Data Source for map: https://public.opendatasoft.com/explore/embed/dataset/world-administrative-boundaries-countries/table/
 
@@ -212,7 +213,7 @@ def plot_comparison_chart(df):
 # Call WaccPredictor Object
 wacc_predictor = WaccPredictor(crp_data = "./DATA/CRPs.csv", 
 generation_data="./DATA/Ember Yearly Data 2023.csv", GDP="./DATA/GDPPerCapita.csv",
-tax_data="./DATA/TaxData.csv", ember_targets="./DATA/Ember_2030_Targets.csv", 
+tax_data="./DATA/CORPORATE_TAX_DATA.csv", ember_targets="./DATA/Ember_2030_Targets.csv", 
 us_ir="./DATA/US_IR.csv", imf_data="./DATA/IMF_Projections.csv", collated_crp_cds="./DATA/Collated_CRP_CDS.xlsx")
 
 # Call visualiser
@@ -220,8 +221,6 @@ visualiser = VisualiserClass(wacc_predictor.crp_data, wacc_predictor.calculator.
 country_names = sorted(visualiser.crp_dictionary.keys())
 tech_names = sorted(visualiser.tech_dictionary.keys())
 tech_names = [x for x in tech_names if x !="Other"]
-
-country_waccs = pd.read_csv("./DATA/Country_Waccs_2024.csv")
 
 
 
@@ -352,39 +351,116 @@ with tab7:
     st.write("The data available from this tool is licensed as Creative Commons Attribution-NonCommercial International (CC BY-NC 4.0), which means you are free to copy, redistribute"
             + " and adapt it for non-commercial purposes, provided you give appropriate credit. If you wish to use the data for commercial purposes, please get in touch.")
 
-#counter = 0   
-#counter_year = 0 
-#for year in np.arange(2015, 2024):
-    #for technology in tech_names:
-        #technology = visualiser.tech_dictionary.get(technology)
-        #yearly_waccs = wacc_predictor.calculate_historical_waccs(year, technology)
-        #wacc_data = yearly_waccs
-       # wacc_data["Technology"] = technology
-        #print(wacc_data)
-        #if counter == 0:
-            #merged_df = wacc_data[["Country code", "WACC", "Year", "Technology"]]
-       # else:
-            #merged_df = pd.concat([merged_df, wacc_data[["Country code", "WACC", "Year", "Technology"]]])
-        #counter = counter + 1
-    #if counter_year == 0:
-        #results_df = merged_df
-    #else:
-        #results_df = pd.concat([results_df, merged_df])
-    #counter_year = counter_year + 1
-#print(np.unique(results_df["Year"]))
-#results_df["WACC"] = results_df["WACC"].round(2)
-#results_df.to_csv("./DATA/RESULTS_FULL.csv")
+
+def produce_aggregated_historical_data(wacc_predictor, tech_names):
+    counter = 0   
+    counter_year = 0 
+    for year in np.arange(2015, 2025):
+        for technology in tech_names:
+            technology = visualiser.tech_dictionary.get(technology)
+            yearly_waccs = wacc_predictor.calculate_historical_waccs(year, technology)
+            wacc_data = yearly_waccs
+            wacc_data["Technology"] = technology
+            print(wacc_data)
+            if counter == 0:
+                merged_df = wacc_data[["Country code", "WACC", "Year", "Technology"]]
+            else:
+                merged_df = pd.concat([merged_df, wacc_data[["Country code", "WACC", "Year", "Technology"]]])
+            counter = counter + 1
+        if counter_year == 0:
+            results_df = merged_df
+        else:
+            results_df = pd.concat([results_df, merged_df])
+        counter_year = counter_year + 1
+    print(np.unique(results_df["Year"]))
+    results_df["WACC"] = results_df["WACC"].round(2)
+    results_df.to_csv("./DATA/HISTORICAL_WACCS.csv")
+
+def produce_aggregated_future_data(wacc_predictor, tech_names):
+    counter = 0   
+    counter_country = 0 
+    for country in country_names:
+        country_code = visualiser.crp_dictionary.get(country) 
+        for technology in tech_names:
+            technology = visualiser.tech_dictionary.get(technology)
+            future_waccs = wacc_predictor.projections_wacc(end_year=2030, technology=technology, country=country_code, 
+                                                    interest_rates="Yes", GDP_change="Yes", renewable_targets="Yes")
+            wacc_data = future_waccs
+            wacc_data["Technology"] = technology
+            print(wacc_data)
+            if counter == 0:
+                merged_df = wacc_data[["Country code", "WACC", "Year", "Technology"]]
+            else:
+                merged_df = pd.concat([merged_df, wacc_data[["Country code", "WACC", "Year", "Technology"]]])
+            counter = counter + 1
+        if counter_country == 0:
+            results_df = merged_df
+        else:
+            results_df = pd.concat([results_df, merged_df])
+        counter_country = counter_country + 1
+    results_df["WACC"] = results_df["WACC"].round(2)
+    results_df.to_csv("./DATA/FUTURE_WACCS.csv")
 
 
 # Produce data for output
-irena = pd.read_csv("./DATA/IRENA_DATA.csv", encoding='latin1')
-iea = pd.read_csv("./DATA/IEA_CoC.csv")
-fincore = pd.read_csv("./DATA/WACC_FINAL.csv")
-steffen = pd.read_csv("./DATA/Steffen_CoC_2020.csv")
-fincore = fincore.assign(FINCORE=1)
-fincore = fincore.loc[fincore["Year"]==2023]
-fincore["FINCORE"] = 1
-wacc_coverage = fincore[["Country code", "FINCORE"]].merge(irena[["Country code", "IRENA"]], how="left").merge(iea[["Country code", "IEA"]], how="left", on="Country code").merge(steffen[["Country code", "STEFFEN"]], how="left", on="Country code")
-visualiser.create_chloropleth_map(wacc_coverage)
+def produce_data_for_output():
+    irena = pd.read_csv("./DATA/IRENA_DATA.csv", encoding='latin1')
+    iea = pd.read_csv("./DATA/IEA_CoC.csv")
+    fincore = pd.read_csv("./DATA/HISTORICAL_WACCS.csv")
+    steffen = pd.read_csv("./DATA/Steffen_CoC_2020.csv")
+    fincore = fincore.assign(FINCORE=1)
+    fincore = fincore.loc[fincore["Year"]==2023]
+    fincore["FINCORE"] = 1
+    wacc_coverage = fincore[["Country code", "FINCORE"]].merge(irena[["Country code", "IRENA"]], how="left").merge(iea[["Country code", "IEA"]], how="left", on="Country code").merge(steffen[["Country code", "STEFFEN"]], how="left", on="Country code")
+    visualiser.create_chloropleth_map(wacc_coverage)
+
+def fischer_equation(min, max):
+
+    inflation = 0.03
+    # Calculate for minimum and maximum
+    min_nominal = (1 + min/100) * (1 + inflation) - 1
+    max_nominal = (1 + max/100) * (1 + inflation) - 1
+
+    return min_nominal*100, max_nominal*100
+
+def produce_boxplots_by_year(data, technology): 
+    
+    # Extract required data
+    extracted_data = data.loc[data["Technology"]==technology]
+
+    # Melt dataframe
+    df = pd.pivot_table(extracted_data[["Country code", "Year", "WACC"]], index=["Country code"], values=["WACC"], columns=["Year"])
+    df.columns = df.columns.get_level_values(1)
+    df.columns = df.columns.astype(str)
+    # Produce boxplot
+    fig, ax = plt.subplots(figsize=(10, 6))
+    data_to_plot = [df[col].dropna().values for col in df.columns]
+    box = ax.boxplot(data_to_plot, tick_labels=df.columns, whis=1, sym="")
+
+    # Add y labels and the shading
+    ax.set_ylabel("Weighted Average Cost of Capital, " + technology + " (%)")
+    min_iea, max_iea = fischer_equation(min=5, max=9)
+    ax.axhspan(min_iea, max_iea, xmin=0, xmax=1, alpha=0.5, color="blue", label="WACC range in IEA WEO scenarios")
+
+    # Add risk free rate
+    rf_rate = pd.read_csv("./DATA/US_IR.csv")[df.columns]
+    ax.plot(range(1, len(df.columns) + 1), rf_rate.values[0], linestyle="--", label="Projected risk-free rate")
+    ax.legend(loc="upper right")
+    ax.set_ylim([0, 25])
+    
+    fig.tight_layout()  
+    fig.savefig("Future_" + technology + ".png")
+    plt.show() 
+
+#data = pd.read_csv("./DATA/HISTORICAL_WACCS.csv")
+#future_data = pd.read_csv("./DATA/FUTURE_WACCS.csv")
+#produce_boxplots_by_year(future_data, "Solar")
+
+#produce_aggregated_historical_data(wacc_predictor, tech_names)
+#produce_aggregated_future_data(wacc_predictor, tech_names)
+#produce_data_for_output()
+
+
+
 
 

@@ -9,3 +9,4 @@ altair
 plotly
 kaleido
 openpyxl
+matplotlib

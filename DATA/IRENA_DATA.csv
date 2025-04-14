@@ -23,7 +23,7 @@ BG,BGR,Bulgaria,21,0.04,,0.048,1
 BH,BHR,Bahrain,22,,,,
 BI,BDI,Burundi,23,,,,
 BJ,BEN,Benin,24,,,,
-BL,BLM,Saint Barthélemy,25,,,,
+BL,BLM,Saint BarthÔøΩlemy,25,,,,
 BM,BMU,Bermuda,26,,,,
 BN,BRN,Brunei Darussalam,27,,,,
 BO,BOL,Bolivia,28,0.087,,0.087,1
@@ -50,7 +50,7 @@ CO,COL,Colombia,48,0.056,,0.056,1
 CR,CRI,Costa Rica,49,0.056,,0.064,1
 CU,CUB,Cuba,50,0.116,,0.116,1
 CV,CPV,Cape Verde,51,,,,
-CW,CUW,Curaçao,52,,,,
+CW,CUW,CuraÔøΩao,52,,,,
 CX,CXR,Christmas Island,53,,,,
 CY,CYP,Cyprus,54,0.044,,0.049,1
 CZ,CZE,Czechia,55,0.051,,0.037,1
@@ -105,7 +105,7 @@ IM,IMN,Isle of Man,103,,,,
 IN,IND,India,104,0.059,,0.059,1
 IO,IOT,British Indian Ocean Territory,105,,,,
 IQ,IRQ,Iraq,106,0.096,,0.096,1
-IR,IRN,"Iran, Islamic Republic of",107,,,,
+IR,IRN,"Iran, Islamic Republic of",107,0.114,,0.115,1
 IS,ISL,Iceland,108,,,,
 IT,ITA,Italy,109,0.033,0.061,0.031,1
 JE,JEY,Jersey,110,,,,
@@ -122,7 +122,7 @@ KP,PRK,"Korea, Democratic People's Republic of",120,,,,
 KR,KOR,"Korea, Republic of",121,,,,
 KW,KWT,Kuwait,122,0.053,,0.053,1
 KY,CYM,Cayman Islands,123,,,,
-KZ,KAZ,Kazakstan,124,,,,
+KZ,KAZ,Kazakstan,124,0.063,,0.063,1
 LA,LAO,"Lao, People's Democratic Republic",125,,,,
 LB,LBN,Lebanon,126,0.21,,0.21,1
 LC,LCA,Saint Lucia,127,,,,
@@ -188,7 +188,7 @@ QA,QAT,Qatar,186,,,,
 RE,REU,Reunion,187,,,,
 RO,ROU,Romania,188,0.057,,0.051,1
 RS,SRB,Republic of Serbia,189,,,,
-RU,RUS,Russia Federation,190,,,,
+RU,RUS,Russia Federation,190,0.063,,0.063,1
 RW,RWA,Rwanda,191,0.084,,0.056,1
 SA,SAU,Saudi Arabia,192,0.062,,0.062,1
 SB,SLB,Solomon Islands,193,,,,
