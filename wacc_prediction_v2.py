@@ -63,7 +63,7 @@ class WaccPredictor:
             previous_year.set_index('Country code', inplace=True)
 
             # Fill missing values for 2023 with 2022 data
-            data = pd.merge(data, previous_year, on="Country code", how="outer")
+            data = pd.merge(data, previous_year, on="Country code", how="left")
             data['Penetration_' + str(year)] = data['Penetration_' + str(year)].fillna(data['Penetration_'+str(year-1)])
 
             # Reset index if needed
@@ -230,7 +230,7 @@ class WaccPredictor:
             previous_year.set_index('Country code', inplace=True)
 
             # Fill missing values for 2023 with 2022 data
-            data = pd.merge(data, previous_year, on="Country code", how="outer")
+            data = pd.merge(data, previous_year, on="Country code", how="left")
             data['Penetration_' + str(year)] = data['Penetration_' + str(year)].fillna(data['Penetration_'+str(year-1)])
 
             # Reset index if needed
@@ -282,7 +282,7 @@ class WaccPredictor:
         generation_data = self.pull_generation_data_v2(year_str, ember_name)
         previous_year = self.pull_generation_data_v2(str(year_int-1), ember_name)
         generation_data = fill_missing_RE_values(generation_data, previous_year, year_int)
-        generation_data = pd.merge(self.crp_data['Country code'],generation_data[['Country code', 'Penetration_'+year_str]], on="Country code", how="left")
+        generation_data = generation_data[['Country code', 'Penetration_'+year_str]]
         generation_data.fillna(0, inplace=True)
         generation_data.rename(columns={"Penetration_"+year_str:"Penetration"}, inplace=True)
         if technology == "Gas CCUS":
@@ -378,7 +378,7 @@ class WaccPredictor:
             previous_year.set_index('Country code', inplace=True)
 
             # Fill missing values for 2023 with 2022 data
-            data = pd.merge(data, previous_year, on="Country code", how="outer")
+            data = pd.merge(data, previous_year, on="Country code", how="left")
             data['Penetration_' + str(year)] = data['Penetration_' + str(year)].fillna(data['Penetration_'+str(year-1)])
 
             # Reset index if needed
@@ -416,7 +416,7 @@ class WaccPredictor:
         generation_data = self.pull_generation_data_v2(year_str, ember_name)
         previous_year = self.pull_generation_data_v2(str(year_int-1), ember_name)
         generation_data = fill_missing_RE_values(generation_data, previous_year, year_int)
-        generation_data = pd.merge(self.crp_data['Country code'],generation_data[['Country code', 'Penetration_'+year_str]], on="Country code", how="left")
+        generation_data = generation_data[['Country code', 'Penetration_'+year_str]]
         generation_data.fillna(0, inplace=True)
         generation_data.rename(columns={"Penetration_"+year_str:"Penetration"}, inplace=True)
         

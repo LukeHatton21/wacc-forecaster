@@ -17,6 +17,7 @@ import matplotlib.pyplot as plt
 def display_map(df, technology):
     map = folium.Map(location=[10, 0], zoom_start=1, control_scale=True, scrollWheelZoom=True, tiles='CartoDB positron')
     df = df.rename(columns={"Country code":"iso3_code"})
+    df = df.tail(-1)
 
     choropleth = folium.Choropleth(
         geo_data='./DATA/country_boundaries.geojson',
