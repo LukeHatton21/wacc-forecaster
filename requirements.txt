@@ -10,3 +10,4 @@ plotly
 kaleido
 openpyxl
 matplotlib
+seaborn

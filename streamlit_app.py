@@ -8,6 +8,7 @@ from wacc_prediction_v2 import WaccPredictor
 from visualiser import VisualiserClass
 import altair as alt
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Data Source for map: https://public.opendatasoft.com/explore/embed/dataset/world-administrative-boundaries-countries/table/
 
@@ -453,13 +454,50 @@ def produce_boxplots_by_year(data, technology):
     fig.savefig("Future_" + technology + ".png")
     plt.show() 
 
-#data = pd.read_csv("./DATA/HISTORICAL_WACCS.csv")
-#future_data = pd.read_csv("./DATA/FUTURE_WACCS.csv")
+data = pd.read_csv("./DATA/HISTORICAL_WACCS.csv")
+future_data = pd.read_csv("./DATA/FUTURE_WACCS.csv")
+concat_data = pd.concat([data, future_data], ignore_index=True)
+concat_data = concat_data.merge(visualiser.crp_country, how="left", on="Country code")
+concat_data = concat_data[["Country", "Country code", "Year", "Technology", "WACC"]]
+concat_data = concat_data.loc[concat_data["Country code"] != "ABD"]
+concat_data.sort_values("Country")
+concat_data.to_csv("./DATA/WACC_ESTIMATES_LONG.csv")
+concat_wide = pd.pivot_table(concat_data, index=["Country", "Country code", "Technology"], values="WACC", columns=["Year"])
+concat_wide = concat_wide.rename(columns={"Year":"index"})
+concat_wide.to_csv("./DATA/WACC_ESTIMATES_WIDE.csv")
 #produce_boxplots_by_year(future_data, "Solar")
+
+
+def produce_boxplots_verification(historical_data, technology, iea_data): 
+    
+    # Produce mapping
+    mapping = {"IND": "India", "IDN": "Indonesia", "BRA": "Brazil", "MEX": "Mexico", "ZAF": "South Africa"}
+    
+    # Extract required data
+    extracted_data = historical_data[["Technology", "Country code", "Year", "WACC"]]
+    merged_data = iea_data.merge(extracted_data.rename(columns={"WACC":"Estimated_WACC"}), how="left", on=["Technology", "Country code", "Year"])
+    merged_data = merged_data[["Country code", "Year", "WACC", "Estimated_WACC"]]
+    merged_data["Country code"] = merged_data["Country code"].map(mapping)
+    predicted_results = merged_data[["Country code", "Year", "Estimated_WACC"]].drop_duplicates()
+
+    # Produce boxplot
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.boxplot(x="Country code", y="WACC", hue="Year", data=merged_data, ax=ax)
+    sns.boxplot(x="Country code", y="Estimated_WACC", hue="Year", data=predicted_results, ax=ax, color="red", legend=False, linecolor="red")
+    ax.plot([], [], color='red', label='Estimated WACCs')
+
+    # Add y labels and the shading
+    ax.set_ylabel("Weighted Average Cost of Capital, " + technology + " (%)")
+    ax.legend(loc="upper center")
+    
+    fig.tight_layout()  
+    fig.savefig("Verification_" + technology + ".png")
+    plt.show() 
 
 #produce_aggregated_historical_data(wacc_predictor, tech_names)
 #produce_aggregated_future_data(wacc_predictor, tech_names)
-#produce_data_for_output()
+iea_data = pd.read_csv("./DATA/IEACoCData.csv")
+produce_boxplots_verification(data, technology, iea_data)
 
 
 
