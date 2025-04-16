@@ -457,7 +457,7 @@ def produce_boxplots_by_year(data, technology):
 data = pd.read_csv("./DATA/HISTORICAL_WACCS.csv")
 future_data = pd.read_csv("./DATA/FUTURE_WACCS.csv")
 concat_data = pd.concat([data, future_data], ignore_index=True)
-concat_data = concat_data.round(2)
+concat_data = concat_data.round(decimals=1)
 concat_data = concat_data.merge(visualiser.crp_country, how="left", on="Country code")
 concat_data = concat_data[["Country", "Country code", "Year", "Technology", "WACC"]]
 concat_data = concat_data.loc[concat_data["Country code"] != "ABD"]
