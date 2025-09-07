@@ -9,7 +9,8 @@ from visualiser import VisualiserClass
 import altair as alt
 import matplotlib.pyplot as plt
 import seaborn as sns
-
+import matplotlib.lines as mlines
+from matplotlib.legend_handler import HandlerTuple
 # Data Source for map: https://public.opendatasoft.com/explore/embed/dataset/world-administrative-boundaries-countries/table/
 
 
@@ -437,12 +438,12 @@ def produce_boxplots_by_year(data, technology):
     # Produce boxplot
     fig, ax = plt.subplots(figsize=(10, 6))
     data_to_plot = [df[col].dropna().values for col in df.columns]
-    box = ax.boxplot(data_to_plot, tick_labels=df.columns, whis=1, sym="")
+    box = ax.boxplot(data_to_plot, tick_labels=df.columns, whis=1, sym="", medianprops=dict(color="black", linewidth=2))
 
     # Add y labels and the shading
     ax.set_ylabel("Weighted Average Cost of Capital, " + technology + " (%)")
     min_iea, max_iea = fischer_equation(min=5, max=9)
-    ax.axhspan(min_iea, max_iea, xmin=0, xmax=1, alpha=0.5, color="blue", label="WACC range in IEA WEO scenarios")
+    ax.axhspan(min_iea, max_iea, xmin=0, xmax=1, alpha=0.5, color="lightsteelblue", label="WACC range in IEA WEO scenarios")
 
     # Add risk free rate
     rf_rate = pd.read_csv("./DATA/US_IR.csv")[df.columns]
@@ -454,6 +455,8 @@ def produce_boxplots_by_year(data, technology):
     fig.savefig("Future_" + technology + ".png")
     plt.show() 
 
+produce_aggregated_historical_data(wacc_predictor, tech_names)
+produce_aggregated_future_data(wacc_predictor, tech_names)
 data = pd.read_csv("./DATA/HISTORICAL_WACCS.csv")
 future_data = pd.read_csv("./DATA/FUTURE_WACCS.csv")
 concat_data = pd.concat([data, future_data], ignore_index=True)
@@ -466,7 +469,7 @@ concat_data.to_csv("./DATA/WACC_ESTIMATES_LONG.csv")
 concat_wide = pd.pivot_table(concat_data, index=["Country", "Country code", "Technology"], values="WACC", columns=["Year"])
 concat_wide = concat_wide.rename(columns={"Year":"index"})
 concat_wide.to_csv("./DATA/WACC_ESTIMATES_WIDE.csv")
-#produce_boxplots_by_year(future_data, "Solar")
+produce_boxplots_by_year(future_data, "Solar")
 
 
 def produce_boxplots_verification(historical_data, technology, iea_data): 
@@ -483,20 +486,34 @@ def produce_boxplots_verification(historical_data, technology, iea_data):
 
     # Produce boxplot
     fig, ax = plt.subplots(figsize=(10, 6))
-    sns.boxplot(x="Country code", y="WACC", hue="Year", data=merged_data, ax=ax)
-    sns.boxplot(x="Country code", y="Estimated_WACC", hue="Year", data=predicted_results, ax=ax, color="red", legend=False, linecolor="red")
-    ax.plot([], [], color='red', label='Estimated WACCs')
+    my_pal = {2019: "#D8BFD8", 2021: "#C680D7", 2022: "#6742B1"}
+    sns.boxplot(x="Country code", y="WACC", hue="Year", data=merged_data, ax=ax, palette=my_pal)
+    sns.boxplot(x="Country code", y="Estimated_WACC", hue="Year", data=predicted_results, ax=ax, color="red", legend=False, linecolor="black",capprops={"linewidth": 3, "color": "black"})
+    #ax.plot([], [], color='red', label='Estimated WACCs')
 
     # Add y labels and the shading
     ax.set_ylabel("Weighted Average Cost of Capital, " + technology + " (%)")
-    ax.legend(loc="upper center")
+
+    # Fix legend
+
+    # Create three segments for the icon
+    left = mlines.Line2D([0], [0], color="black", linewidth=1)   # thin left
+    mid  = mlines.Line2D([0], [0], color="black", linewidth=3)   # thick middle
+    right= mlines.Line2D([0], [0], color="black", linewidth=1)   # thin right
+
+    # Bundle them into a tuple so they behave as one legend entry
+    custom_icon = (left, mid, right)
+    handles, labels = ax.get_legend_handles_labels()
+
+    # Append your custom one
+    handles.append(custom_icon)
+    labels.append("Estimated WACC")
+    ax.legend(handles, labels, loc="upper center",handler_map={tuple: HandlerTuple(ndivide=None)})
     
     fig.tight_layout()  
     fig.savefig("Verification_" + technology + ".png")
     plt.show() 
 
-#produce_aggregated_historical_data(wacc_predictor, tech_names)
-#produce_aggregated_future_data(wacc_predictor, tech_names)
 iea_data = pd.read_csv("./DATA/IEACoCData.csv")
 produce_boxplots_verification(data, technology, iea_data)
 

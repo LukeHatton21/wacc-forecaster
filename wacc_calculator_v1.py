@@ -31,7 +31,10 @@ class WaccCalculator:
 
         # Calculate relative technology premium
         relative_premium = self.lookup_tech_premium(technology)
-        technology_premium = technology_premium + relative_premium
+        if technology in ["Wind", "Wind Offshore", "Solar"]:
+            technology_premium = technology_premium
+        else:
+            technology_premium = technology_premium + relative_premium
 
         # Extract country code
         if country_code is None:
@@ -107,13 +110,16 @@ class WaccCalculator:
             axis=1
             ) 
         
+        # Calculate the intermediate premium
+        tech_penetration["Intermediate"]= (maturity_premium - immature_premium)/(mature - intermediate)*(tech_penetration["Penetration"]-intermediate) + immature_premium
         
         tech_penetration["Tech_Premium"] = tech_penetration.apply(
             lambda row: maturity_premium if row["Maturity"] == "Mature"
-            else (intermediate_premium if row["Maturity"] == "Intermediate"
+            else (row["Intermediate"] if row["Maturity"] == "Intermediate"
                 else immature_premium),
             axis=1
             )
+        tech_penetration = tech_penetration.drop(columns=["Intermediate"])
 
         return tech_penetration
     
@@ -158,7 +164,10 @@ class WaccCalculator:
             
         # Calculate relative technology premium
         relative_premium = self.lookup_tech_premium(technology)
-        technology_premium = technology_premium + relative_premium
+        if technology in ["Wind", "Wind Offshore", "Solar"]:
+            technology_premium = technology_premium
+        else:
+            technology_premium = technology_premium + relative_premium
         
         # Calculate debt share, if applicable
         if debt_share is None:
@@ -230,13 +239,12 @@ class WaccCalculator:
         # If maturity is specified, take that
         if market_maturity is not None:
             maturity = market_maturity
-        
 
         # Calculate tech premiunm
         if maturity == "Mature":
             tech_premium = maturity_premium
         elif maturity == "Intermediate":
-            tech_premium = intermediate_premium
+            tech_premium = (maturity_premium - immature_premium)/(mature - intermediate)*(tech_penetration-intermediate) + immature_premium
         else:
             tech_premium = immature_premium
 

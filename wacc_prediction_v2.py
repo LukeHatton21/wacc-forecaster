@@ -242,7 +242,6 @@ class WaccPredictor:
         year_str = str(year)
         year_int = int(year)
         year_old = str(2024)
-        print(year_str)
 
         # Extract long term U.S. interest rates (proxy for risk free rate)
         if interest_rates is not None:
@@ -419,6 +418,9 @@ class WaccPredictor:
         generation_data = generation_data[['Country code', 'Penetration_'+year_str]]
         generation_data.fillna(0, inplace=True)
         generation_data.rename(columns={"Penetration_"+year_str:"Penetration"}, inplace=True)
+        if technology == "Gas CCUS":
+            generation_data["Penetration"] = generation_data["Penetration_"] * 0
+
         
 
         # Select generation data for a given country
