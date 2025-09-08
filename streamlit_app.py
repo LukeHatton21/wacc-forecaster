@@ -455,21 +455,21 @@ def produce_boxplots_by_year(data, technology):
     fig.savefig("Future_" + technology + ".png")
     plt.show() 
 
-produce_aggregated_historical_data(wacc_predictor, tech_names)
-produce_aggregated_future_data(wacc_predictor, tech_names)
-data = pd.read_csv("./DATA/HISTORICAL_WACCS.csv")
-future_data = pd.read_csv("./DATA/FUTURE_WACCS.csv")
-concat_data = pd.concat([data, future_data], ignore_index=True)
-concat_data = concat_data.round(decimals=1)
-concat_data = concat_data.merge(visualiser.crp_country, how="left", on="Country code")
-concat_data = concat_data[["Country", "Country code", "Year", "Technology", "WACC"]]
-concat_data = concat_data.loc[concat_data["Country code"] != "ABD"]
-concat_data.sort_values("Country")
-concat_data.to_csv("./DATA/WACC_ESTIMATES_LONG.csv")
-concat_wide = pd.pivot_table(concat_data, index=["Country", "Country code", "Technology"], values="WACC", columns=["Year"])
-concat_wide = concat_wide.rename(columns={"Year":"index"})
-concat_wide.to_csv("./DATA/WACC_ESTIMATES_WIDE.csv")
-produce_boxplots_by_year(future_data, "Solar")
+#produce_aggregated_historical_data(wacc_predictor, tech_names)
+#produce_aggregated_future_data(wacc_predictor, tech_names)
+#data = pd.read_csv("./DATA/HISTORICAL_WACCS.csv")
+#future_data = pd.read_csv("./DATA/FUTURE_WACCS.csv")
+#concat_data = pd.concat([data, future_data], ignore_index=True)
+#concat_data = concat_data.round(decimals=1)
+#concat_data = concat_data.merge(visualiser.crp_country, how="left", on="Country code")
+#concat_data = concat_data[["Country", "Country code", "Year", "Technology", "WACC"]]
+#concat_data = concat_data.loc[concat_data["Country code"] != "ABD"]
+#concat_data.sort_values("Country")
+#concat_data.to_csv("./DATA/WACC_ESTIMATES_LONG.csv")
+#concat_wide = pd.pivot_table(concat_data, index=["Country", "Country code", "Technology"], values="WACC", columns=["Year"])
+#concat_wide = concat_wide.rename(columns={"Year":"index"})
+#concat_wide.to_csv("./DATA/WACC_ESTIMATES_WIDE.csv")
+#produce_boxplots_by_year(future_data, "Solar")
 
 
 def produce_boxplots_verification(historical_data, technology, iea_data): 
@@ -514,8 +514,8 @@ def produce_boxplots_verification(historical_data, technology, iea_data):
     fig.savefig("Verification_" + technology + ".png")
     plt.show() 
 
-iea_data = pd.read_csv("./DATA/IEACoCData.csv")
-produce_boxplots_verification(data, technology, iea_data)
+#iea_data = pd.read_csv("./DATA/IEACoCData.csv")
+#produce_boxplots_verification(data, technology, iea_data)
 
 
 
