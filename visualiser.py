@@ -5,6 +5,7 @@ import numpy as np
 from streamlit_folium import st_folium
 import branca.colormap as cm
 import altair as alt
+import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
@@ -241,4 +242,75 @@ class VisualiserClass:
 
         fig.show()
 
-        fig.write_image("GlobalCoverage.png")
+        fig.write_image("GlobalCoverage.png", scale=5)
+
+    def produce_boxplots_verification(self, historical_data, technology, iea_data): 
+    
+        # Produce mapping
+        mapping = {"IND": "India", "IDN": "Indonesia", "BRA": "Brazil", "MEX": "Mexico", "ZAF": "South Africa"}
+        
+        # Extract required data
+        extracted_data = historical_data[["Technology", "Country code", "Year", "WACC"]]
+        merged_data = iea_data.merge(extracted_data.rename(columns={"WACC":"Estimated_WACC"}), how="left", on=["Technology", "Country code", "Year"])
+        merged_data = merged_data[["Country code", "Year", "WACC", "Estimated_WACC"]]
+        merged_data["Country code"] = merged_data["Country code"].map(mapping)
+        predicted_results = merged_data[["Country code", "Year", "Estimated_WACC"]].drop_duplicates()
+
+        # Produce boxplot
+        fig, ax = plt.subplots(figsize=(10, 6))
+        my_pal = {2019: "#D8BFD8", 2021: "#C680D7", 2022: "#6742B1"}
+        sns.boxplot(x="Country code", y="WACC", hue="Year", data=merged_data, ax=ax, palette=my_pal)
+        sns.boxplot(x="Country code", y="Estimated_WACC", hue="Year", data=predicted_results, ax=ax, color="red", legend=False, linecolor="black",capprops={"linewidth": 3, "color": "black"})
+        #ax.plot([], [], color='red', label='Estimated WACCs')
+
+        # Add y labels and the shading
+        ax.set_ylabel("Weighted Average Cost of Capital, " + technology + " (%)")
+
+        # Fix legend
+
+        # Create three segments for the icon
+        left = mlines.Line2D([0], [0], color="black", linewidth=1)   # thin left
+        mid  = mlines.Line2D([0], [0], color="black", linewidth=3)   # thick middle
+        right= mlines.Line2D([0], [0], color="black", linewidth=1)   # thin right
+
+        # Bundle them into a tuple so they behave as one legend entry
+        custom_icon = (left, mid, right)
+        handles, labels = ax.get_legend_handles_labels()
+
+        # Append your custom one
+        handles.append(custom_icon)
+        labels.append("Estimated WACC")
+        ax.legend(handles, labels, loc="upper center",handler_map={tuple: HandlerTuple(ndivide=None)})
+        
+        fig.tight_layout()  
+        fig.savefig("Verification_" + technology + ".png", dpi=2400)
+        plt.show() 
+
+    def produce_boxplots_by_year(self, data, technology): 
+    
+        # Extract required data
+        extracted_data = data.loc[data["Technology"]==technology]
+
+        # Melt dataframe
+        df = pd.pivot_table(extracted_data[["Country code", "Year", "WACC"]], index=["Country code"], values=["WACC"], columns=["Year"])
+        df.columns = df.columns.get_level_values(1)
+        df.columns = df.columns.astype(str)
+        # Produce boxplot
+        fig, ax = plt.subplots(figsize=(10, 6))
+        data_to_plot = [df[col].dropna().values for col in df.columns]
+        box = ax.boxplot(data_to_plot, tick_labels=df.columns, whis=1, sym="", medianprops=dict(color="black", linewidth=2))
+
+        # Add y labels and the shading
+        ax.set_ylabel("Weighted Average Cost of Capital, " + technology + " (%)")
+        min_iea, max_iea = fischer_equation(min=5, max=9)
+        ax.axhspan(min_iea, max_iea, xmin=0, xmax=1, alpha=0.5, color="lightsteelblue", label="WACC range in IEA WEO scenarios")
+
+        # Add risk free rate
+        rf_rate = pd.read_csv("./DATA/US_IR.csv")[df.columns]
+        ax.plot(range(1, len(df.columns) + 1), rf_rate.values[0], linestyle="--", label="Projected risk-free rate")
+        ax.legend(loc="upper right")
+        ax.set_ylim([0, 25])
+        
+        fig.tight_layout()  
+        fig.savefig("Future_" + technology + ".png", dpi=2400)
+        plt.show() 
