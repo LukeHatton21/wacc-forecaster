@@ -106,7 +106,7 @@ def get_sorted_waccs(df, technology):
 
 def sort_waccs(df):
 
-    sorted_df = df.sort_values(by="WACC", axis=0, ascending=True)
+    sorted_df = df.sort_values(by="WACC", ascending=True)
     list = ["WACC", "Equity_Cost", "Debt_Cost", "Debt_Share", "Tax_Rate"]
     sorted_df = sorted_df.drop(labels=list, axis="columns")
     
@@ -176,8 +176,8 @@ def plot_ranking_table_tech(raw_df, tech_codes):
     # Create chart
     chart = alt.Chart(data_melted).mark_bar().encode(
         x=alt.X('sum(Value):Q', stack='zero', title='Weighted Average Cost of Capital (%)'),
-        y=alt.Y('Technology:O', sort="x", title='Technology'),  # Sort technologies by total value descending
-        color=alt.Color('Factor:N', title='Factor').legend(orient="right", columns=3),
+        y=alt.Y('Technology:O', sort="x", title='Technology',axis=alt.Axis(labelLimit=500)),  # Sort technologies by total value descending
+        color=alt.Color('Factor:N', title='Factor').legend(orient="right", columns=2),
         order=alt.Order('Factor:O', sort="ascending"),  # Color bars by category
 ).properties(width=700)
 
@@ -291,7 +291,7 @@ tech_names = [x for x in tech_names if x !="Other"]
 
 st.title("Financing Costs for Renewables Estimator (FinCoRE)")
 year = st.selectbox(
-        "Year", ("2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"), 
+        "Year", ("2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034"), 
          index=9, key="Year", placeholder="Select Year...")
 technology = st.selectbox(
         "Displayed Technology", tech_names, 
@@ -310,9 +310,12 @@ with tab1:
     display_map(yearly_waccs, technology)
 with tab2:
     st.header("Global Estimates")
-    selected_countries = st.multiselect("Countries to compare", options=yearly_waccs['Country code'].values, default=["USA", "IND", "GBR", "JPN", "CHN", "BRA"])
+    defaults = ["USA", "IND", "GBR", "JPN", "CHN", "BRA"]
+    defaults_country_names = [visualiser.crp_dict_reverse[x] for x in defaults]
+    selected_countries = st.multiselect("Countries to compare", options=visualiser.crp_dict_reverse.values(), default=defaults_country_names)
+    selected_countries_iso = [visualiser.crp_dictionary[x] for x in selected_countries]
     sorted_waccs = sort_waccs(yearly_waccs)
-    plot_ranking_table(sorted_waccs, selected_countries)
+    plot_ranking_table(sorted_waccs, selected_countries_iso)
 with tab3:
     st.header("Historical and Projected Estimates")
     country_selection = st.selectbox(
@@ -363,7 +366,10 @@ with tab5:
          index=0, placeholder="Select Country...", key="Country")
     country_code = visualiser.crp_dictionary.get(country_code)
     col1, col2, col3, col4 = st.columns(4)
-    yearly_data = wacc_predictor.calculate_yearly_wacc(year, technology, country_code)
+    if int(year) > 2024:
+        yearly_data = wacc_predictor.calculate_future_wacc(year, technology, country_code,  interest_rates="Yes", GDP_change="Yes", renewable_targets="Yes")
+    else:
+        yearly_data = wacc_predictor.calculate_yearly_wacc(year, technology, country_code)
     with col1:
         st.subheader("Macro Environment")
         rf_rate = st.number_input("Risk-free Rate (%)", value=2.5, min_value=1.0, max_value=10.0, step=0.1)
@@ -395,6 +401,7 @@ with tab5:
     projected_data["Year"] = projection_year
 
     # Extract historical data for the given country
+    yearly_waccs = wacc_predictor.calculate_historical_waccs("2024", technology)
     selected_wacc = get_selected_country(yearly_waccs, country_code)
     selected_wacc["Year"] = year
 

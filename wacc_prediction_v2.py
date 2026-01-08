@@ -52,6 +52,7 @@ class WaccPredictor:
 
         # Get technologies
         self.technologies = self.calculator.tech_premiums["TECH"].values
+        self.tech_mappings = self.calculator.tech_premiums[["TECH", "VARIABLE"]].set_index('TECH')['VARIABLE'].to_dict()
         
 
     def calculate_historical_waccs(self, year, technology):
@@ -86,20 +87,18 @@ class WaccPredictor:
         cds_data = cds
 
         # Extract Generation Data
-        if any(technology in s for s in ["Wave", "Tidal", "Geothermal", "Gas CCUS"]):
-            ember_name = "Other Renewables"
-        elif technology == "Wind Offshore":
-            ember_name = "Wind" 
-            ## PLACEHOLDER TO ADD IN DATA ON OFFSHORE WIND IN EUROPE FROM EMBERS DATA
+        variable = str(self.tech_mappings.get(technology))
+        if variable == "Other":
+            ember_name = "Solar"
         else:
-            ember_name = technology
+            ember_name = variable
         generation_data = self.pull_generation_data_v2(year_str, ember_name)
         previous_year = self.pull_generation_data_v2(str(year_int-1), ember_name)
         generation_data = fill_missing_RE_values(generation_data, previous_year, year_int)
         generation_data = pd.merge(self.crp_data['Country code'],generation_data[['Country code', 'Penetration_'+year_str]], on="Country code", how="left")
         generation_data.fillna(0, inplace=True)
         generation_data.rename(columns={"Penetration_"+year_str:"Penetration"}, inplace=True)
-        if technology == "Gas CCUS":
+        if technology == "Other":
             generation_data["Penetration"] = generation_data["Penetration"] * 0
 
 
@@ -152,7 +151,7 @@ class WaccPredictor:
         cds = self.calculate_future_cds_all(year_str=year_str, year_old=year_old, cds=old_cds)
 
         # Set into normal format
-        erp = crps[crps['Country code']=="ERP"]["CRP_"+year_old][0].astype(float)
+        erp = old_crp[old_crp['Country code']=="ERP"]["CRP_"+year_old][0].astype(float)
         crp_data = crps
         cds_data = cds
 
@@ -176,8 +175,8 @@ class WaccPredictor:
 
 
         # Extract Tax Rates
-        tax_rate = pd.merge(self.crp_data['Country code'], self.tax_data[['Country code', year_str]], on="Country code", how="left")
-        tax_rate["Tax_Rate"] = tax_rate[year_str]
+        tax_rate = pd.merge(self.crp_data['Country code'], self.tax_data[['Country code', year_old]], on="Country code", how="left")
+        tax_rate["Tax_Rate"] = tax_rate[year_old]
         tax_rate['Tax_Rate'] = tax_rate['Tax_Rate'].fillna(value=0)
         tax_data = tax_rate
                            
@@ -446,17 +445,18 @@ class WaccPredictor:
         year_orig = year_str
         if year_str > "2030":
             year_str = "2029"
-        new_GDP = self.imf_data.rename(columns={year_str:"GDP_"+year_str})[["Country code", "GDP_"+year_str]]
-        old_GDP = self.imf_data.rename(columns={year_str:"GDP_2024"})[["Country code", "GDP_2024"]]
-        st.write(old_GDP)
+        new_GDP = self.imf_data.copy().rename(columns={year_str:"GDP_"+year_str})[["Country code", "GDP_"+year_str]]
+        old_GDP = self.imf_data.copy().rename(columns={"2024":"GDP_2024"})[["Country code", "GDP_2024"]]
 
         # Merge onto the CRP
         crp_merged = crp.merge(new_GDP, how="left", on="Country code").merge(old_GDP, how="left", on="Country code")
-        st.write(crp_merged)
 
         # Calculate the new CRP
-        crp_merged["CRP_"+year_orig] = crp_merged["CRP_"+year_old] * (crp_merged["GDP_"+year_str] / crp_merged["GDP_2024"]) ** (-0.15)
-        crp = crp_merged.drop(columns=["CRP_"+year_old, "GDP_"+year_str, "GDP_2024"])
+        crp_merged["GDP_Change"] = (crp_merged["GDP_"+year_str] / crp_merged["GDP_2024"])
+        crp_merged["GDP_Change"].clip(upper=1.25, lower=0.75, inplace=True)
+        crp_merged["GDP_Change"].fillna(1, inplace=True)
+        crp_merged["CRP_"+year_orig] = crp_merged["CRP_"+year_old] * (crp_merged["GDP_Change"]) ** (-0.15)
+        crp = crp_merged.drop(columns=["CRP_"+year_old, "GDP_"+year_str, "GDP_2024", "GDP_Change"])
 
         return crp
 
@@ -467,15 +467,18 @@ class WaccPredictor:
         if year_str > "2030":
             year_str = "2029"
         new_GDP = self.imf_data.copy().rename(columns={year_str:"GDP_"+year_str})[["Country code", "GDP_"+year_str]]
-        old_GDP = self.imf_data.copy().rename(columns={year_str:"GDP_2024"})[["Country code", "GDP_2024"]]
+        old_GDP = self.imf_data.copy().rename(columns={"2024":"GDP_2024"})[["Country code", "GDP_2024"]]
 
         # Merge onto the CRP
         cds_merged = cds.merge(new_GDP, how="left", on="Country code").merge(old_GDP, how="left", on="Country code")
         
         
         # Calculate the new CDS
-        cds_merged["CDS_"+year_orig] = cds_merged["CDS_"+year_old] * (cds_merged["GDP_"+year_str] / cds_merged["GDP_2024"]) ** (-0.15)
-        cds = cds_merged.drop(columns=["CDS_"+year_old, "GDP_"+year_str, "GDP_2024"])
+        cds_merged["GDP_Change"] = (cds_merged["GDP_"+year_str] / cds_merged["GDP_2024"])
+        cds_merged["GDP_Change"].clip(upper=1.25, lower=0.75, inplace=True)
+        cds_merged["GDP_Change"].fillna(1, inplace=True)
+        cds_merged["CDS_"+year_orig] = cds_merged["CDS_"+year_old] * (cds_merged["GDP_Change"]) ** (-0.15)
+        cds = cds_merged.drop(columns=["CDS_"+year_old, "GDP_"+year_str, "GDP_2024", "GDP_Change"])
 
         return cds
 
@@ -563,7 +566,10 @@ class WaccPredictor:
         for i, tech in enumerate(technologies):
 
             # Calculate yearly WACC
-            tech_wacc = self.calculate_yearly_wacc(year, tech, country)
+            if int(year) > 2024:
+                tech_wacc = self.calculate_future_wacc(year, tech, country, GDP_change="Yes", renewable_targets="Yes", interest_rates="Yes")
+            else:
+                tech_wacc = self.calculate_yearly_wacc(year, tech, country)
             tech_wacc["Year"] = int(year)
             tech_wacc["Technology"] = tech
 

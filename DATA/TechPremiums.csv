@@ -1,12 +1,21 @@
-﻿NAME,TECH,PREMIUM
-Solar PV,Solar,0
-Onshore Wind,Wind,0.34
-Offshore Wind,Wind Offshore,1.34
-Gas Power (CCGT),Gas,-0.26
-Hydroelectric,Hydro,0
-Wave,Wave,0.34
-Tidal,Tidal,0.34
-Geothermal,Geothermal,1.7
-Biomass,Bioenergy,0.49
-Gas Power (CCUS),Gas CCUS,0.49
-Other,Other Renewables, 0
+﻿NAME,TECH,VARIABLE,PREMIUM
+Solar PV,Solar,Solar,0
+Onshore Wind,Wind,Wind,0.34
+Offshore Wind,Offshore Wind,Wind Offshore,1.34
+Gas Power (CCGT),Gas,Gas,-0.26
+Hydroelectric,Hydro,Hydro,0
+Wave,Wave,Other,0.34
+Tidal,Tidal,Other,0.34
+Geothermal,Geothermal,Other Renewables,1.7
+Biomass,Bioenergy,Bioenergy,0.49
+Gas Power (CCUS), Gas CCUS,Other,0.49
+Floating Offshore Wind, Floating Offshore,Other,3.8
+Energy from Waste,EfW,Other Renewables,1.3
+Biomass (CCUS),Bioenergy CCUS,Bioenergy,2.3
+Large-scale Nuclear,Nuclear,Nuclear,0
+Small Modular Reactors (SMRs),SMR,Nuclear,1.3
+Pumped Hydro Storage (PHES),Pumped Hydro,Hydro,1.3
+Long Duration Energy Storage (LDES),Long Duration Storage,Other,2.5
+Lithium-ion Battery Energy Storage System,Lithium-ion,Other,1.3
+Hydrogen Power (CCGT),Hydrogen Power,Other,2.5
+Hydrogen Production (Electrolysis),Electrolysis,Other,2.5
