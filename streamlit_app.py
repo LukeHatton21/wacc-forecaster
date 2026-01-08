@@ -20,9 +20,11 @@ def convert_for_download(df):
     return df.to_csv().encode("utf-8")
 
 def display_map(df, technology):
+    technology_name = visualiser.tech_dict_reverse.get(technology)
     map = folium.Map(location=[10, 0], zoom_start=1, control_scale=True, scrollWheelZoom=True, tiles='CartoDB positron')
     df = df.rename(columns={"Country code":"iso3_code"})
     df = df.tail(-1)
+    df["Technology"] = str(technology_name)
 
     choropleth = folium.Choropleth(
         geo_data='./DATA/country_boundaries.geojson',
@@ -37,7 +39,7 @@ def display_map(df, technology):
     )
     choropleth.geojson.add_to(map)
 
-
+    
     df_indexed = df.set_index('iso3_code')
     df_indexed = df_indexed.dropna(subset="WACC")
     for feature in choropleth.geojson.data['features']:
@@ -56,6 +58,9 @@ def display_map(df, technology):
     )
         feature['properties']["Tax Rate"] = (
         f"{df_indexed.loc[iso3_code, 'Tax Rate']:0.2f}%" if iso3_code in df_indexed.index else "N/A"
+        )
+        feature['properties']["Technology"] = (
+        f"{df_indexed.loc[iso3_code, 'Technology']}" if iso3_code in df_indexed.index else "N/A"
     )
         #feature['properties']['GDP'] = 'GDP: ' + '{:,}'.format(df_indexed.loc[country_name, 'State Pop'][0]) if country_name in list(df_indexed.index) else ''
 
@@ -65,8 +70,8 @@ def display_map(df, technology):
 
     choropleth.geojson.add_child(
     folium.features.GeoJsonTooltip(
-        fields=['english_short', technology + ' WACC', "Equity Cost", "Debt Cost", "Debt Share", "Tax Rate"],  # Display these fields
-        aliases=["Country:", technology + " WACC:", "Cost of Equity:", "Cost of Debt:", "Debt Share:", "Tax Rate:"],         # Display names for the fields
+        fields=['english_short', technology + ' WACC', "Equity Cost", "Debt Cost", "Debt Share", "Tax Rate", "Technology"],  # Display these fields
+        aliases=["Country:", " WACC:", "Cost of Equity:", "Cost of Debt:", "Debt Share:", "Tax Rate:", "Technology:"],         # Display names for the fields
         localize=True,
         style="""
         background-color: #F0EFEF;
@@ -295,9 +300,9 @@ year = st.selectbox(
          index=9, key="Year", placeholder="Select Year...")
 technology = st.selectbox(
         "Displayed Technology", tech_names, 
-         index=7, placeholder="Select Technology...", key="Technology")
+         index=19, placeholder="Select Technology...", key="Technology")
 technology = visualiser.tech_dictionary.get(technology)
-tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["🌐 Map", "🥇Global Estimates", "🔭Country Projections", "🛠️Technologies", "📈 Calculator", "ℹ️ Methods", "📝 About"])
+tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["🌐 Map", "🥇 Global Comparison", "🔭 Country Projections", "🛠️ Technologies", "📈 Calculator", "ℹ️ Methods", "📝 About"])
 
 if int(year) > 2024:
     yearly_waccs = wacc_predictor.calculate_all_future_waccs(year, technology)
@@ -317,7 +322,7 @@ with tab1:
     key="all-national-WACC-single-year",
 )
 with tab2:
-    st.header("Global Estimates")
+    st.header("Global Comparison and Breakdown")
     defaults = ["USA", "IND", "GBR", "JPN", "CHN", "BRA"]
     defaults_country_names = [visualiser.crp_dict_reverse[x] for x in defaults]
     selected_countries = st.multiselect("Countries to compare", options=visualiser.crp_dict_reverse.values(), default=defaults_country_names)
@@ -365,7 +370,7 @@ with tab4:
     country_tech_selection = st.selectbox(
         "Country", options=country_names, 
          index=None, placeholder="Select Country of Interest...", key="CountryTechs")
-    selected_techs = st.multiselect("Technologies to compare", options=tech_names, default=["Solar PV", "Hydroelectric", "Gas Power (CCGT)"])
+    selected_techs = st.multiselect("Technologies to compare", options=tech_names, default=["Solar PV", "Hydroelectric", "Gas (unabated)"])
     print(tech_names)
     selected_techs = [visualiser.tech_dictionary.get(x) for x in selected_techs]
     country_tech_selection = visualiser.crp_dictionary.get(country_tech_selection)
@@ -387,7 +392,7 @@ with tab5:
     st.header("Country Calculator")
     country_code = st.selectbox(
         "Country", country_names, 
-         index=0, placeholder="Select Country...", key="Country")
+         index=None, placeholder="Select Country...", key="Country")
     country_code = visualiser.crp_dictionary.get(country_code)
     col1, col2, col3, col4 = st.columns(4)
     if int(year) > 2024:
