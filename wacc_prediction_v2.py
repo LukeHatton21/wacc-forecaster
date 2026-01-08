@@ -544,7 +544,7 @@ class WaccPredictor:
         tax_rate = pd.merge(self.crp_data['Country code'], self.tax_data[['Country code', year_str]], on="Country code", how="left")
         tax_rate["Tax Rate"] = tax_rate[year_str]
         tax_rate['Tax Rate'] = tax_rate['Tax Rate'].fillna(value=0)
-        tax_data = tax_rate.loc[tax_rate["Country code"] == country_code, "Tax_Rate"]
+        tax_data = tax_rate.loc[tax_rate["Country code"] == country_code, "Tax Rate"]
                            
                            
 

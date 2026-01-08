@@ -289,7 +289,7 @@ tech_names = [x for x in tech_names if x !="Other"]
 
 
 
-st.title("Financing Costs for Renewables Estimator (FinCoRE)")
+st.title("Financing Costs and Risks in Energy infrastructure (FinCoRE) - An Estimation Tool")
 year = st.selectbox(
         "Year", ("2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034"), 
          index=9, key="Year", placeholder="Select Year...")
@@ -441,10 +441,16 @@ with tab6:
 
 with tab7:
     st.subheader("About")
-    st.write("FINCORE allows you to estimate the cost of capital for solar and wind located in the vast majority of the globe, both historical and future." 
-            + " It aims to address the limited accessibility of empirical data on renewable financing terms, and the geographic skew towards Western and industrialising countries of the little data that is available.")
+    with open("about.md", "r", encoding="utf-8") as f:
+        about_text = f.read()
+    with open("data.md", "r", encoding="utf-8") as f:
+        data_text = f.read()
+    st.write(about_text)
+    st.subheader("Data and Publication")
+    st.write(data_text)
     st.subheader("Contact")
-    st.write("FINCORE tool is part of Climate Compatible Growth's suite of open-source Energy Modelling Tools, and has been developed by Luke Hatton at Imperial College London. Contact by email: l.hatton23@imperial.ac.uk")
+    
+    st.write("The FinCoRE tool is  a part of Climate Compatible Growth's suite of open-source Energy Modelling Tools, with its development led by Luke Hatton at Imperial College London. He can be contacted atl.hatton23@imperial.ac.uk")
     st.subheader("License and Data Use Permissions")
     st.write("The data available from this tool is licensed as Creative Commons Attribution-NonCommercial International (CC BY-NC 4.0), which means you are free to copy, redistribute"
             + " and adapt it for non-commercial purposes, provided you give appropriate credit. If you wish to use the data for commercial purposes, please get in touch.")
