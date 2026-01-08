@@ -15,6 +15,9 @@ from matplotlib.legend_handler import HandlerTuple
 
 
 
+@st.cache_data
+def convert_for_download(df):
+    return df.to_csv().encode("utf-8")
 
 def display_map(df, technology):
     map = folium.Map(location=[10, 0], zoom_start=1, control_scale=True, scrollWheelZoom=True, tiles='CartoDB positron')
@@ -42,17 +45,17 @@ def display_map(df, technology):
         feature['properties'][technology + ' WACC'] = (
         f"{df_indexed.loc[iso3_code, 'WACC']:0.2f}%" if iso3_code in df_indexed.index else "N/A"
     )
-        feature['properties']["Debt_Share"] = (
-        f"{df_indexed.loc[iso3_code, 'Debt_Share']:0.2f}%" if iso3_code in df_indexed.index else "N/A"
+        feature['properties']["Debt Share"] = (
+        f"{df_indexed.loc[iso3_code, 'Debt Share']:0.2f}%" if iso3_code in df_indexed.index else "N/A"
     )
-        feature['properties']["Equity_Cost"] = (
-        f"{df_indexed.loc[iso3_code, 'Equity_Cost']:0.2f}%" if iso3_code in df_indexed.index else "N/A"
+        feature['properties']["Equity Cost"] = (
+        f"{df_indexed.loc[iso3_code, 'Equity Cost']:0.2f}%" if iso3_code in df_indexed.index else "N/A"
     )
-        feature['properties']["Debt_Cost"] = (
-        f"{df_indexed.loc[iso3_code, 'Debt_Cost']:0.2f}%" if iso3_code in df_indexed.index else "N/A"
+        feature['properties']["Debt Cost"] = (
+        f"{df_indexed.loc[iso3_code, 'Debt Cost']:0.2f}%" if iso3_code in df_indexed.index else "N/A"
     )
-        feature['properties']["Tax_Rate"] = (
-        f"{df_indexed.loc[iso3_code, 'Tax_Rate']:0.2f}%" if iso3_code in df_indexed.index else "N/A"
+        feature['properties']["Tax Rate"] = (
+        f"{df_indexed.loc[iso3_code, 'Tax Rate']:0.2f}%" if iso3_code in df_indexed.index else "N/A"
     )
         #feature['properties']['GDP'] = 'GDP: ' + '{:,}'.format(df_indexed.loc[country_name, 'State Pop'][0]) if country_name in list(df_indexed.index) else ''
 
@@ -62,7 +65,7 @@ def display_map(df, technology):
 
     choropleth.geojson.add_child(
     folium.features.GeoJsonTooltip(
-        fields=['english_short', technology + ' WACC', "Equity_Cost", "Debt_Cost", "Debt_Share", "Tax_Rate"],  # Display these fields
+        fields=['english_short', technology + ' WACC', "Equity Cost", "Debt Cost", "Debt Share", "Tax Rate"],  # Display these fields
         aliases=["Country:", technology + " WACC:", "Cost of Equity:", "Cost of Debt:", "Debt Share:", "Tax Rate:"],         # Display names for the fields
         localize=True,
         style="""
@@ -107,7 +110,7 @@ def get_sorted_waccs(df, technology):
 def sort_waccs(df):
 
     sorted_df = df.sort_values(by="WACC", ascending=True)
-    list = ["WACC", "Equity_Cost", "Debt_Cost", "Debt_Share", "Tax_Rate"]
+    list = ["WACC", "Equity Cost", "Debt Cost", "Debt Share", "Tax Rate"]
     sorted_df = sorted_df.drop(labels=list, axis="columns")
     
     return sorted_df
@@ -130,11 +133,10 @@ def plot_ranking_table(raw_df, country_codes):
     df = df.drop(labels="Year", axis="columns")
 
     # Melt dataframe
-    df = df.rename(columns={"Risk_Free":" Risk Free", "Country_Risk":"Country Risk", "Technology_Risk":"Technology Risk"})
     data_melted = df.melt(id_vars="Country code", var_name="Factor", value_name="Value")
 
     # Set order
-    category_order = [' Risk Free', 'Country Risk', 'Equity Risk', 'Lenders Margin', 'Technology Risk']
+    category_order = ['Risk Free', 'Country Risk', 'Equity Risk', 'Lenders Margin', 'Technology Risk']
 
     # Create chart
     chart = alt.Chart(data_melted).mark_bar().encode(
@@ -167,11 +169,10 @@ def plot_ranking_table_tech(raw_df, tech_codes):
     new_df = df.drop(columns=["Year", "Country code"])
 
     # Melt dataframe
-    new_df = new_df.rename(columns={"Risk_Free":" Risk Free", "Country_Risk":"Country Risk", "Technology_Risk":"Technology Risk"})
     data_melted = new_df.melt(id_vars="Technology", var_name="Factor", value_name="Value")
 
     # Set order
-    category_order = [' Risk Free', 'Country Risk', 'Equity Risk', 'Lenders Margin', 'Technology Risk']
+    category_order = ['Risk Free', 'Country Risk', 'Equity Risk', 'Lenders Margin', 'Technology Risk']
 
     # Create chart
     chart = alt.Chart(data_melted).mark_bar().encode(
@@ -198,11 +199,10 @@ def plot_ranking_table_tech(raw_df, tech_codes):
 
 def plot_comparison_chart(df):
    # Melt dataframe
-    df = df.rename(columns={"Risk_Free":" Risk Free", "Country_Risk":"Country Risk", "Technology_Risk":"Technology Risk"})
     data_melted = df.melt(id_vars="Year", var_name="Factor", value_name="Value")
 
     # Set order
-    category_order = [' Risk Free', 'Country Risk', 'Equity Risk', 'Lenders Margin', 'Technology Risk']
+    category_order = ['Risk Free', 'Country Risk', 'Equity Risk', 'Lenders Margin', 'Technology Risk']
 
     # Create chart
     chart = alt.Chart(data_melted).mark_bar().encode(
@@ -308,6 +308,14 @@ else:
 with tab1:
     st.header("Map")
     display_map(yearly_waccs, technology)
+    st.download_button(
+    label="Download all national estimates",
+    data=convert_for_download(yearly_waccs),
+    file_name="yearly-costsofcapital-global-"+ technology + ".csv",
+    mime="text/csv",
+    icon=":material/download:",
+    key="all-national-WACC-single-year",
+)
 with tab2:
     st.header("Global Estimates")
     defaults = ["USA", "IND", "GBR", "JPN", "CHN", "BRA"]
@@ -340,9 +348,17 @@ with tab3:
         if len(projection_assumptions) > 0:
             future_waccs = wacc_predictor.projections_wacc(end_year=2034, technology=technology, country=country_selection, 
                                                     interest_rates=interest_rate, GDP_change=gdp_change, renewable_targets=renewable_targets)
-            historical_country_data = pd.concat([future_waccs, historical_country_data])
+            historical_country_data = pd.concat([historical_country_data, future_waccs])
         historical_country_data = historical_country_data.drop(columns = ["Debt_Share", "Equity_Cost", "Debt_Cost", "Tax_Rate", "Country code", "WACC"])
         plot_comparison_chart(historical_country_data)
+        st.download_button(
+    label="Download national timeseries for selected technology",
+    data=convert_for_download(historical_country_data),
+    file_name="yearly-costsofcapital-national-"+ technology + "-" + technology +".csv",
+    mime="text/csv",
+    icon=":material/download:",
+    key="national-WACC-single-tech"
+)
 
 with tab4:
     st.header("Technology Comparison")
@@ -358,6 +374,14 @@ with tab4:
         country_technology_comparison = wacc_predictor.calculate_technology_wacc(year=year, country=country_tech_selection, technologies=selected_techs)
         sorted_tech_comparison = sort_waccs(country_technology_comparison)
         plot_ranking_table_tech(sorted_tech_comparison, selected_techs)
+        st.download_button(
+        label="Download selected technology estimates",
+        data=convert_for_download(sorted_tech_comparison),
+        file_name="selected-technology-costsofcapital-"+ country_tech_selection + ".csv",
+        mime="text/csv",
+        icon=":material/download:",
+        key="all-technology-WACC-single-country",
+    )
 
 with tab5:
     st.header("Country Calculator")
@@ -407,7 +431,7 @@ with tab5:
 
     # Create a bar chart with historical, cost of equity, cost of debt, and overall wacc
     evaluated_wacc_data = pd.concat([selected_wacc, projected_data])
-    evaluated_wacc_data = evaluated_wacc_data.drop(columns = ["Debt_Share", "Equity_Cost", "Debt_Cost", "Tax_Rate", "Country code", "WACC"])
+    evaluated_wacc_data = evaluated_wacc_data.drop(columns = ["Debt Share", "Equity Cost", "Debt Cost", "Tax Rate", "Country code", "WACC"])
     plot_comparison_chart(evaluated_wacc_data)
 
 

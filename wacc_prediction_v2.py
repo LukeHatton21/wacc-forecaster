@@ -104,8 +104,8 @@ class WaccPredictor:
 
         # Extract Tax Rates
         tax_rate = pd.merge(self.crp_data['Country code'], self.tax_data[['Country code', year_str]], on="Country code", how="left")
-        tax_rate["Tax_Rate"] = tax_rate[year_str]
-        tax_rate['Tax_Rate'] = tax_rate['Tax_Rate'].fillna(value=0)
+        tax_rate["Tax Rate"] = tax_rate[year_str]
+        tax_rate['Tax Rate'] = tax_rate['Tax Rate'].fillna(value=0)
         tax_data = tax_rate
                            
 
@@ -157,27 +157,25 @@ class WaccPredictor:
 
 
         # Extract Generation Data
-        if any(technology in s for s in ["Wave", "Tidal", "Geothermal", "Gas CCUS"]):
-            ember_name = "Other Renewables"
-        elif technology == "Wind Offshore":
-            ember_name = "Wind" 
-            ## PLACEHOLDER TO ADD IN DATA ON OFFSHORE WIND IN EUROPE FROM EMBERS DATA
+        variable = str(self.tech_mappings.get(technology))
+        if variable == "Other":
+            ember_name = "Solar"
         else:
-            ember_name = technology
+            ember_name = variable
         generation_data = self.pull_generation_data_v2(year_str, ember_name)
         previous_year = self.pull_generation_data_v2(str(year_int-1), ember_name)
         generation_data = fill_missing_RE_values(generation_data, previous_year, year_int)
         generation_data = pd.merge(self.crp_data['Country code'],generation_data[['Country code', 'Penetration_'+year_str]], on="Country code", how="left")
         generation_data.fillna(0, inplace=True)
         generation_data.rename(columns={"Penetration_"+year_str:"Penetration"}, inplace=True)
-        if technology == "Gas CCUS":
+        if technology == "Other":
             generation_data["Penetration"] = generation_data["Penetration"] * 0
 
 
         # Extract Tax Rates
         tax_rate = pd.merge(self.crp_data['Country code'], self.tax_data[['Country code', year_old]], on="Country code", how="left")
-        tax_rate["Tax_Rate"] = tax_rate[year_old]
-        tax_rate['Tax_Rate'] = tax_rate['Tax_Rate'].fillna(value=0)
+        tax_rate["Tax Rate"] = tax_rate[year_old]
+        tax_rate['Tax Rate'] = tax_rate['Tax Rate'].fillna(value=0)
         tax_data = tax_rate
                            
 
@@ -368,9 +366,9 @@ class WaccPredictor:
 
         # Extract Tax Rates
         tax_rate = pd.merge(self.crp_data['Country code'], self.tax_data[['Country code', year_old]], on="Country code", how="left")
-        tax_rate["Tax_Rate"] = tax_rate[year_old]
-        tax_rate['Tax_Rate'] = tax_rate['Tax_Rate'].fillna(value=0)
-        tax_data = tax_rate.loc[tax_rate["Country code"] == country_code, "Tax_Rate"]
+        tax_rate["Tax Rate"] = tax_rate[year_old]
+        tax_rate['Tax Rate'] = tax_rate['Tax Rate'].fillna(value=0)
+        tax_data = tax_rate.loc[tax_rate["Country code"] == country_code, "Tax Rate"]
         
                            
                            
@@ -520,21 +518,19 @@ class WaccPredictor:
 
 
         # Extract Generation Data
-        if any(technology in s for s in ["Wave", "Tidal", "Geothermal"]):
-            ember_name = "Other Renewables"
-        elif technology == "Wind Offshore":
-            ember_name = "Wind" 
-            ## PLACEHOLDER TO ADD IN DATA ON OFFSHORE WIND IN EUROPE FROM EMBERS DATA
+        variable = str(self.tech_mappings.get(technology))
+        if variable == "Other":
+            ember_name = "Solar"
         else:
-            ember_name = technology
+            ember_name = variable
         generation_data = self.pull_generation_data_v2(year_str, ember_name)
         previous_year = self.pull_generation_data_v2(str(year_int-1), ember_name)
         generation_data = fill_missing_RE_values(generation_data, previous_year, year_int)
-        generation_data = generation_data[['Country code', 'Penetration_'+year_str]]
+        generation_data = pd.merge(self.crp_data['Country code'],generation_data[['Country code', 'Penetration_'+year_str]], on="Country code", how="left")
         generation_data.fillna(0, inplace=True)
         generation_data.rename(columns={"Penetration_"+year_str:"Penetration"}, inplace=True)
-        if technology == "Gas CCUS":
-            generation_data["Penetration"] = generation_data["Penetration_"] * 0
+        if technology == "Other":
+            generation_data["Penetration"] = generation_data["Penetration"] * 0
 
         
 
@@ -546,8 +542,8 @@ class WaccPredictor:
 
         # Extract Tax Rates
         tax_rate = pd.merge(self.crp_data['Country code'], self.tax_data[['Country code', year_str]], on="Country code", how="left")
-        tax_rate["Tax_Rate"] = tax_rate[year_str]
-        tax_rate['Tax_Rate'] = tax_rate['Tax_Rate'].fillna(value=0)
+        tax_rate["Tax Rate"] = tax_rate[year_str]
+        tax_rate['Tax Rate'] = tax_rate['Tax Rate'].fillna(value=0)
         tax_data = tax_rate.loc[tax_rate["Country code"] == country_code, "Tax_Rate"]
                            
                            

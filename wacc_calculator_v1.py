@@ -27,7 +27,7 @@ class WaccCalculator:
 
         # Calculate maturity of market and tech premium
         tech_maturity = self.calculate_maturity_tech_premium(technology, tech_penetration)
-        technology_premium = tech_maturity.loc[tech_maturity["Country code"] != "ERP", "Tech_Premium"]
+        technology_premium = tech_maturity.loc[tech_maturity["Country code"] != "ERP", "Tech Premium"]
 
         # Calculate relative technology premium
         relative_premium = self.lookup_tech_premium(technology)
@@ -44,7 +44,7 @@ class WaccCalculator:
         if 'Country code' in crp.columns:
             crp = crp.loc[crp["Country code"] != "ERP", "CRP_"+str(year)]
             cds = cds.loc[cds["Country code"] != "ERP", "CDS_"+str(year)]
-            tax_rate = tax_rate.loc[tax_rate["Country code"] != "ERP", "Tax_Rate"]
+            tax_rate = tax_rate.loc[tax_rate["Country code"] != "ERP", "Tax Rate"]
         
 
         
@@ -71,8 +71,8 @@ class WaccCalculator:
 
 
         # Include in a pandas dataframe
-        results_df = pd.DataFrame(data={"Country code": country_code, "Risk_Free":risk_free_contributions, "Country_Risk": crp_contributions, "Equity Risk": erp_contributions, "Lenders Margin": lm_contributions, 
-                                        "Technology_Risk": tech_premium_contributions, "Equity_Cost": equity_cost, "Debt_Cost": debt_cost, "WACC": estimated_wacc, "Debt_Share": debt_share, "Tax_Rate": tax_rate, "Year":year})
+        results_df = pd.DataFrame(data={"Country code": country_code, "Risk Free":risk_free_contributions, "Country Risk": crp_contributions, "Equity Risk": erp_contributions, "Lenders Margin": lm_contributions, 
+                                        "Technology Risk": tech_premium_contributions, "Equity Cost": equity_cost, "Debt Cost": debt_cost, "WACC": estimated_wacc, "Debt Share": debt_share, "Tax Rate": tax_rate, "Year":year})
         
 
         return results_df
@@ -113,7 +113,7 @@ class WaccCalculator:
         # Calculate the intermediate premium
         tech_penetration["Intermediate"]= (maturity_premium - immature_premium)/(mature - intermediate)*(tech_penetration["Penetration"]-intermediate) + immature_premium
         
-        tech_penetration["Tech_Premium"] = tech_penetration.apply(
+        tech_penetration["Tech Premium"] = tech_penetration.apply(
             lambda row: maturity_premium if row["Maturity"] == "Mature"
             else (row["Intermediate"] if row["Maturity"] == "Intermediate"
                 else immature_premium),
@@ -160,7 +160,7 @@ class WaccCalculator:
         if penetration_value is not None:
             tech_penetration = pd.DataFrame({"Country code": [country_code], "Penetration":penetration_value})
         tech_maturity = self.calculate_maturity_tech_premium(technology, tech_penetration)
-        technology_premium = tech_maturity.loc[tech_maturity["Country code"] != "ERP", "Tech_Premium"]
+        technology_premium = tech_maturity.loc[tech_maturity["Country code"] != "ERP", "Tech Premium"]
             
         # Calculate relative technology premium
         relative_premium = self.lookup_tech_premium(technology)
@@ -191,8 +191,8 @@ class WaccCalculator:
 
 
         # Include in a pandas dataframe
-        results_df = pd.DataFrame(data={"Country code": country_code, "Risk_Free":risk_free_contributions, "Country_Risk": crp_contributions, "Equity Risk": erp_contributions, "Lenders Margin": lm_contributions, 
-                                        "Technology_Risk": tech_premium_contributions, "Equity_Cost": equity_cost, "Debt_Cost": debt_cost, "WACC": estimated_wacc, "Debt_Share": debt_share, "Tax_Rate": tax_rate, "Year":year})
+        results_df = pd.DataFrame(data={"Country code": country_code, "Risk Free":risk_free_contributions, "Country Risk": crp_contributions, "Equity Risk": erp_contributions, "Lenders Margin": lm_contributions, 
+                                        "Technology Risk": tech_premium_contributions, "Equity Cost": equity_cost, "Debt Cost": debt_cost, "WACC": estimated_wacc, "Debt Share": debt_share, "Tax Rate": tax_rate, "Year":year})
         
 
         return results_df
