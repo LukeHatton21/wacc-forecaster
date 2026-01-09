@@ -136,12 +136,14 @@ def plot_ranking_table(raw_df, country_codes):
 
     # Drop year
     df = df.drop(labels="Year", axis="columns")
+    df.rename(columns={"Risk Free": " Risk Free"}, inplace=True)
 
     # Melt dataframe
     data_melted = df.melt(id_vars="Country code", var_name="Factor", value_name="Value")
 
     # Set order
-    category_order = ['Risk Free', 'Country Risk', 'Equity Risk', 'Lenders Margin', 'Technology Risk']
+    category_order = [' Risk Free', 'Country Risk', 'Equity Risk', 'Lenders Margin', 'Technology Risk']
+    #category_order = list(reversed(category_order))
 
     # Create chart
     chart = alt.Chart(data_melted).mark_bar().encode(
@@ -171,7 +173,9 @@ def plot_ranking_table_tech(raw_df, tech_codes):
     df["Technology"].replace(visualiser.tech_dict_reverse, inplace=True)
 
     # Drop year
+    df.rename(columns={"Risk Free": " Risk Free"}, inplace=True)
     new_df = df.drop(columns=["Year", "Country code"])
+    
 
     # Melt dataframe
     data_melted = new_df.melt(id_vars="Technology", var_name="Factor", value_name="Value")
