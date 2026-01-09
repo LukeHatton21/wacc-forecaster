@@ -129,7 +129,7 @@ def get_selected_country(df, country_code):
     return selected_wacc
 
 
-def plot_ranking_table(raw_df, country_codes):
+def plot_ranking_table(raw_df, country_codes, technology, year):
 
     # Select countries
     df = raw_df[raw_df["Country code"].isin(country_codes)]
@@ -147,7 +147,7 @@ def plot_ranking_table(raw_df, country_codes):
 
     # Create chart
     chart = alt.Chart(data_melted).mark_bar().encode(
-        x=alt.X('sum(Value):Q', stack='zero', title='Weighted Average Cost of Capital (%)'),
+        x=alt.X('sum(Value):Q', stack='zero', title='Weighted Average Cost of Capital (%, ' + str(year) + ", " + str(technology) +')'),
         y=alt.Y('Country code:O', sort="x", title='Country'),  # Sort countries by total value descending
         color=alt.Color('Factor:N', title='Factor'),
         order=alt.Order('Factor:O', sort="ascending"),  # Color bars by category
@@ -155,7 +155,7 @@ def plot_ranking_table(raw_df, country_codes):
 
     # Add x-axis to the top
     x_axis_top = chart.encode(
-        x=alt.X('sum(Value):Q', stack='zero', title='Weighted Average Cost of Capital (%)', axis=alt.Axis(orient='top'))
+        x=alt.X('sum(Value):Q', stack='zero', title='Weighted Average Cost of Capital (%, ' + str(year) + ", " + str(technology) +')', axis=alt.Axis(orient='top'))
     )
 
     # Combine the original chart and the one with the top axis
@@ -166,7 +166,7 @@ def plot_ranking_table(raw_df, country_codes):
 
     st.write(chart_with_double_x_axis)
 
-def plot_ranking_table_tech(raw_df, tech_codes):
+def plot_ranking_table_tech(raw_df, tech_codes, technology, year):
 
     # Select techs
     df = raw_df[raw_df["Technology"].isin(tech_codes)]
@@ -185,9 +185,9 @@ def plot_ranking_table_tech(raw_df, tech_codes):
 
     # Create chart
     chart = alt.Chart(data_melted).mark_bar().encode(
-        x=alt.X('sum(Value):Q', stack='zero', title='Weighted Average Cost of Capital (%)'),
+        x=alt.X('sum(Value):Q', stack='zero', title='Weighted Average Cost of Capital (%, ' + str(year) + ", " + str(technology) +')'),
         y=alt.Y('Technology:O', sort="x", title='Technology',axis=alt.Axis(labelLimit=500)),  # Sort technologies by total value descending
-        color=alt.Color('Factor:N', title='Factor').legend(orient="right", columns=2),
+        color=alt.Color('Factor:N', title='Factor').legend(orient="right", columns=1),
         order=alt.Order('Factor:O', sort="ascending"),  # Color bars by category
 ).properties(width=700)
 
@@ -206,7 +206,7 @@ def plot_ranking_table_tech(raw_df, tech_codes):
 
     st.write(chart_with_double_x_axis)
 
-def plot_comparison_chart(df):
+def plot_comparison_chart(df, technology, year):
    # Melt dataframe
     data_melted = df.melt(id_vars="Year", var_name="Factor", value_name="Value")
 
@@ -215,7 +215,7 @@ def plot_comparison_chart(df):
 
     # Create chart
     chart = alt.Chart(data_melted).mark_bar().encode(
-        x=alt.X('sum(Value):Q', stack='zero', title='Weighted Average Cost of Capital (%)'),
+        x=alt.X('sum(Value):Q', stack='zero', title='Weighted Average Cost of Capital (%, ' + str(year) + ", " + str(technology) +')'),
         y=alt.Y('Year:O', title='Country'),  # Sort countries by total value descending
         color=alt.Color('Factor:N', title='Factor'),
         order=alt.Order('Factor:O', sort="ascending"),  # Color bars by category
@@ -302,10 +302,10 @@ st.title("Financing Costs and Risks in Energy infrastructure (FinCoRE) - An Esti
 year = st.selectbox(
         "Year", ("2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034"), 
          index=9, key="Year", placeholder="Select Year...")
-technology = st.selectbox(
+technology_name = st.selectbox(
         "Displayed Technology", tech_names, 
          index=19, placeholder="Select Technology...", key="Technology")
-technology = visualiser.tech_dictionary.get(technology)
+technology = visualiser.tech_dictionary.get(technology_name)
 tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["🌐 Map", "🥇 Global Comparison", "🔭 Country Projections", "🛠️ Technologies", "📈 Calculator", "ℹ️ Methods", "📝 About"])
 
 if int(year) > 2024:
@@ -332,7 +332,7 @@ with tab2:
     selected_countries = st.multiselect("Countries to compare", options=visualiser.crp_dict_reverse.values(), default=defaults_country_names)
     selected_countries_iso = [visualiser.crp_dictionary[x] for x in selected_countries]
     sorted_waccs = sort_waccs(yearly_waccs)
-    plot_ranking_table(sorted_waccs, selected_countries_iso)
+    plot_ranking_table(sorted_waccs, selected_countries_iso, technology, year)
 with tab3:
     st.header("Historical and Projected Estimates")
     country_selection = st.selectbox(
@@ -359,7 +359,7 @@ with tab3:
                                                     interest_rates=interest_rate, GDP_change=gdp_change, renewable_targets=renewable_targets)
             historical_country_data = pd.concat([historical_country_data, future_waccs])
         historical_country_data = historical_country_data.drop(columns = ["Debt Share", "Equity Cost", "Debt Cost", "Tax Rate", "Country code", "WACC"])
-        plot_comparison_chart(historical_country_data)
+        plot_comparison_chart(historical_country_data, technology, year)
         st.download_button(
     label="Download national timeseries for selected technology",
     data=convert_for_download(historical_country_data),
@@ -382,7 +382,7 @@ with tab4:
     if country_tech_selection is not None:
         country_technology_comparison = wacc_predictor.calculate_technology_wacc(year=year, country=country_tech_selection, technologies=selected_techs)
         sorted_tech_comparison = sort_waccs(country_technology_comparison)
-        plot_ranking_table_tech(sorted_tech_comparison, selected_techs)
+        plot_ranking_table_tech(sorted_tech_comparison, selected_techs, technology, year)
         st.download_button(
         label="Download selected technology estimates",
         data=convert_for_download(sorted_tech_comparison),
@@ -441,7 +441,7 @@ with tab5:
     # Create a bar chart with historical, cost of equity, cost of debt, and overall wacc
     evaluated_wacc_data = pd.concat([selected_wacc, projected_data])
     evaluated_wacc_data = evaluated_wacc_data.drop(columns = ["Debt Share", "Equity Cost", "Debt Cost", "Tax Rate", "Country code", "WACC"])
-    plot_comparison_chart(evaluated_wacc_data)
+    plot_comparison_chart(evaluated_wacc_data, technology, year)
 
 
 with tab6:
