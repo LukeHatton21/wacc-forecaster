@@ -354,7 +354,7 @@ with tab3:
             future_waccs = wacc_predictor.projections_wacc(end_year=2034, technology=technology, country=country_selection, 
                                                     interest_rates=interest_rate, GDP_change=gdp_change, renewable_targets=renewable_targets)
             historical_country_data = pd.concat([historical_country_data, future_waccs])
-        historical_country_data = historical_country_data.drop(columns = ["Debt_Share", "Equity_Cost", "Debt_Cost", "Tax_Rate", "Country code", "WACC"])
+        historical_country_data = historical_country_data.drop(columns = ["Debt Share", "Equity Cost", "Debt Cost", "Tax Rate", "Country code", "WACC"])
         plot_comparison_chart(historical_country_data)
         st.download_button(
     label="Download national timeseries for selected technology",
