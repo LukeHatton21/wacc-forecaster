@@ -163,7 +163,7 @@ def plot_ranking_table(raw_df, country_codes, technology, year):
         chart,
         x_axis_top
     )
-
+    chart_with_double_x_axis.save("./PLOTS/Chart_Countries.png", ppi=1000)
     st.write(chart_with_double_x_axis)
 
 def plot_ranking_table_tech(raw_df, tech_codes, technology, year):
@@ -185,7 +185,7 @@ def plot_ranking_table_tech(raw_df, tech_codes, technology, year):
 
     # Create chart
     chart = alt.Chart(data_melted).mark_bar().encode(
-        x=alt.X('sum(Value):Q', stack='zero', title='Weighted Average Cost of Capital (%, ' + str(year) + ", " + str(technology) +')'),
+        x=alt.X('sum(Value):Q', stack='zero', title='Weighted Average Cost of Capital (%, ' + str(year) +')'),
         y=alt.Y('Technology:O', sort="x", title='Technology',axis=alt.Axis(labelLimit=500)),  # Sort technologies by total value descending
         color=alt.Color('Factor:N', title='Factor').legend(orient="right", columns=1),
         order=alt.Order('Factor:O', sort="ascending"),  # Color bars by category
@@ -193,7 +193,7 @@ def plot_ranking_table_tech(raw_df, tech_codes, technology, year):
 
     # Add x-axis to the top
     x_axis_top = chart.encode(
-        x=alt.X('sum(Value):Q', stack='zero', title='Weighted Average Cost of Capital (%)', axis=alt.Axis(orient='top'))
+        x=alt.X('sum(Value):Q', stack='zero', title='Weighted Average Cost of Capital (%, ' + str(year) +')', axis=alt.Axis(orient='top'))
     )
 
     # Combine the original chart and the one with the top axis
@@ -203,11 +203,12 @@ def plot_ranking_table_tech(raw_df, tech_codes, technology, year):
     )
 
 
-
+    chart_with_double_x_axis.save("./PLOTS/Chart_Tech.png", ppi=1000)
     st.write(chart_with_double_x_axis)
 
-def plot_comparison_chart(df, technology, year):
+def plot_comparison_chart(df, technology, year, print=None):
    # Melt dataframe
+    df.rename(columns={"Risk Free": " Risk Free"}, inplace=True)
     data_melted = df.melt(id_vars="Year", var_name="Factor", value_name="Value")
 
     # Set order
@@ -220,6 +221,8 @@ def plot_comparison_chart(df, technology, year):
         color=alt.Color('Factor:N', title='Factor'),
         order=alt.Order('Factor:O', sort="ascending"),  # Color bars by category
 ).properties(width=700)
+    if print is None:
+        chart.save("./PLOTS/Chart_Temporal.png", ppi=1000)
     st.write(chart)
 
 def produce_aggregated_historical_data(wacc_predictor, tech_names):
@@ -441,7 +444,7 @@ with tab5:
     # Create a bar chart with historical, cost of equity, cost of debt, and overall wacc
     evaluated_wacc_data = pd.concat([selected_wacc, projected_data])
     evaluated_wacc_data = evaluated_wacc_data.drop(columns = ["Debt Share", "Equity Cost", "Debt Cost", "Tax Rate", "Country code", "WACC"])
-    plot_comparison_chart(evaluated_wacc_data, technology, year)
+    plot_comparison_chart(evaluated_wacc_data, technology, year, print="None")
 
 
 with tab6:

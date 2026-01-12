@@ -11,3 +11,4 @@ kaleido
 openpyxl
 matplotlib
 seaborn
+vl-convert-python
