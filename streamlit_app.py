@@ -319,7 +319,7 @@ else:
 
 with tab1:
     st.header("Map")
-    display_map(yearly_waccs, technology)
+    display_map(yearly_waccs, technology_name)
     st.download_button(
     label="Download all national estimates",
     data=convert_for_download(yearly_waccs),
@@ -335,7 +335,7 @@ with tab2:
     selected_countries = st.multiselect("Countries to compare", options=visualiser.crp_dict_reverse.values(), default=defaults_country_names)
     selected_countries_iso = [visualiser.crp_dictionary[x] for x in selected_countries]
     sorted_waccs = sort_waccs(yearly_waccs)
-    plot_ranking_table(sorted_waccs, selected_countries_iso, technology, year)
+    plot_ranking_table(sorted_waccs, selected_countries_iso, technology_name, year)
 with tab3:
     st.header("Historical and Projected Estimates")
     country_selection = st.selectbox(
@@ -362,11 +362,11 @@ with tab3:
                                                     interest_rates=interest_rate, GDP_change=gdp_change, renewable_targets=renewable_targets)
             historical_country_data = pd.concat([historical_country_data, future_waccs])
         historical_country_data = historical_country_data.drop(columns = ["Debt Share", "Equity Cost", "Debt Cost", "Tax Rate", "Country code", "WACC"])
-        plot_comparison_chart(historical_country_data, technology, year)
+        plot_comparison_chart(historical_country_data, technology_name, year)
         st.download_button(
     label="Download national timeseries for selected technology",
     data=convert_for_download(historical_country_data),
-    file_name="yearly-costsofcapital-national-"+ technology + "-" + technology +".csv",
+    file_name="yearly-costsofcapital-national-"+ technology + "-" + country_selection +".csv",
     mime="text/csv",
     icon=":material/download:",
     key="national-WACC-single-tech"
@@ -378,14 +378,13 @@ with tab4:
         "Country", options=country_names, 
          index=None, placeholder="Select Country of Interest...", key="CountryTechs")
     selected_techs = st.multiselect("Technologies to compare", options=tech_names, default=["Solar PV", "Hydroelectric", "Gas (unabated)"])
-    print(tech_names)
     selected_techs = [visualiser.tech_dictionary.get(x) for x in selected_techs]
     country_tech_selection = visualiser.crp_dictionary.get(country_tech_selection)
     
     if country_tech_selection is not None:
         country_technology_comparison = wacc_predictor.calculate_technology_wacc(year=year, country=country_tech_selection, technologies=selected_techs)
         sorted_tech_comparison = sort_waccs(country_technology_comparison)
-        plot_ranking_table_tech(sorted_tech_comparison, selected_techs, technology, year)
+        plot_ranking_table_tech(sorted_tech_comparison, selected_techs, technology_name, year)
         st.download_button(
         label="Download selected technology estimates",
         data=convert_for_download(sorted_tech_comparison),
@@ -397,10 +396,10 @@ with tab4:
 
 with tab5:
     st.header("Country Calculator")
-    country_code = st.selectbox(
+    country_code_name = st.selectbox(
         "Country", country_names, 
-         index=None, placeholder="Select Country...", key="Country")
-    country_code = visualiser.crp_dictionary.get(country_code)
+         index=167, placeholder="Select Country...", key="Country")
+    country_code = visualiser.crp_dictionary.get(country_code_name)
     col1, col2, col3, col4 = st.columns(4)
     if int(year) > 2024:
         yearly_data = wacc_predictor.calculate_future_wacc(year, technology, country_code,  interest_rates="Yes", GDP_change="Yes", renewable_targets="Yes")
@@ -431,7 +430,7 @@ with tab5:
     st.subheader("Comparison of Calculated WACC with Historical Estimates")
 
     # Evaluate projected data
-    projection_year = 2030
+    projection_year = 2025
     projected_data = wacc_predictor.calculator.calculate_wacc_individual(rf_rate=rf_rate, crp=crp, cds=crp, tax_rate=tax_rate, technology=technology, country_code=country_code, 
                                                                          year=projection_year,erp=erp,tech_penetration=tech_penetration, market_maturity=market_maturity, penetration_value=tech_penetration)
     projected_data["Year"] = projection_year
@@ -444,7 +443,7 @@ with tab5:
     # Create a bar chart with historical, cost of equity, cost of debt, and overall wacc
     evaluated_wacc_data = pd.concat([selected_wacc, projected_data])
     evaluated_wacc_data = evaluated_wacc_data.drop(columns = ["Debt Share", "Equity Cost", "Debt Cost", "Tax Rate", "Country code", "WACC"])
-    plot_comparison_chart(evaluated_wacc_data, technology, year, print="None")
+    plot_comparison_chart(evaluated_wacc_data, technology_name, year, print="None")
 
 
 with tab6:

@@ -329,6 +329,7 @@ class WaccPredictor:
             cds = self.pull_CDS_data(year_old)
             crps = crps.rename(columns={"CRP_" + year_old: "CRP_"+year_str})
             cds = cds.rename(columns={"CDS_" + year_old: "CDS_"+year_str})
+        
         crp_data = crps.loc[crps["Country code"] == country_code, "CRP_"+year_str].values[0]
         cds_data = cds.loc[cds["Country code"] == country_code, "CDS_"+year_str].values[0]
         
@@ -408,9 +409,7 @@ class WaccPredictor:
     
 
         # Calculate the new CRP
-        if year_orig == "2030":
-            year_str = year_orig
-        crp["CRP_"+year_str] = crp["CRP_"+year_old] * (float(new_GDP) / float(old_GDP)) ** (-0.15)
+        crp["CRP_"+year_orig] = crp["CRP_"+year_old] * (float(new_GDP) / float(old_GDP)) ** (-0.15)
         crp.drop(columns=["CRP_"+year_old], inplace=True)
 
         return crp
@@ -429,9 +428,7 @@ class WaccPredictor:
             old_GDP = 1
 
         # Calculate the new CDS
-        if year_orig == "2030":
-            year_str = year_orig
-        cds["CDS_"+year_str] = cds["CDS_"+year_old] * (float(new_GDP) / float(old_GDP)) ** (-0.15)
+        cds["CDS_"+year_orig] = cds["CDS_"+year_old] * (float(new_GDP) / float(old_GDP)) ** (-0.15)
         cds.drop(columns=["CDS_"+year_old], inplace=True)
 
         return cds
