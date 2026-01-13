@@ -163,7 +163,7 @@ def plot_ranking_table(raw_df, country_codes, technology, year):
         chart,
         x_axis_top
     )
-    chart_with_double_x_axis.save("./PLOTS/Chart_Countries.png", ppi=1000)
+    #chart_with_double_x_axis.save("./PLOTS/Chart_Countries.png", ppi=1000)
     st.write(chart_with_double_x_axis)
 
 def plot_ranking_table_tech(raw_df, tech_codes, technology, year):
@@ -203,7 +203,7 @@ def plot_ranking_table_tech(raw_df, tech_codes, technology, year):
     )
 
 
-    chart_with_double_x_axis.save("./PLOTS/Chart_Tech.png", ppi=1000)
+    #chart_with_double_x_axis.save("./PLOTS/Chart_Tech.png", ppi=1000)
     st.write(chart_with_double_x_axis)
 
 def plot_comparison_chart(df, technology, year, print=None):
@@ -221,8 +221,8 @@ def plot_comparison_chart(df, technology, year, print=None):
         color=alt.Color('Factor:N', title='Factor'),
         order=alt.Order('Factor:O', sort="ascending"),  # Color bars by category
 ).properties(width=700)
-    if print is None:
-        chart.save("./PLOTS/Chart_Temporal.png", ppi=1000)
+    #if print is None:
+        #chart.save("./PLOTS/Chart_Temporal.png", ppi=1000)
     st.write(chart)
 
 def produce_aggregated_historical_data(wacc_predictor, tech_names):
@@ -245,7 +245,7 @@ def produce_aggregated_historical_data(wacc_predictor, tech_names):
         else:
             results_df = pd.concat([results_df, merged_df])
         counter_year = counter_year + 1
-    print(np.unique(results_df["Year"]))
+    #print(np.unique(results_df["Year"]))
     results_df["WACC"] = results_df["WACC"].round(2)
     results_df.to_csv("./DATA/HISTORICAL_WACCS.csv")
 
