@@ -1,24 +1,24 @@
 ﻿NAME,TECH,VARIABLE,PREMIUM
 Solar PV,solar,Solar,0
-Onshore Wind,onshore-wind,Wind,0.34
-Offshore Wind,offshore-Wind,Wind Offshore,1.34
-Gas (unabated),gas,Gas,-0.26
-Hydroelectric,hydro,Hydro,0
-Wave,wave,Other,0.34
-Tidal,tidal,Other,0.34
-Geothermal,geothermal,Other Renewables,1.7
+Onshore Wind,onshore-wind,Wind,0
+Offshore Wind,offshore-Wind,Wind Offshore,1.1
+Gas (unabated),gas,Gas,1.1
+Hydroelectric,hydro,Hydro,1.1
+Wave,wave,Other,3.2
+Tidal,tidal,Other,3.2
+Geothermal,geothermal,Other Renewables,2.1
 Biomass,bioenergy,Bioenergy,0.49
-Gas (CCUS),gas-CCUS,Other,0.49
-Floating Offshore,floating-offshore,Other,3.8
-Energy from Waste,EfW,Other Renewables,1.3
-Biomass (CCUS),bioenergy-CCUS,Bioenergy,2.3
+Gas (CCUS),gas-CCUS,Other,2.1
+Floating Offshore,floating-offshore,Other,3.2
+Energy from Waste,EfW,Other Renewables,1.1
+Biomass (CCUS),bioenergy-CCUS,Bioenergy,2.1
 Large-scale Nuclear,nuclear,Nuclear,0
-Small Modular Reactors (SMRs),SMR,Other,1.3
+Small Modular Reactors (SMRs),SMR,Other,1.1
 Pumped Hydro Storage (PHES),pumped-hydro,Hydro,1.3
-Long Duration Energy Storage (LDES),long-duration-storage,Other,2.5
-Lithium-ion Battery Energy Storage System,Lithium-ion,Other,1.3
-Hydrogen Power (CCGT),hydrogen-power,Other,2.5
-Hydrogen Production (Electrolysis),electrolysis,Other,2.5
+Long Duration Energy Storage (LDES),long-duration-storage,Other,2.1
+Lithium-ion Battery Energy Storage System,Lithium-ion,Other,1.1
+Hydrogen Power (CCGT),hydrogen-power,Other,2.1
+Hydrogen Production (Electrolysis),electrolysis,Other,2.1
 Coal Power (Retrofits),coal-power,Coal,-0.26
 Coal Power (CCUS),coal-ccus,Other,0.49
 Transmission and Interconnectors,tranmission,Other,0
