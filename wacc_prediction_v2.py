@@ -6,7 +6,7 @@ from wacc_calculator_v1 import WaccCalculator
 
 
 class WaccPredictor:
-    def __init__(self, crp_data, generation_data, GDP, tax_data, ember_targets, us_ir, imf_data, collated_crp_cds, recent_year):
+    def __init__(self, crp_data, generation_data, GDP, tax_data, ember_targets, us_ir, imf_data, collated_crp_cds, projection_year):
         """ Initialises the WACC Predictor Class, which is used to generate an estimate of the cost of capital at
          a national level for countries with available data
         
@@ -46,7 +46,7 @@ class WaccPredictor:
         # Read in projections of data
         self.renewable_projections = pd.read_csv(ember_targets)
         self.ir_data = pd.read_csv(us_ir)
-        self.recent_year = recent_year
+        self.recent_year = projection_year
 
         # Call WaccCalculator Object
         self.calculator = WaccCalculator(tech_premiums="./DATA/TechPremiums.csv", penetration_boundaries="./DATA/TechBoundaries.csv", maturity_premiums="./DATA/MaturityPremiums.csv")
