@@ -24,7 +24,7 @@ def display_map(df, technology):
     map = folium.Map(location=[10, 0], zoom_start=1, control_scale=True, scrollWheelZoom=True, tiles='CartoDB positron')
     df = df.rename(columns={"Country code":"iso3_code"})
     df = df.tail(-1)
-    df["Technology"] = str(technology_name)
+    df["Technology"] = str(technology)
 
     choropleth = folium.Choropleth(
         geo_data='./DATA/country_boundaries.geojson',
@@ -67,7 +67,6 @@ def display_map(df, technology):
     #choropleth.geojson.add_child(
         #folium.features.GeoJsonTooltip(['english_short'], labels=False)
     #)
-
     choropleth.geojson.add_child(
     folium.features.GeoJsonTooltip(
         fields=['english_short', technology + ' WACC', "Equity Cost", "Debt Cost", "Debt Share", "Tax Rate", "Technology"],  # Display these fields
@@ -228,7 +227,7 @@ def plot_comparison_chart(df, technology, year, print=None):
 def produce_aggregated_historical_data(wacc_predictor, tech_names):
     counter = 0   
     counter_year = 0 
-    for year in np.arange(2015, 2025):
+    for year in np.arange(2015, 2026):
         for technology in tech_names:
             technology = visualiser.tech_dictionary.get(technology)
             yearly_waccs = wacc_predictor.calculate_historical_waccs(year, technology)
@@ -288,10 +287,11 @@ def produce_data_for_output():
     visualiser.create_chloropleth_map(wacc_coverage)
     
 # Call WaccPredictor Object
+recent_year = 2025
 wacc_predictor = WaccPredictor(crp_data = "./DATA/CRPs.csv", 
 generation_data="./DATA/Ember Yearly Data 2023.csv", GDP="./DATA/GDPPerCapita.csv",
 tax_data="./DATA/CORPORATE_TAX_DATA.csv", ember_targets="./DATA/Ember_2030_Targets.csv", 
-us_ir="./DATA/US_IR.csv", imf_data="./DATA/IMF_Projections.csv", collated_crp_cds="./DATA/Collated_CRP_CDS.xlsx")
+us_ir="./DATA/US_IR.csv", imf_data="./DATA/IMF_Projections.csv", collated_crp_cds="./DATA/Collated_CRP_CDS.xlsx", recent_year=recent_year)
 
 # Call visualiser
 visualiser = VisualiserClass(wacc_predictor.crp_data, wacc_predictor.calculator.tech_premiums)
@@ -311,7 +311,7 @@ technology_name = st.selectbox(
 technology = visualiser.tech_dictionary.get(technology_name)
 tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["🌐 Map", "🥇 Global Comparison", "🔭 Country Projections", "🛠️ Technologies", "📈 Calculator", "ℹ️ Methods", "📝 About"])
 
-if int(year) > 2024:
+if int(year) > recent_year:
     yearly_waccs = wacc_predictor.calculate_all_future_waccs(year, technology)
 else:
     yearly_waccs = wacc_predictor.calculate_historical_waccs(year, technology)
@@ -355,7 +355,7 @@ with tab3:
             renewable_targets = None
         if "GDP Change" not in projection_assumptions:
             gdp_change = None
-        historical_country_data = wacc_predictor.year_range_wacc(start_year=2015, end_year=2024, 
+        historical_country_data = wacc_predictor.year_range_wacc(start_year=2015, end_year=recent_year, 
                                                              technology=technology, country=country_selection)
         if len(projection_assumptions) > 0:
             future_waccs = wacc_predictor.projections_wacc(end_year=2034, technology=technology, country=country_selection, 
@@ -401,7 +401,7 @@ with tab5:
          index=167, placeholder="Select Country...", key="Country")
     country_code = visualiser.crp_dictionary.get(country_code_name)
     col1, col2, col3, col4 = st.columns(4)
-    if int(year) > 2024:
+    if int(year) > recent_year:
         yearly_data = wacc_predictor.calculate_future_wacc(year, technology, country_code,  interest_rates="Yes", GDP_change="Yes", renewable_targets="Yes")
     else:
         yearly_data = wacc_predictor.calculate_yearly_wacc(year, technology, country_code)
@@ -430,13 +430,13 @@ with tab5:
     st.subheader("Comparison of Calculated WACC with Historical Estimates")
 
     # Evaluate projected data
-    projection_year = 2025
+    projection_year = recent_year
     projected_data = wacc_predictor.calculator.calculate_wacc_individual(rf_rate=rf_rate, crp=crp, cds=crp, tax_rate=tax_rate, technology=technology, country_code=country_code, 
                                                                          year=projection_year,erp=erp,tech_penetration=tech_penetration, market_maturity=market_maturity, penetration_value=tech_penetration)
     projected_data["Year"] = projection_year
 
     # Extract historical data for the given country
-    yearly_waccs = wacc_predictor.calculate_historical_waccs("2024", technology)
+    yearly_waccs = wacc_predictor.calculate_historical_waccs(str(recent_year), technology)
     selected_wacc = get_selected_country(yearly_waccs, country_code)
     selected_wacc["Year"] = year
 

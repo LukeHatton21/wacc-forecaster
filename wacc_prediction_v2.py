@@ -6,7 +6,7 @@ from wacc_calculator_v1 import WaccCalculator
 
 
 class WaccPredictor:
-    def __init__(self, crp_data, generation_data, GDP, tax_data, ember_targets, us_ir, imf_data, collated_crp_cds):
+    def __init__(self, crp_data, generation_data, GDP, tax_data, ember_targets, us_ir, imf_data, collated_crp_cds, recent_year):
         """ Initialises the WACC Predictor Class, which is used to generate an estimate of the cost of capital at
          a national level for countries with available data
         
@@ -46,6 +46,7 @@ class WaccPredictor:
         # Read in projections of data
         self.renewable_projections = pd.read_csv(ember_targets)
         self.ir_data = pd.read_csv(us_ir)
+        self.recent_year = recent_year
 
         # Call WaccCalculator Object
         self.calculator = WaccCalculator(tech_premiums="./DATA/TechPremiums.csv", penetration_boundaries="./DATA/TechBoundaries.csv", maturity_premiums="./DATA/MaturityPremiums.csv")
@@ -87,6 +88,9 @@ class WaccPredictor:
         cds_data = cds
 
         # Extract Generation Data
+        if year == str(self.recent_year):
+            year_str = "2024"
+            year_int = 2024
         variable = str(self.tech_mappings.get(technology))
         if variable == "Other":
             ember_name = "Solar"
@@ -107,6 +111,8 @@ class WaccPredictor:
         tax_rate["Tax Rate"] = tax_rate[year_str]
         tax_rate['Tax Rate'] = tax_rate['Tax Rate'].fillna(value=0)
         tax_data = tax_rate
+        if year == str(self.recent_year):
+            year_str = str(year)
                            
 
         # Calculate WACC and contributions
@@ -139,7 +145,7 @@ class WaccPredictor:
         # Convert year into a string
         year_str = str(year)
         year_int = int(year)
-        year_old = str(2024)
+        year_old = str(self.recent_year)
 
         # Extract long term U.S. interest rates (proxy for risk free rate)
         rf_rate = self.ir_data[self.ir_data['Country code'] == "USA"][year_str].values[0].astype(float)
@@ -220,7 +226,7 @@ class WaccPredictor:
         
         # Extract generation data
         generation_data = self.generation_data
-        if year_str == "2024":
+        if year_str == str(self.recent_year):
             year = "2023"
         year = int(year_str)
         
@@ -272,7 +278,7 @@ class WaccPredictor:
     def projections_wacc(self, end_year, technology, country, interest_rates=None, GDP_change=None, renewable_targets=None):
 
         # Specify range
-        year_range = np.arange(2025, end_year+1, 1)
+        year_range = np.arange(self.recent_year, end_year+1, 1)
 
         # Loop across year_range
         for year in year_range:
@@ -282,7 +288,7 @@ class WaccPredictor:
             yearly_wacc["Year"] = int(year)
 
             # Concat
-            if year == 2025:
+            if year == self.recent_year:
                 storage_df = yearly_wacc
             else:
                 storage_df = pd.concat([storage_df, yearly_wacc])
@@ -310,7 +316,7 @@ class WaccPredictor:
         # Convert year into a string
         year_str = str(year)
         year_int = int(year)
-        year_old = str(2024)
+        year_old = str(self.recent_year)
 
         # Extract long term U.S. interest rates (proxy for risk free rate)
         if interest_rates is not None:
@@ -515,6 +521,9 @@ class WaccPredictor:
 
 
         # Extract Generation Data
+        if year == self.recent_year:
+            year_str = "2024"
+            year_int = 2024
         variable = str(self.tech_mappings.get(technology))
         if variable == "Other":
             ember_name = "Solar"
@@ -542,6 +551,8 @@ class WaccPredictor:
         tax_rate["Tax Rate"] = tax_rate[year_str]
         tax_rate['Tax Rate'] = tax_rate['Tax Rate'].fillna(value=0)
         tax_data = tax_rate.loc[tax_rate["Country code"] == country_code, "Tax Rate"]
+        if year == str(self.recent_year):
+            year_str = str(year)
                            
                            
 
@@ -559,7 +570,7 @@ class WaccPredictor:
         for i, tech in enumerate(technologies):
 
             # Calculate yearly WACC
-            if int(year) > 2024:
+            if int(year) > self.recent_year:
                 tech_wacc = self.calculate_future_wacc(year, tech, country, GDP_change="Yes", renewable_targets="Yes", interest_rates="Yes")
             else:
                 tech_wacc = self.calculate_yearly_wacc(year, tech, country)
