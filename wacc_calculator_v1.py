@@ -172,12 +172,9 @@ class WaccCalculator:
             technology_premium = technology_premium
         else:
             technology_premium = technology_premium + relative_premium
-        if technology_premium > self.lenders_margin:
-            technology_premium = technology_premium - self.lenders_margin
-            lenders_margin = self.lenders_margin
-        else:
-            lenders_margin = technology_premium
-            technology_premium = 0
+        lenders_margin = technology_premium.clip(upper=self.lenders_margin)
+        technology_premium = (technology_premium - self.lenders_margin).clip(lower=0)
+
         
         # Calculate debt share, if applicable
         if debt_share is None:
