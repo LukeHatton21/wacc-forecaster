@@ -35,6 +35,10 @@ class WaccCalculator:
             technology_premium = technology_premium
         else:
             technology_premium = technology_premium + relative_premium
+        lenders_margin = technology_premium.clip(upper=self.lenders_margin)
+        technology_premium = (technology_premium - self.lenders_margin).clip(lower=0)
+
+            
 
         # Extract country code
         if country_code is None:
@@ -54,7 +58,7 @@ class WaccCalculator:
 
 
         # Calculate the cost of equity
-        debt_cost = rf_rate + cds + self.lenders_margin + technology_premium
+        debt_cost = rf_rate + cds + lenders_margin + technology_premium
 
         # Calculate the cost of debt
         equity_cost = rf_rate + crp + erp + technology_premium
@@ -66,7 +70,7 @@ class WaccCalculator:
         risk_free_contributions = rf_rate*((debt_share / 100 * (1 - tax_rate/100)) + (1 - debt_share / 100))
         crp_contributions = cds*(debt_share / 100 * (1 - tax_rate/100)) + crp*(1 - debt_share / 100)
         erp_contributions = erp * ( 1 - (debt_share / 100))
-        lm_contributions = self.lenders_margin * (debt_share / 100) * (1-tax_rate/100)
+        lm_contributions = lenders_margin * (debt_share / 100) * (1-tax_rate/100)
         tech_premium_contributions = technology_premium*((debt_share / 100 * (1 - tax_rate/100)) + (1 - debt_share / 100))
 
 
@@ -168,13 +172,19 @@ class WaccCalculator:
             technology_premium = technology_premium
         else:
             technology_premium = technology_premium + relative_premium
+        if technology_premium > self.lenders_margin:
+            technology_premium = technology_premium - self.lenders_margin
+            lenders_margin = self.lenders_margin
+        else:
+            lenders_margin = technology_premium
+            technology_premium = 0
         
         # Calculate debt share, if applicable
         if debt_share is None:
             debt_share = self.calculate_debt_share_individual(crp)
 
         # Calculate the cost of equity
-        debt_cost = rf_rate + cds + self.lenders_margin + technology_premium
+        debt_cost = rf_rate + cds + lenders_margin + technology_premium
 
         # Calculate the cost of debt
         equity_cost = rf_rate + crp + erp + technology_premium
@@ -186,7 +196,7 @@ class WaccCalculator:
         risk_free_contributions = rf_rate*((debt_share / 100 * (1 - tax_rate/100)) + (1 - debt_share / 100))
         crp_contributions = cds*(debt_share / 100 * (1 - tax_rate/100)) + crp*(1 - debt_share / 100)
         erp_contributions = erp * ( 1 - (debt_share / 100))
-        lm_contributions = self.lenders_margin * (debt_share / 100) * (1-tax_rate/100)
+        lm_contributions = lenders_margin * (debt_share / 100) * (1-tax_rate/100)
         tech_premium_contributions = technology_premium*((debt_share / 100 * (1 - tax_rate/100)) + (1 - debt_share / 100))
 
 
