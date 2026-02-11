@@ -444,7 +444,6 @@ class WaccPredictor:
 
         # Pull the GDP per capita data for the new and old year
         year_orig = year_str
-        st.write(year_orig)
         if year_str > "2029":
             year_str = "2029"
         new_GDP = self.imf_data.copy().rename(columns={year_str:"GDP_"+year_str})[["Country code", "GDP_"+year_str]]
