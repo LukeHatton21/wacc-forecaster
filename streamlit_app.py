@@ -232,7 +232,7 @@ def produce_aggregated_historical_data(wacc_predictor, tech_names):
             technology = visualiser.tech_dictionary.get(technology)
             yearly_waccs = wacc_predictor.calculate_historical_waccs(year, technology)
             wacc_data = yearly_waccs
-            wacc_data["Technology"] = technology
+            wacc_data["Technology"] = visualiser.tech_dict_reverse.get(technology)
             print(wacc_data)
             if counter == 0:
                 merged_df = wacc_data[["Country code", "WACC", "Year", "Technology"]]
@@ -250,26 +250,25 @@ def produce_aggregated_historical_data(wacc_predictor, tech_names):
 
 def produce_aggregated_future_data(wacc_predictor, tech_names):
     counter = 0   
-    counter_country = 0 
-    for country in country_names:
-        country_code = visualiser.crp_dictionary.get(country) 
+    counter_year = 0 
+    for year in np.arange(2026, 2037):
         for technology in tech_names:
             technology = visualiser.tech_dictionary.get(technology)
-            future_waccs = wacc_predictor.projections_wacc(end_year=2030, technology=technology, country=country_code, 
-                                                    interest_rates="Yes", GDP_change="Yes", renewable_targets="Yes")
-            wacc_data = future_waccs
-            wacc_data["Technology"] = technology
+            yearly_waccs = wacc_predictor.calculate_all_future_waccs(year, technology)
+            wacc_data = yearly_waccs
+            wacc_data["Technology"] = visualiser.tech_dict_reverse.get(technology)
             print(wacc_data)
             if counter == 0:
                 merged_df = wacc_data[["Country code", "WACC", "Year", "Technology"]]
             else:
                 merged_df = pd.concat([merged_df, wacc_data[["Country code", "WACC", "Year", "Technology"]]])
             counter = counter + 1
-        if counter_country == 0:
+        if counter_year == 0:
             results_df = merged_df
         else:
             results_df = pd.concat([results_df, merged_df])
-        counter_country = counter_country + 1
+        counter_year = counter_year + 1
+    #print(np.unique(results_df["Year"]))
     results_df["WACC"] = results_df["WACC"].round(2)
     results_df.to_csv("./DATA/FUTURE_WACCS.csv")
 
@@ -471,24 +470,20 @@ with tab7:
 
 
 # Produce output data in long and wide formats
-#produce_data_for_output()
 #produce_aggregated_historical_data(wacc_predictor, tech_names)
-#produce_aggregated_future_data(wacc_predictor, tech_names)
-#data = pd.read_csv("./DATA/HISTORICAL_WACCS.csv")
-#future_data = pd.read_csv("./DATA/FUTURE_WACCS.csv")
-#concat_data = pd.concat([data, future_data], ignore_index=True)
-#concat_data = concat_data.round(decimals=1)
-#concat_data = concat_data.merge(visualiser.crp_country, how="left", on="Country code")
-#concat_data = concat_data[["Country", "Country code", "Year", "Technology", "WACC"]]
-#concat_data = concat_data.loc[concat_data["Country code"] != "ABD"]
-#concat_data.sort_values("Country")
-#concat_data.to_csv("./DATA/WACC_ESTIMATES_LONG.csv")
-#concat_wide = pd.pivot_table(concat_data, index=["Country", "Country code", "Technology"], values="WACC", columns=["Year"])
-#concat_wide = concat_wide.rename(columns={"Year":"index"})
-#concat_wide.to_csv("./DATA/WACC_ESTIMATES_WIDE.csv")
-#visualiser.produce_boxplots_by_year(future_data, "Solar")
-#iea_data = pd.read_csv("./DATA/IEACoCData.csv")
-#visualiser.produce_boxplots_verification(data, technology, iea_data)
+produce_aggregated_future_data(wacc_predictor, tech_names)
+data = pd.read_csv("./DATA/HISTORICAL_WACCS.csv")
+future_data = pd.read_csv("./DATA/FUTURE_WACCS.csv")
+concat_data = pd.concat([data, future_data], ignore_index=True)
+concat_data = concat_data.round(decimals=2)
+concat_data = concat_data.merge(visualiser.crp_country, how="left", on="Country code")
+concat_data = concat_data[["Country", "Country code", "Year", "Technology", "WACC"]]
+concat_data = concat_data.loc[concat_data["Country code"] != "ABD"]
+concat_data.sort_values("Country")
+concat_data.to_csv("./DATA/WACC_ESTIMATES_LONG.csv")
+concat_wide = pd.pivot_table(concat_data, index=["Country", "Country code", "Technology"], values="WACC", columns=["Year"])
+concat_wide = concat_wide.rename(columns={"Year":"index"})
+concat_wide.to_csv("./DATA/WACC_ESTIMATES_WIDE.csv")
 
 
 
