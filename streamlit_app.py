@@ -471,7 +471,7 @@ with tab7:
 
 # Produce output data in long and wide formats
 #produce_aggregated_historical_data(wacc_predictor, tech_names)
-produce_aggregated_future_data(wacc_predictor, tech_names)
+#produce_aggregated_future_data(wacc_predictor, tech_names)
 #data = pd.read_csv("./DATA/HISTORICAL_WACCS.csv")
 #future_data = pd.read_csv("./DATA/FUTURE_WACCS.csv")
 #concat_data = pd.concat([data, future_data], ignore_index=True)
