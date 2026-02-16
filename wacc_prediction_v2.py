@@ -278,7 +278,8 @@ class WaccPredictor:
     def projections_wacc(self, end_year, technology, country, interest_rates=None, GDP_change=None, renewable_targets=None):
 
         # Specify range
-        year_range = np.arange(self.recent_year, end_year+1, 1)
+        year_range = np.arange(self.recent_year+1, end_year+1, 1)
+        st.write(year_range)
 
         # Loop across year_range
         for year in year_range:
@@ -288,7 +289,7 @@ class WaccPredictor:
             yearly_wacc["Year"] = int(year)
 
             # Concat
-            if year == self.recent_year:
+            if year == self.recent_year+1:
                 storage_df = yearly_wacc
             else:
                 storage_df = pd.concat([storage_df, yearly_wacc])
