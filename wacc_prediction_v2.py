@@ -279,7 +279,6 @@ class WaccPredictor:
 
         # Specify range
         year_range = np.arange(self.recent_year+1, end_year+1, 1)
-        st.write(year_range)
 
         # Loop across year_range
         for year in year_range:
