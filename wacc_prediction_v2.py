@@ -39,6 +39,9 @@ class WaccPredictor:
         self.cds_data = pd.read_excel(collated_crp_cds, sheet_name="CDS", header=0)
         self.crp_data.columns = self.crp_data.columns.astype("str")
         self.cds_data.columns = self.cds_data.columns.astype("str")
+        # Fill missing year values by taking the next available year to the right
+        self.crp_data = self.fill_years_with_next(self.crp_data)
+        self.cds_data = self.fill_years_with_next(self.cds_data)
 
         # Fix corporate tax data
         self.tax_data = self.tax_data.replace(to_replace="NA", value=0)
@@ -206,6 +209,27 @@ class WaccPredictor:
         
         
         return data_subset
+
+    def fill_years_with_next(self, df):
+        """For columns that are numeric year strings, fill leftward missing values
+        with the next available value to the right for each row.
+
+        Example: if columns 2000-2005 are NaN and 2006 has a value, 2000-2005
+        will be filled with the 2006 value.
+        """
+        # Identify year columns (columns that are purely digits)
+        year_cols = [c for c in df.columns if c.isdigit()]
+        if not year_cols:
+            return df
+
+        # Sort year columns numerically to ensure correct left-to-right order
+        year_cols_sorted = sorted(year_cols, key=lambda x: int(x))
+
+        # Use backward fill along columns (axis=1) so missing values take the
+        # next non-null value to their right
+        df[year_cols_sorted] = df[year_cols_sorted].bfill(axis=1)
+
+        return df
 
     def pull_CDS_data(self, year):
 
