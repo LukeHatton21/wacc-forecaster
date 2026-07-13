@@ -227,7 +227,7 @@ def plot_comparison_chart(df, technology, year, print=None):
 def produce_aggregated_historical_data(wacc_predictor, tech_names):
     counter = 0   
     counter_year = 0 
-    for year in np.arange(2015, 2026):
+    for year in np.arange(2005, 2026):
         for technology in tech_names:
             technology = visualiser.tech_dictionary.get(technology)
             yearly_waccs = wacc_predictor.calculate_historical_waccs(year, technology)
@@ -297,12 +297,13 @@ visualiser = VisualiserClass(wacc_predictor.crp_data, wacc_predictor.calculator.
 country_names = sorted(visualiser.crp_dictionary.keys())
 tech_names = sorted(visualiser.tech_dictionary.keys())
 tech_names = [x for x in tech_names if x !="Other"]
+all_techs = [visualiser.tech_dictionary.get(x) for x in tech_names]
 
 
 
 st.title("Financing Costs and Risks in Energy infrastructure (FinCoRE) - An Estimation Tool")
 year = st.selectbox(
-        "Year", ("2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034"), 
+        "Year", [str(x) for x in np.arange(2005, 2035, 1)], 
          index=9, key="Year", placeholder="Select Year...")
 technology_name = st.selectbox(
         "Displayed Technology", tech_names, 
@@ -354,7 +355,7 @@ with tab3:
             renewable_targets = None
         if "GDP Change" not in projection_assumptions:
             gdp_change = None
-        historical_country_data = wacc_predictor.year_range_wacc(start_year=2015, end_year=recent_year, 
+        historical_country_data = wacc_predictor.year_range_wacc(start_year=2005, end_year=recent_year, 
                                                              technology=technology, country=country_selection)
         if len(projection_assumptions) > 0:
             future_waccs = wacc_predictor.projections_wacc(end_year=2034, technology=technology, country=country_selection, 
@@ -391,6 +392,17 @@ with tab4:
         mime="text/csv",
         icon=":material/download:",
         key="all-technology-WACC-single-country",
+    )
+        historical_technology_data = wacc_predictor.calculate_technology_wacc(year=year, 
+                                                             technologies=all_techs, country=country_tech_selection)
+        historical_technology_data["Technology"] = historical_technology_data["Technology"].replace(visualiser.tech_dict_reverse)
+        st.download_button(
+        label="Download all technology estimates",
+        data=convert_for_download(historical_technology_data),
+        file_name="all-technology-costsofcapital-"+ country_tech_selection + f"-{year}.csv",
+        mime="text/csv",
+        icon=":material/download:",
+        key="all-national-WACC-all-technology",
     )
 
 with tab5:

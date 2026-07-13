@@ -257,22 +257,21 @@ class WaccPredictor:
 
         # Specify range
         year_range = np.arange(start_year, end_year+1, 1)
+        storage_frames = []
 
         # Loop across year_range
         for year in year_range:
 
             # Calculate yearly WACC
             yearly_wacc = self.calculate_yearly_wacc(year, technology, country)
+            yearly_wacc = yearly_wacc.copy()
             yearly_wacc["Year"] = int(year)
+            storage_frames.append(yearly_wacc)
 
-            # Concat
-            if year == start_year:
-                storage_df = yearly_wacc
-            else:
-                storage_df = pd.concat([storage_df, yearly_wacc])
+        if not storage_frames:
+            return pd.DataFrame()
 
-
-        return storage_df
+        return pd.concat(storage_frames, ignore_index=True)
     
 
     def projections_wacc(self, end_year, technology, country, interest_rates=None, GDP_change=None, renewable_targets=None):
@@ -486,6 +485,22 @@ class WaccPredictor:
 
     def calculate_yearly_wacc(self, year, technology, country_code):
 
+        if isinstance(technology, (list, tuple, set, np.ndarray, pd.Index)):
+            tech_frames = []
+            for tech in technology:
+                tech_results = self.calculate_yearly_wacc(year, tech, country_code)
+                if tech_results is None:
+                    continue
+                tech_results = tech_results.copy()
+                if "Technology" not in tech_results.columns:
+                    tech_results["Technology"] = tech
+                tech_frames.append(tech_results)
+
+            if not tech_frames:
+                return pd.DataFrame()
+
+            return pd.concat(tech_frames, ignore_index=True)
+
         def fill_missing_RE_values(data, previous_year, year):
 
             # Set Country Code as index
@@ -559,6 +574,13 @@ class WaccPredictor:
         # Calculate WACC and contributions
         results = self.calculator.calculate_wacc_individual(rf_rate=rf_rate, crp=crp_data, cds=cds_data, tax_rate=tax_data, technology=technology, year=year_str, erp=erp,
                                             tech_penetration=generation_data, country_code=country_code)
+
+        if isinstance(results, pd.DataFrame):
+            results = results.copy()
+            if "Technology" not in results.columns:
+                results["Technology"] = technology
+            if "Year" not in results.columns:
+                results["Year"] = int(year)
 
         return results
     
