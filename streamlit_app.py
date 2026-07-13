@@ -304,7 +304,7 @@ all_techs = [visualiser.tech_dictionary.get(x) for x in tech_names]
 st.title("Financing Costs and Risks in Energy infrastructure (FinCoRE) - An Estimation Tool")
 year = st.selectbox(
         "Year", [str(x) for x in np.arange(2005, 2035, 1)], 
-         index=9, key="Year", placeholder="Select Year...")
+         index=20, key="Year", placeholder="Select Year...")
 technology_name = st.selectbox(
         "Displayed Technology", tech_names, 
          index=19, placeholder="Select Technology...", key="Technology")
