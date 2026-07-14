@@ -631,6 +631,37 @@ class WaccPredictor:
 
         return storage_df
 
+    def calculate_technology_yearly(self, start_year, end_year, country, technologies):
+
+
+        # Specify range
+        year_range = np.arange(start_year, end_year+1, 1)
+        storage_frames = []
+
+        # Loop across year_range and technologies
+        for tech in technologies:
+            for year in year_range:
+
+                # Calculate yearly WACC
+                if int(year) > self.recent_year:
+                    yearly_wacc = self.calculate_future_wacc(year, tech, country, GDP_change="Yes", renewable_targets="Yes", interest_rates="Yes")
+                else:
+                    yearly_wacc = self.calculate_yearly_wacc(year, tech, country)
+                yearly_wacc = yearly_wacc.copy()
+                yearly_wacc["Year"] = int(year)
+                yearly_wacc["Technology"] = tech
+
+                # Append storage frames with the yearly wacc output
+                storage_frames.append(yearly_wacc)
+
+        if not storage_frames:
+            return pd.DataFrame()
+
+        return pd.concat(storage_frames, ignore_index=True)
+
+
+
+
         
 
         

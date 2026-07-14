@@ -374,12 +374,12 @@ with tab3:
 
 with tab4:
     st.header("Technology Comparison")
-    country_tech_selection = st.selectbox(
+    country_tech_select = st.selectbox(
         "Country", options=country_names, 
          index=None, placeholder="Select Country of Interest...", key="CountryTechs")
     selected_techs = st.multiselect("Technologies to compare", options=tech_names, default=["Solar PV", "Hydroelectric", "Gas (unabated)"])
     selected_techs = [visualiser.tech_dictionary.get(x) for x in selected_techs]
-    country_tech_selection = visualiser.crp_dictionary.get(country_tech_selection)
+    country_tech_selection = visualiser.crp_dictionary.get(country_tech_select)
     
     if country_tech_selection is not None:
         country_technology_comparison = wacc_predictor.calculate_technology_wacc(year=year, country=country_tech_selection, technologies=selected_techs)
@@ -404,6 +404,19 @@ with tab4:
         icon=":material/download:",
         key="all-national-WACC-all-technology",
     )
+        with st.spinner(f"Loading data for all years and all technology for {country_tech_select} (typically takes c.1 min)", show_time=True):
+            historical_country_data = wacc_predictor.calculate_technology_yearly(start_year=2000, end_year=2034, 
+                                                             technologies=all_techs, country=country_tech_selection)
+            historical_country_data["Technology"] = historical_country_data["Technology"].replace(visualiser.tech_dict_reverse)
+            st.download_button(
+            label="Download all technology estimates across all years",
+            data=convert_for_download(historical_country_data),
+            file_name="all-technology-costsofcapital-"+ country_tech_selection + f"-all.csv",
+            mime="text/csv",
+            icon=":material/download:",
+            key="all-years-WACC-all-technology",
+        )
+            
 
 with tab5:
     st.header("Country Calculator")
