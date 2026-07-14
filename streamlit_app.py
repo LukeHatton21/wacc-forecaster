@@ -393,17 +393,18 @@ with tab4:
         icon=":material/download:",
         key="all-technology-WACC-single-country",
     )
-        historical_technology_data = wacc_predictor.calculate_technology_wacc(year=year, 
+        with st.spinner(f"Loading data for all technologies for {country_tech_select} (typically takes c.30 min)", show_time=True):
+            historical_technology_data = wacc_predictor.calculate_technology_wacc(year=year, 
                                                              technologies=all_techs, country=country_tech_selection)
-        historical_technology_data["Technology"] = historical_technology_data["Technology"].replace(visualiser.tech_dict_reverse)
-        st.download_button(
-        label="Download all technology estimates",
-        data=convert_for_download(historical_technology_data),
-        file_name="all-technology-costsofcapital-"+ country_tech_selection + f"-{year}.csv",
-        mime="text/csv",
-        icon=":material/download:",
-        key="all-national-WACC-all-technology",
-    )
+            historical_technology_data["Technology"] = historical_technology_data["Technology"].replace(visualiser.tech_dict_reverse)
+            st.download_button(
+            label="Download all technology estimates",
+            data=convert_for_download(historical_technology_data),
+            file_name="all-technology-costsofcapital-"+ country_tech_selection + f"-{year}.csv",
+            mime="text/csv",
+            icon=":material/download:",
+            key="all-national-WACC-all-technology",
+        )
         with st.spinner(f"Loading data for all years and all technology for {country_tech_select} (typically takes c.1 min)", show_time=True):
             historical_country_data = wacc_predictor.calculate_technology_yearly(start_year=2000, end_year=2034, 
                                                              technologies=all_techs, country=country_tech_selection)
