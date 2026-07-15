@@ -393,7 +393,7 @@ with tab4:
         icon=":material/download:",
         key="all-technology-WACC-single-country",
     )
-        with st.spinner(f"Loading data for all technologies for {country_tech_select} (typically takes c.30 min)", show_time=True):
+        with st.spinner(f"Loading data for all technologies for {country_tech_select} (typically takes c.3 min)", show_time=True):
             historical_technology_data = wacc_predictor.calculate_technology_wacc(year=year, 
                                                              technologies=all_techs, country=country_tech_selection)
             historical_technology_data["Technology"] = historical_technology_data["Technology"].replace(visualiser.tech_dict_reverse)
